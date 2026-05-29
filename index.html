@@ -522,12 +522,30 @@ async function handleSubmit(e) {
   // Store lead data
   const leadData = { name, email, phone, type, promoCode, timestamp, expiresAt };
 
-  try {
-    // Save to Supabase if available
-    await saveLead(leadData);
-  } catch(err) {
-    console.log('Lead save failed:', err);
-    // Continue anyway — promo code still generates
+  const response = await fetch('/.netlify/functions/submit-promo', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      name,
+      email,
+      phone,
+      website_type: type,
+      promo_code: promoCode,
+      expires_at: expiresAt
+    })
+  });
+
+  const result = await response.json();
+
+  if (result.duplicate) {
+    btn.textContent = '✦ Send Me My Promo Code';
+    btn.disabled = false;
+    if (result.used) {
+      alert('This email has already used their promo code. Each email is limited to one free website.');
+    } else {
+      alert('We already sent a promo code to this email: ' + result.promo_code + '\n\nCheck your inbox and use that code to start building.');
+    }
+    return;
   }
 
   // Show promo code
@@ -575,29 +593,7 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
-// ── SAVE LEAD (Supabase) ──────────────────────────────────────
-async function saveLead(data) {
-  await fetch(`${SUPABASE_URL}/rest/v1/promo_leads`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Prefer': 'return=minimal'
-    },
-    body: JSON.stringify({
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      website_type: data.type,
-      promo_code: data.promoCode,
-      created_at: data.timestamp,
-      expires_at: data.expiresAt,
-      used: false,
-      source: 'platinum-promo-page'
-    })
-  });
-}
+
 </script>
 
 </body>
