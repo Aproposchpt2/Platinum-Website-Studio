@@ -2,8 +2,8 @@
 
 const { createClient } = require('@supabase/supabase-js');
 
-const RESEND_FROM = process.env.RESEND_FROM_EMAIL || 'Apropos Group LLC <jmitchell@ai4websitedesign.com>';
-const INTERNAL_EMAIL = process.env.RESEND_TO_EMAIL || 'jmitchell@ai4websitedesign.com';
+const RESEND_FROM = process.env.RESEND_FROM_EMAIL;
+const INTERNAL_EMAIL = process.env.RESEND_TO_EMAIL;
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
@@ -38,7 +38,7 @@ function getSupabase() {
 }
 
 async function sendEmail({ to, subject, html }) {
-  if (!process.env.RESEND_API_KEY) return;
+  if (!process.env.RESEND_API_KEY || !RESEND_FROM) return;
   await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
