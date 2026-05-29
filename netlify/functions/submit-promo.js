@@ -2,8 +2,8 @@
 
 const { createClient } = require('@supabase/supabase-js');
 
-const RESEND_FROM = process.env.RESEND_FROM_EMAIL || 'AI4 Website Design <noreply@ai4websitedesign.com>';
-const INTERNAL_EMAIL = process.env.AI4_INTERNAL_NOTIFICATION_EMAIL || 'jmitchell@ai4websitedesign.com';
+const RESEND_FROM = process.env.RESEND_FROM_EMAIL || 'Apropos Group LLC <jmitchell@ai4websitedesign.com>';
+const INTERNAL_EMAIL = process.env.RESEND_TO_EMAIL || 'jmitchell@ai4websitedesign.com';
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
