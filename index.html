@@ -5,596 +5,372 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FREE Website Building Machine — AI4 Website Design Studio</title>
 <meta name="description" content="Answer 6 questions. 6 AI Agents build your custom website. Get your personal or business online with a Platinum presence — FREE.">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#030816;--bg2:#061225;--bg3:#07152a;
   --line:rgba(184,196,217,.12);--line-s:rgba(45,184,255,.28);
   --blue:#1EA7FF;--blue2:#2DB8FF;--blue4:#5BD3FF;
-  --gold:#FFB800;--gold2:#FFD060;--gold3:#FFF0A0;
+  --gold:#FFB800;--gold2:#FFD060;
   --silver:#D5DEEA;--white:#F5F8FF;--muted:#AEBED3;--muted2:#90A3BC;
   --mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--display:'Syne',sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  min-height:100vh;overflow-x:hidden;
-  background:radial-gradient(circle at 18% 10%,rgba(30,167,255,.18),transparent 28%),
-    radial-gradient(circle at 84% 12%,rgba(255,184,0,.08),transparent 32%),
-    radial-gradient(circle at 50% 55%,rgba(30,167,255,.06),transparent 45%),
-    linear-gradient(180deg,var(--bg) 0%,#02050e 54%,var(--bg2) 100%);
-  color:var(--muted);font-family:var(--sans)
-}
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:linear-gradient(rgba(45,184,255,.038) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(45,184,255,.032) 1px,transparent 1px);
-  background-size:64px 64px;
-  mask-image:linear-gradient(180deg,rgba(0,0,0,.8),rgba(0,0,0,.18) 60%,rgba(0,0,0,.04))
-}
+body{min-height:100vh;overflow-x:hidden;background:radial-gradient(circle at 18% 10%,rgba(30,167,255,.18),transparent 28%),radial-gradient(circle at 84% 12%,rgba(91,211,255,.10),transparent 32%),radial-gradient(circle at 50% 55%,rgba(30,167,255,.06),transparent 45%),linear-gradient(180deg,var(--bg) 0%,#02050e 54%,var(--bg2) 100%);color:var(--muted);font-family:var(--sans)}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(45,184,255,.038) 1px,transparent 1px),linear-gradient(90deg,rgba(45,184,255,.032) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(180deg,rgba(0,0,0,.8),rgba(0,0,0,.18) 60%,rgba(0,0,0,.04))}
 
-/* NAV */
-nav{
-  position:sticky;top:0;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  min-height:72px;padding:.85rem clamp(1rem,4vw,2.75rem);
-  background:rgba(3,8,22,.94);border-bottom:1px solid var(--line);
-  backdrop-filter:blur(24px)
-}
-.nav-logo{display:flex;align-items:center;gap:.9rem;text-decoration:none}
+/* NAV — exact match */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:72px;padding:.85rem clamp(1rem,4vw,2.75rem);background:rgba(3,8,22,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(24px)}
+.nav-left{display:flex;align-items:center;gap:.9rem;text-decoration:none}
+.nav-logo-img{height:80px;width:auto;filter:drop-shadow(0 0 18px rgba(30,167,255,0.5));object-fit:contain}
 .nav-logo-text{display:flex;flex-direction:column;line-height:1.08}
-.nav-logo-name{font-family:var(--display);font-size:.92rem;font-weight:800;color:var(--white)}
+.nav-logo-name{font-family:var(--display);font-size:.92rem;font-weight:800;color:var(--white);letter-spacing:.02em}
 .nav-logo-sub{font-family:var(--mono);font-size:.52rem;color:var(--muted2);letter-spacing:.13em;text-transform:uppercase}
-.nav-badge{
-  font-family:var(--mono);font-size:.65rem;font-weight:600;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  color:#1a0d00;padding:.25rem .75rem;border-radius:999px;letter-spacing:.05em
-}
+.nav-right{display:flex;align-items:center;gap:.75rem}
+.nav-link{font-size:.82rem;color:var(--muted2);text-decoration:none;padding:.4rem .7rem;border-radius:6px;transition:color .2s}
+.nav-link:hover{color:var(--silver)}
+.nav-cta{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:999px;padding:.6rem 1.4rem;font-size:.8rem;font-weight:800;color:#1a0d00;text-decoration:none;cursor:pointer;box-shadow:0 0 24px rgba(255,184,0,.28);transition:all .2s;font-family:var(--sans)}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 0 38px rgba(255,184,0,.44)}
 
 /* HERO */
-.hero{
-  position:relative;z-index:1;
-  text-align:center;padding:clamp(3rem,8vw,7rem) clamp(1rem,5vw,3rem) clamp(2rem,5vw,4rem);
-  max-width:900px;margin:0 auto;
-}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--gold2);background:rgba(255,184,0,.08);border:1px solid rgba(255,184,0,.25);
-  padding:.4rem 1rem;border-radius:999px;margin-bottom:1.5rem;
-  animation:fadeUp .6s ease both
-}
-.hero-tag::before{content:'★';color:var(--gold)}
-.hero-h1{
-  font-family:var(--display);font-size:clamp(2.4rem,7vw,5rem);font-weight:900;
-  color:var(--white);line-height:1.05;letter-spacing:-.02em;
-  margin-bottom:1rem;animation:fadeUp .7s .1s ease both
-}
-.hero-h1 .gold{
-  background:linear-gradient(135deg,var(--gold),var(--gold2),var(--gold3));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
-}
-.hero-sub{
-  font-size:clamp(1rem,2.5vw,1.35rem);color:var(--muted);line-height:1.6;
-  max-width:640px;margin:0 auto 2rem;animation:fadeUp .7s .2s ease both
-}
-.hero-sub strong{color:var(--silver)}
-
-/* PROOF BAR */
-.proof-bar{
-  display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem 2rem;
-  margin-bottom:3rem;animation:fadeUp .7s .3s ease both
-}
-.proof-item{
-  display:flex;align-items:center;gap:.4rem;
-  font-family:var(--mono);font-size:.72rem;color:var(--muted2);letter-spacing:.05em
-}
-.proof-item span{color:var(--blue4);font-size:.9rem}
+.hero{position:relative;z-index:1;min-height:calc(100vh - 72px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(2rem,5vw,4rem) clamp(1rem,4vw,2.5rem);text-align:center;gap:0}
+.hero-eyebrow{display:flex;align-items:center;justify-content:center;gap:.65rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--gold2);text-transform:uppercase;margin-bottom:1.4rem}
+.eyebrow-line{display:inline-block;width:28px;height:1px;background:linear-gradient(90deg,transparent,var(--gold2))}
+.eyebrow-line.r{background:linear-gradient(270deg,transparent,var(--gold2))}
+.hero-logo-wrap{position:relative;width:min(960px,88vw);height:clamp(320px,34vw,480px);margin:0 auto clamp(1.5rem,2.5vw,2.8rem);filter:drop-shadow(0 30px 60px rgba(0,0,0,.48))}
+.hero-logo-wrap::before{content:'';position:absolute;left:50%;top:8%;width:70%;height:55%;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(30,167,255,.26),rgba(30,167,255,.08) 48%,transparent 75%);filter:blur(32px);z-index:-1}
+.hero-logo-img{position:absolute;left:50%;top:10%;width:min(720px,76%);transform:translateX(-50%);height:auto;max-height:380px;object-fit:contain;display:block;filter:drop-shadow(0 24px 60px rgba(0,0,0,.52)) drop-shadow(0 0 30px rgba(30,167,255,.22))}
+.arc-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4}
+.hero-h1{font-family:var(--display);font-size:clamp(2.4rem,4.8vw,4rem);font-weight:800;line-height:1.06;letter-spacing:-.05em;color:var(--white);max-width:1000px;margin:0 auto .9rem}
+.grad{background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 50%,var(--white) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(.98rem,1.4vw,1.12rem);color:var(--silver);line-height:1.7;max-width:680px;margin:0 auto 1.8rem}
+.hero-proof{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-top:2rem;flex-wrap:wrap}
+.proof-item{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;color:var(--muted2);text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.proof-dot{width:4px;height:4px;border-radius:50%;background:var(--gold)}
 
 /* CAPTURE FORM */
-.capture-box{
-  position:relative;z-index:1;
-  max-width:560px;margin:0 auto 5rem;
-  background:rgba(6,18,37,.8);border:1px solid var(--line-s);
-  border-radius:20px;padding:2.5rem 2rem;
-  box-shadow:0 0 60px rgba(30,167,255,.12),inset 0 1px 0 rgba(91,211,255,.1);
-  animation:fadeUp .7s .35s ease both
-}
-.capture-box::before{
-  content:'';position:absolute;inset:-1px;border-radius:20px;
-  background:linear-gradient(135deg,rgba(255,184,0,.15),transparent 50%,rgba(30,167,255,.1));
-  pointer-events:none;z-index:-1
-}
-.capture-title{
-  font-family:var(--display);font-size:1.3rem;font-weight:800;
-  color:var(--white);margin-bottom:.4rem;text-align:center
-}
-.capture-sub{font-size:.85rem;color:var(--muted2);text-align:center;margin-bottom:1.5rem}
+.capture-section{position:relative;z-index:1;padding:clamp(3rem,6vw,5rem) clamp(1rem,4vw,2.5rem)}
+.capture-inner{max-width:580px;margin:0 auto}
+.section-eyebrow{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--gold2);text-transform:uppercase;text-align:center;margin-bottom:.8rem}
+.section-title{font-family:var(--display);font-size:clamp(1.8rem,3.2vw,2.7rem);font-weight:800;letter-spacing:-.04em;color:var(--white);text-align:center;margin-bottom:.7rem}
+.section-sub{font-size:clamp(.88rem,1.2vw,1rem);color:var(--muted2);text-align:center;max-width:480px;margin:0 auto 2.5rem;line-height:1.7}
+.divider{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 2.5rem;box-shadow:0 0 12px rgba(255,184,0,.5)}
+
+.capture-card{background:linear-gradient(135deg,rgba(6,18,37,.95),rgba(3,8,22,.98));border:1px solid rgba(255,184,0,.25);border-radius:20px;padding:clamp(2rem,4vw,3rem);position:relative;overflow:hidden}
+.capture-card::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(255,184,0,.08),transparent 70%);pointer-events:none}
+
 .form-row{display:flex;flex-direction:column;gap:.85rem}
 .form-field{display:flex;flex-direction:column;gap:.35rem}
-.form-label{font-family:var(--mono);font-size:.65rem;color:var(--muted2);letter-spacing:.1em;text-transform:uppercase}
-.form-input{
-  width:100%;padding:.8rem 1rem;
-  background:rgba(3,8,22,.7);border:1px solid rgba(91,211,255,.2);
-  border-radius:10px;color:var(--white);font-size:.95rem;font-family:var(--sans);
-  outline:none;transition:border-color .2s,box-shadow .2s
-}
-.form-input:focus{border-color:var(--blue4);box-shadow:0 0 0 3px rgba(30,167,255,.12)}
+.form-label{font-family:var(--mono);font-size:.6rem;color:var(--muted2);letter-spacing:.14em;text-transform:uppercase}
+.form-input{width:100%;padding:.85rem 1rem;background:rgba(3,8,22,.7);border:1px solid rgba(45,184,255,.18);border-radius:10px;color:var(--white);font-size:.95rem;font-family:var(--sans);outline:none;transition:border-color .2s,box-shadow .2s}
+.form-input:focus{border-color:var(--blue4);box-shadow:0 0 0 3px rgba(30,167,255,.1)}
 .form-input::placeholder{color:var(--muted2)}
-.form-select{
-  width:100%;padding:.8rem 1rem;
-  background:rgba(3,8,22,.7);border:1px solid rgba(91,211,255,.2);
-  border-radius:10px;color:var(--white);font-size:.95rem;font-family:var(--sans);
-  outline:none;cursor:pointer;appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2390A3BC' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem
-}
+.form-select{width:100%;padding:.85rem 1rem;background:rgba(3,8,22,.7);border:1px solid rgba(45,184,255,.18);border-radius:10px;color:var(--white);font-size:.95rem;font-family:var(--sans);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2390A3BC' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;background-color:rgba(3,8,22,.7)}
 .form-select option{background:#061225}
-.cta-btn{
-  width:100%;padding:1rem;margin-top:.5rem;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  border:none;border-radius:12px;
-  font-family:var(--display);font-size:1rem;font-weight:800;
-  color:#1a0d00;cursor:pointer;
-  transition:transform .15s,box-shadow .2s;
-  box-shadow:0 4px 24px rgba(255,184,0,.3)
-}
-.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,184,0,.4)}
-.cta-btn:active{transform:translateY(0)}
-.form-note{font-size:.72rem;color:var(--muted2);text-align:center;margin-top:.75rem}
 
-/* PROMO CODE DISPLAY */
-.promo-result{
-  display:none;text-align:center;padding:1.5rem;
-  background:rgba(255,184,0,.06);border:1px solid rgba(255,184,0,.25);
-  border-radius:14px;margin-top:1rem
-}
-.promo-result.show{display:block;animation:fadeUp .4s ease both}
-.promo-label{font-family:var(--mono);font-size:.65rem;color:var(--gold2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
-.promo-code{
-  font-family:var(--mono);font-size:1.6rem;font-weight:700;
-  color:var(--gold);letter-spacing:.15em;
-  background:rgba(255,184,0,.08);padding:.5rem 1.5rem;
-  border-radius:8px;display:inline-block;margin:.5rem 0;
-  border:1px dashed rgba(255,184,0,.4);cursor:pointer;
-  transition:background .2s
-}
-.promo-code:hover{background:rgba(255,184,0,.15)}
-.promo-copy-hint{font-size:.72rem;color:var(--muted2);margin-bottom:1rem}
-.promo-cta-links{display:flex;flex-direction:column;gap:.75rem;margin-top:1rem}
-.promo-link{
-  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-  padding:.85rem 1.5rem;border-radius:10px;font-weight:700;font-size:.9rem;
-  text-decoration:none;transition:transform .15s,box-shadow .2s
-}
-.promo-link.primary{
-  background:linear-gradient(135deg,var(--blue),var(--blue4));color:#030816;
-  box-shadow:0 4px 20px rgba(30,167,255,.3)
-}
-.promo-link.primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(30,167,255,.4)}
-.promo-link.secondary{
-  background:rgba(255,184,0,.1);color:var(--gold2);
-  border:1px solid rgba(255,184,0,.3)
-}
-.promo-link.secondary:hover{background:rgba(255,184,0,.18)}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:.65rem;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:999px;padding:.95rem 2.1rem;font-weight:900;font-size:.96rem;color:#1a0d00;text-decoration:none;cursor:pointer;box-shadow:0 0 38px rgba(255,184,0,.32);transition:all .22s;font-family:var(--sans);width:100%;margin-top:.5rem}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 56px rgba(255,184,0,.5),0 16px 40px rgba(0,0,0,.28)}
+.form-note{font-family:var(--mono);font-size:.55rem;letter-spacing:.08em;color:rgba(144,163,188,.6);text-align:center;margin-top:.75rem;text-transform:uppercase}
 
-/* HOW IT WORKS */
-.section{position:relative;z-index:1;padding:4rem clamp(1rem,5vw,3rem);max-width:1100px;margin:0 auto}
-.section-tag{font-family:var(--mono);font-size:.65rem;color:var(--blue4);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.75rem}
-.section-h2{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:var(--white);margin-bottom:.75rem;letter-spacing:-.01em}
-.section-sub{font-size:1rem;color:var(--muted);max-width:560px;line-height:1.6;margin-bottom:3rem}
+/* PROMO RESULT */
+.promo-result{display:none;text-align:center;padding:1.5rem 0 0}
+.promo-result.show{display:block}
+.promo-label{font-family:var(--mono);font-size:.6rem;color:var(--gold2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.75rem}
+.promo-code{font-family:var(--mono);font-size:2rem;font-weight:700;color:var(--gold);letter-spacing:.2em;background:rgba(255,184,0,.06);padding:.6rem 1.5rem;border-radius:8px;display:inline-block;margin:.5rem 0;border:1px dashed rgba(255,184,0,.35);cursor:pointer;transition:background .2s}
+.promo-code:hover{background:rgba(255,184,0,.12)}
+.promo-copy-hint{font-family:var(--mono);font-size:.55rem;color:var(--muted2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.5rem}
+.promo-links{display:flex;flex-direction:column;gap:.75rem;margin-top:1.25rem}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:transparent;border:1px solid rgba(184,196,217,.22);border-radius:999px;padding:.85rem 1.8rem;font-size:.88rem;color:var(--muted);text-decoration:none;cursor:pointer;transition:all .2s;font-family:var(--sans)}
+.btn-ghost:hover{border-color:rgba(184,196,217,.4);color:var(--silver)}
 
-/* AGENTS */
-.agents-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
-.agent-card{
-  background:rgba(6,18,37,.6);border:1px solid var(--line);
-  border-radius:14px;padding:1.5rem;
-  transition:border-color .2s,transform .2s
-}
-.agent-card:hover{border-color:var(--line-s);transform:translateY(-3px)}
-.agent-num{font-family:var(--mono);font-size:.65rem;color:var(--blue4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
-.agent-icon{font-size:1.5rem;margin-bottom:.5rem}
-.agent-name{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.35rem}
-.agent-desc{font-size:.82rem;color:var(--muted2);line-height:1.5}
+/* SECTIONS */
+.section{position:relative;z-index:1;padding:clamp(4rem,8vw,7rem) clamp(1rem,4vw,2.5rem)}
+.section-inner{max-width:1080px;margin:0 auto}
+.section-title-center{font-family:var(--display);font-size:clamp(1.8rem,3.2vw,2.7rem);font-weight:800;letter-spacing:-.04em;color:var(--white);text-align:center;margin-bottom:.7rem}
+.section-sub-center{font-size:clamp(.88rem,1.2vw,1rem);color:var(--muted2);text-align:center;max-width:580px;margin:0 auto 3.5rem;line-height:1.7}
+.flow-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.2rem}
+.flow-step{background:rgba(6,18,37,.8);border:1px solid rgba(45,184,255,.14);border-radius:14px;padding:1.6rem 1.3rem;text-align:center;transition:border-color .2s}
+.flow-step:hover{border-color:rgba(45,184,255,.32)}
+.step-num{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--blue4);text-transform:uppercase;margin-bottom:.8rem}
+.step-icon{font-size:1.5rem;margin-bottom:.7rem;display:block}
+.step-name{font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--white);margin-bottom:.4rem}
+.step-desc{font-size:.76rem;color:var(--muted2);line-height:1.55}
 
-/* DIVIDER */
-.divider{height:1px;background:linear-gradient(90deg,transparent,var(--line-s),transparent);margin:2rem 0;position:relative;z-index:1}
+/* SITES */
+.sites-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2rem}
+.site-card{background:rgba(6,18,37,.7);border:1px solid rgba(184,196,217,.1);border-radius:12px;padding:1.8rem;text-align:center;transition:all .22s}
+.site-card:hover{border-color:rgba(30,167,255,.3);transform:translateY(-2px)}
+.site-flag{font-size:2rem;margin-bottom:.6rem}
+.site-lang{font-family:var(--mono);font-size:.6rem;color:var(--blue4);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem}
+.site-name{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.4rem}
+.site-desc{font-size:.78rem;color:var(--muted2);line-height:1.55;margin-bottom:1rem}
+.site-link{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.68rem;color:var(--blue4);text-decoration:none;padding:.45rem .9rem;border:1px solid rgba(91,211,255,.22);border-radius:6px;transition:background .2s}
+.site-link:hover{background:rgba(91,211,255,.06)}
 
-/* SITES SHOWCASE */
-.sites-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
-.site-card{
-  background:rgba(6,18,37,.7);border:1px solid var(--line);
-  border-radius:16px;padding:2rem;text-align:center;
-  transition:border-color .2s,transform .2s
-}
-.site-card:hover{border-color:var(--line-s);transform:translateY(-3px)}
-.site-card-flag{font-size:2.5rem;margin-bottom:.75rem}
-.site-card-lang{font-family:var(--mono);font-size:.65rem;color:var(--blue4);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem}
-.site-card-title{font-family:var(--display);font-size:1.1rem;font-weight:800;color:var(--white);margin-bottom:.5rem}
-.site-card-desc{font-size:.82rem;color:var(--muted2);line-height:1.5;margin-bottom:1.25rem}
-.site-link{
-  display:inline-flex;align-items:center;gap:.4rem;
-  font-family:var(--mono);font-size:.72rem;color:var(--blue4);
-  text-decoration:none;padding:.5rem 1rem;border:1px solid rgba(91,211,255,.25);
-  border-radius:8px;transition:background .2s
-}
-.site-link:hover{background:rgba(91,211,255,.08)}
-
-/* BOTTOM CTA */
-.bottom-cta{
-  position:relative;z-index:1;text-align:center;
-  padding:5rem clamp(1rem,5vw,3rem);
-  background:linear-gradient(180deg,transparent,rgba(255,184,0,.04) 50%,transparent)
-}
-.bottom-cta-h2{font-family:var(--display);font-size:clamp(2rem,5vw,3.5rem);font-weight:900;color:var(--white);margin-bottom:1rem;letter-spacing:-.02em}
-.bottom-cta-h2 .gold{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.bottom-cta-sub{font-size:1rem;color:var(--muted);max-width:480px;margin:0 auto 2.5rem;line-height:1.6}
-.bottom-cta-btn{
-  display:inline-flex;align-items:center;gap:.6rem;
-  padding:1.1rem 2.5rem;border-radius:999px;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  font-family:var(--display);font-size:1rem;font-weight:800;color:#1a0d00;
-  text-decoration:none;cursor:pointer;border:none;
-  box-shadow:0 4px 28px rgba(255,184,0,.35);transition:transform .15s,box-shadow .2s
-}
-.bottom-cta-btn:hover{transform:translateY(-3px);box-shadow:0 8px 40px rgba(255,184,0,.45)}
+/* CTA SECTION */
+.cta-section{position:relative;z-index:1;padding:clamp(4rem,8vw,7rem) clamp(1rem,4vw,2.5rem);text-align:center}
+.cta-card{max-width:760px;margin:0 auto;background:linear-gradient(135deg,rgba(6,18,37,.95),rgba(3,8,22,.98));border:1px solid rgba(255,184,0,.22);border-radius:20px;padding:clamp(2.5rem,5vw,4rem) clamp(1.5rem,4vw,3.5rem);position:relative;overflow:hidden}
+.cta-card::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;background:radial-gradient(circle,rgba(255,184,0,.08),transparent 70%);pointer-events:none}
+.cta-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--gold2);text-transform:uppercase;margin-bottom:1rem}
+.cta-title{font-family:var(--display);font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:800;letter-spacing:-.04em;color:var(--white);margin-bottom:.8rem}
+.cta-sub{font-size:.92rem;color:var(--silver);line-height:1.7;margin-bottom:2rem;max-width:520px;margin-left:auto;margin-right:auto}
+.cta-btn{display:inline-flex;align-items:center;gap:.65rem;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:999px;padding:.95rem 2.5rem;font-weight:900;font-size:.96rem;color:#1a0d00;cursor:pointer;box-shadow:0 0 38px rgba(255,184,0,.32);transition:all .22s;font-family:var(--sans)}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 0 56px rgba(255,184,0,.5)}
 
 /* FOOTER */
-footer{
-  position:relative;z-index:1;
-  border-top:1px solid var(--line);padding:2rem clamp(1rem,4vw,2.75rem);
-  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem
-}
-.footer-brand{font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--muted2)}
-.footer-links{display:flex;gap:1.5rem}
-.footer-links a{font-size:.8rem;color:var(--muted2);text-decoration:none;transition:color .2s}
-.footer-links a:hover{color:var(--silver)}
-
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
-/* SUCCESS STATE */
-.success-msg{
-  display:none;text-align:center;padding:2rem;
-  font-family:var(--display);font-size:1.1rem;color:var(--gold2);font-weight:700
-}
+footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:2.2rem clamp(1rem,4vw,2.75rem);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.footer-logo-img{width:52px;height:28px;border-radius:6px;object-fit:cover;object-position:center 43%;opacity:.8}
+.footer-name{font-family:var(--display);font-size:.78rem;font-weight:700;color:var(--muted2)}
+.footer-links{display:flex;gap:1.2rem;flex-wrap:wrap}
+.footer-link{font-size:.75rem;color:var(--muted2);text-decoration:none;transition:color .2s}
+.footer-link:hover{color:var(--silver)}
+.footer-copy{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;color:rgba(144,163,188,.5);text-transform:uppercase}
 
 /* TOAST */
-.toast{
-  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);
-  background:var(--gold);color:#1a0d00;padding:.75rem 1.5rem;border-radius:8px;
-  font-weight:700;font-size:.9rem;z-index:999;transition:transform .3s ease;pointer-events:none
-}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--gold);color:#1a0d00;padding:.75rem 1.5rem;border-radius:8px;font-weight:700;font-size:.9rem;z-index:999;transition:transform .3s ease;pointer-events:none}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
-@media(max-width:640px){
-  .sites-row{grid-template-columns:1fr}
-  .agents-grid{grid-template-columns:1fr}
-  .capture-box{padding:1.75rem 1.25rem}
-}
+@media(max-width:680px){.nav-right .nav-link{display:none}.sites-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<div class="toast" id="toast">✓ Copied to clipboard!</div>
+<div class="toast" id="toast">Copied!</div>
 
+<!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">
-    <div class="nav-logo-text">
+  <a class="nav-left" href="index.html">
+    <img class="nav-logo-img" src="AI4-approved-logo.png" alt="AI4 Website Design Studio logo">
+    <span class="nav-logo-text">
       <span class="nav-logo-name">AI4 Website Design Studio</span>
       <span class="nav-logo-sub">Powered by Apropos Group LLC</span>
-    </div>
+    </span>
   </a>
-  <div class="nav-badge">★ FREE OFFER ACTIVE</div>
+  <div class="nav-right">
+    <a class="nav-link" href="#how-it-works">How It Works</a>
+    <a class="nav-link" href="https://ai4websitedesign.com">English Site</a>
+    <a class="nav-cta" href="#claim">Get Free Website →</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-tag">Free Website Building Machine</div>
-  <h1 class="hero-h1">
-    Get Your Business Online<br>
-    with a <span class="gold">Platinum Presence</span>
-  </h1>
-  <p class="hero-sub">
-    Answer <strong>6 questions</strong>. Our AI Design Engine builds your custom website — 
-    professionally designed, launch-ready, same day. <strong>No templates. No guesswork. No cost.</strong>
-  </p>
-  <div class="proof-bar">
-    <div class="proof-item"><span>✦</span> 6 AI Agents</div>
-    <div class="proof-item"><span>✦</span> 12 Design Systems</div>
-    <div class="proof-item"><span>✦</span> 17 Website Purposes</div>
-    <div class="proof-item"><span>✦</span> Same-Day Launch</div>
-    <div class="proof-item"><span>✦</span> English + Español</div>
+  <div class="hero-eyebrow"><span class="eyebrow-line"></span>Free Website Building Machine<span class="eyebrow-line r"></span></div>
+  <div class="hero-logo-wrap">
+    <img class="hero-logo-img" src="AI4-approved-logo.png" alt="AI4 Website Design">
+    <svg class="arc-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 540" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <defs>
+        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1a0d00"/><stop offset="20%" stop-color="#a07020"/><stop offset="45%" stop-color="#FFD060"/><stop offset="55%" stop-color="#FFB800"/><stop offset="75%" stop-color="#c08030"/><stop offset="100%" stop-color="#1a0d00"/></linearGradient>
+        <filter id="engrave"><feDropShadow dx="0" dy="2" stdDeviation="1.3" flood-color="#000" flood-opacity="1"/></filter>
+        <filter id="softGlow"><feGaussianBlur stdDeviation="3.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <path id="arc" d="M 118,374 Q 188,44 550,42 Q 912,44 982,374"/>
+      </defs>
+      <text font-family="Georgia,'Times New Roman',serif" font-size="43" font-weight="700" letter-spacing="8" fill="#000810" filter="url(#engrave)"><textPath href="#arc" startOffset="50%" text-anchor="middle">PLATINUM WEBSITE DESIGN STUDIO</textPath></text>
+      <text font-family="Georgia,'Times New Roman',serif" font-size="43" font-weight="700" letter-spacing="8" fill="url(#goldGrad)"><textPath href="#arc" startOffset="50%" text-anchor="middle">PLATINUM WEBSITE DESIGN STUDIO</textPath></text>
+      <line x1="170" y1="466" x2="398" y2="466" stroke="url(#goldGrad)" stroke-width="1" filter="url(#softGlow)" opacity="0.55"/>
+      <line x1="702" y1="466" x2="930" y2="466" stroke="url(#goldGrad)" stroke-width="1" filter="url(#softGlow)" opacity="0.55"/>
+    </svg>
+  </div>
+
+  <h1 class="hero-h1">Get Your Business Online.<br><span class="grad">FREE. Built Today. Launched Today.</span></h1>
+  <p class="hero-sub">Enter your name and email address — we will send your Promo Code to get started. Answer 6 questions. 6 AI Agents build your custom website right before your eyes.</p>
+  <div class="hero-proof">
+    <div class="proof-item"><span class="proof-dot"></span>6 AI Agents</div>
+    <div class="proof-item"><span class="proof-dot"></span>12 Design Systems</div>
+    <div class="proof-item"><span class="proof-dot"></span>17 Website Purposes</div>
+    <div class="proof-item"><span class="proof-dot"></span>Same-Day Launch</div>
+    <div class="proof-item"><span class="proof-dot"></span>English + Español</div>
   </div>
 </section>
 
-<!-- LEAD CAPTURE -->
-<div class="capture-box" id="captureBox">
-  <div class="capture-title">Claim Your Free Website</div>
-  <div class="capture-sub">Enter your name and email address — we will send your Promo Code to get started</div>
+<!-- CLAIM FORM -->
+<section class="capture-section" id="claim">
+  <div class="capture-inner">
+    <div class="section-eyebrow">Claim Your Free Website</div>
+    <h2 class="section-title">Your Promo Code is One Step Away</h2>
+    <p class="section-sub">Enter your name and email address — we will send your Promo Code to get started</p>
+    <div class="divider"></div>
 
-  <form class="form-row" id="captureForm" onsubmit="handleSubmit(event)">
-    <div class="form-field">
-      <label class="form-label">Your Name</label>
-      <input class="form-input" type="text" placeholder="First & Last Name" required id="fieldName">
-    </div>
-    <div class="form-field">
-      <label class="form-label">Email Address</label>
-      <input class="form-input" type="email" placeholder="you@email.com" required id="fieldEmail">
-    </div>
-    <div class="form-field">
-      <label class="form-label">Phone Number</label>
-      <input class="form-input" type="tel" placeholder="(702) 555-0100" id="fieldPhone">
-    </div>
-    <div class="form-field">
-      <label class="form-label">Website Type</label>
-      <select class="form-select" id="fieldType" required>
-        <option value="" disabled selected>Select one</option>
-        <option value="business">Business Website</option>
-        <option value="personal">Personal Website</option>
-      </select>
-    </div>
-    <button type="submit" class="cta-btn" id="submitBtn">
-      ✦ Send Me My Promo Code
-    </button>
-    <p class="form-note">Your Promo Code will be sent to your email address instantly · No credit card required</p>
-  </form>
+    <div class="capture-card">
+      <form class="form-row" id="captureForm" onsubmit="handleSubmit(event)">
+        <div class="form-field">
+          <label class="form-label">Your Name</label>
+          <input class="form-input" type="text" placeholder="First & Last Name" required id="fieldName">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="you@email.com" required id="fieldEmail">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Phone Number (Optional)</label>
+          <input class="form-input" type="tel" placeholder="(702) 555-0100" id="fieldPhone">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Website Type</label>
+          <select class="form-select" id="fieldType" required>
+            <option value="" disabled selected>Select one</option>
+            <option value="business">Business Website</option>
+            <option value="personal">Personal Website</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary" id="submitBtn">✦ Send Me My Promo Code</button>
+        <p class="form-note">Your Promo Code will be sent to your email address instantly · No credit card required</p>
+      </form>
 
-  <!-- PROMO CODE RESULT -->
-  <div class="promo-result" id="promoResult">
-    <div class="promo-label">Your Personal Promo Code</div>
-    <div class="promo-code" id="promoCodeDisplay" onclick="copyCode()">PLATINUM-XXXXXX</div>
-    <div class="promo-copy-hint">👆 Click to copy your code</div>
-    <p style="font-size:.82rem;color:var(--muted2);margin-bottom:1rem;line-height:1.5">
-      Your code unlocks the <strong style="color:var(--silver)">Founder's Free Offer</strong>. 
-      Click below to start building your site — enter this code at checkout.
-    </p>
-    <div class="promo-cta-links">
-      <a href="https://ai4websitedesign.com/signup" class="promo-link primary" id="buildLinkEN">
-        🇺🇸 Build My Website — English →
-      </a>
-      <a href="https://espanola.ai4websitedesign.com/signup" class="promo-link secondary" id="buildLinkES">
-        🇪🇸 Construir Mi Sitio Web — Español →
-      </a>
+      <div class="promo-result" id="promoResult">
+        <div class="promo-label">Your Personal Promo Code</div>
+        <div class="promo-code" id="promoCodeDisplay" onclick="copyCode()">XXXXXX</div>
+        <div class="promo-copy-hint">Click to copy · Also sent to your email</div>
+        <p style="font-size:.82rem;color:var(--muted2);line-height:1.6;margin-bottom:1rem">
+          Use this code at checkout to unlock your <strong style="color:var(--silver)">FREE website</strong>. Select your language below to start building.
+        </p>
+        <div class="promo-links">
+          <a href="https://ai4websitedesign.com/signup" class="btn-primary" id="buildLinkEN">🇺🇸 Build My Website — English →</a>
+          <a href="https://espanola.ai4websitedesign.com/signup" class="btn-ghost" id="buildLinkES">🇪🇸 Construir Mi Sitio Web — Español →</a>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="divider"></div>
+</section>
 
 <!-- HOW IT WORKS -->
-<section class="section">
-  <div class="section-tag">// The AI4 Design Engine</div>
-  <h2 class="section-h2">6 Questions. 6 AI Agents.<br>One Premium Website.</h2>
-  <p class="section-sub">You answer. Our AI builds. No templates, no drag-and-drop, no design experience needed.</p>
-
-  <div class="agents-grid">
-    <div class="agent-card">
-      <div class="agent-num">Agent 01</div>
-      <div class="agent-icon">🎯</div>
-      <div class="agent-name">Purpose Classifier</div>
-      <div class="agent-desc">Analyzes your website goal, audience, and intent to establish a site category and content priorities.</div>
-    </div>
-    <div class="agent-card">
-      <div class="agent-num">Agent 02</div>
-      <div class="agent-icon">🎨</div>
-      <div class="agent-name">Design Director</div>
-      <div class="agent-desc">Selects a creative direction and recommends the matching design system based on your purpose and audience.</div>
-    </div>
-    <div class="agent-card">
-      <div class="agent-num">Agent 03</div>
-      <div class="agent-icon">📐</div>
-      <div class="agent-name">Content Architect</div>
-      <div class="agent-desc">Plans your site sections, section order, headline direction, and CTA hierarchy.</div>
-    </div>
-    <div class="agent-card">
-      <div class="agent-num">Agent 04</div>
-      <div class="agent-icon">🖌️</div>
-      <div class="agent-name">Visual Identity</div>
-      <div class="agent-desc">Defines color mood, typography direction, layout rhythm, and the visual motif for your design system.</div>
-    </div>
-    <div class="agent-card">
-      <div class="agent-num">Agent 05</div>
-      <div class="agent-icon">⚡</div>
-      <div class="agent-name">Template Matcher</div>
-      <div class="agent-desc">Matches your design brief to the correct design system and configures the preview direction.</div>
-    </div>
-    <div class="agent-card">
-      <div class="agent-num">Agent 06</div>
-      <div class="agent-icon">✦</div>
-      <div class="agent-name">Quality Gate</div>
-      <div class="agent-desc">Scores your design direction against 10 premium criteria. Only approved directions proceed to preview.</div>
+<section class="section" id="how-it-works">
+  <div class="section-inner">
+    <div class="section-eyebrow">The AI4 Design Engine</div>
+    <h2 class="section-title-center">Purpose → Brief → System → Quality Gate</h2>
+    <p class="section-sub-center">Six AI agents work in sequence to produce a premium, purpose-built design direction. No generic templates. No guesswork.</p>
+    <div class="divider"></div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="step-num">Agent 01</div><span class="step-icon">🎯</span><div class="step-name">Purpose Classifier</div><div class="step-desc">Analyzes your website goal, audience, and intent to establish a site category and content priorities.</div></div>
+      <div class="flow-step"><div class="step-num">Agent 02</div><span class="step-icon">🎨</span><div class="step-name">Design Director</div><div class="step-desc">Selects a creative direction and recommends the matching design system based on your impression and audience.</div></div>
+      <div class="flow-step"><div class="step-num">Agent 03</div><span class="step-icon">📐</span><div class="step-name">Content Architect</div><div class="step-desc">Plans your site sections, section order, headline direction, and CTA hierarchy.</div></div>
+      <div class="flow-step"><div class="step-num">Agent 04</div><span class="step-icon">🖌️</span><div class="step-name">Visual Identity</div><div class="step-desc">Defines color mood, typography direction, layout rhythm, and the visual motif for your design system.</div></div>
+      <div class="flow-step"><div class="step-num">Agent 05</div><span class="step-icon">⚡</span><div class="step-name">Template Matcher</div><div class="step-desc">Matches your design brief to the correct design system and configures the preview direction.</div></div>
+      <div class="flow-step"><div class="step-num">Agent 06</div><span class="step-icon">✦</span><div class="step-name">Quality Gate</div><div class="step-desc">Scores your design direction against 10 premium criteria. Only approved directions proceed to preview.</div></div>
     </div>
   </div>
 </section>
-
-<div class="divider"></div>
 
 <!-- TWO SITES -->
-<section class="section">
-  <div class="section-tag">// Available In Two Languages</div>
-  <h2 class="section-h2">Build in English or Español</h2>
-  <p class="section-sub">Both platforms deliver the same premium AI-powered experience — fully localized for your audience.</p>
-
-  <div class="sites-row">
-    <div class="site-card">
-      <div class="site-card-flag">🇺🇸</div>
-      <div class="site-card-lang">English</div>
-      <div class="site-card-title">AI4 Website Design Studio</div>
-      <div class="site-card-desc">Build your business or personal website in English. 12 design systems, 17 purposes, same-day launch path.</div>
-      <a href="https://ai4websitedesign.com" class="site-link" target="_blank">ai4websitedesign.com →</a>
-    </div>
-    <div class="site-card">
-      <div class="site-card-flag">🇪🇸</div>
-      <div class="site-card-lang">Español</div>
-      <div class="site-card-title">AI4 Estudio de Diseño Web</div>
-      <div class="site-card-desc">Construye tu sitio web de negocio o personal en español. La misma experiencia premium, completamente en tu idioma.</div>
-      <a href="https://espanola.ai4websitedesign.com" class="site-link" target="_blank">espanola.ai4websitedesign.com →</a>
+<section class="section" style="padding-top:0">
+  <div class="section-inner">
+    <div class="section-eyebrow">Available In Two Languages</div>
+    <h2 class="section-title-center">Build in English or Español</h2>
+    <p class="section-sub-center">Both platforms deliver the same premium AI-powered experience — fully localized for your audience.</p>
+    <div class="divider"></div>
+    <div class="sites-grid">
+      <div class="site-card">
+        <div class="site-flag">🇺🇸</div>
+        <div class="site-lang">English</div>
+        <div class="site-name">AI4 Website Design Studio</div>
+        <div class="site-desc">Build your business or personal website in English. 12 design systems, 17 purposes, same-day launch path.</div>
+        <a href="https://ai4websitedesign.com" class="site-link" target="_blank">ai4websitedesign.com →</a>
+      </div>
+      <div class="site-card">
+        <div class="site-flag">🇪🇸</div>
+        <div class="site-lang">Español</div>
+        <div class="site-name">AI4 Estudio de Diseño Web</div>
+        <div class="site-desc">Construye tu sitio web en español. La misma experiencia premium, completamente en tu idioma.</div>
+        <a href="https://espanola.ai4websitedesign.com" class="site-link" target="_blank">espanola.ai4websitedesign.com →</a>
+      </div>
     </div>
   </div>
 </section>
-
-<div class="divider"></div>
 
 <!-- BOTTOM CTA -->
-<section class="bottom-cta">
-  <h2 class="bottom-cta-h2">Your Website.<br><span class="gold">Built Today. Free.</span></h2>
-  <p class="bottom-cta-sub">Claim your promo code above and let our AI Design Engine build your premium website — no cost, no templates, no limits.</p>
-  <button class="bottom-cta-btn" onclick="document.getElementById('captureBox').scrollIntoView({behavior:'smooth'})">
-    ✦ Get My Free Promo Code
-  </button>
+<section class="cta-section">
+  <div class="cta-card">
+    <div class="cta-label">Ready to build?</div>
+    <h2 class="cta-title">Your Website. <span class="grad">Built Today. Free.</span></h2>
+    <p class="cta-sub">Claim your promo code and let our AI Design Engine build your premium website — no cost, no templates, no limits.</p>
+    <button class="cta-btn" onclick="document.getElementById('claim').scrollIntoView({behavior:'smooth'})">✦ Get My Free Promo Code →</button>
+  </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <div class="footer-brand">AI4 Website Design Studio · Powered by Apropos Group LLC</div>
+  <a class="footer-logo" href="index.html">
+    <img class="footer-logo-img" src="AI4-approved-logo-transparent.png" alt="AI4 logo">
+    <span class="footer-name">AI4 Website Design Studio</span>
+  </a>
   <div class="footer-links">
-    <a href="https://ai4websitedesign.com">English Site</a>
-    <a href="https://espanola.ai4websitedesign.com">Spanish Site</a>
-    <a href="https://ai4businesses.org">AI4 Businesses</a>
-    <a href="https://ai4businesses.org/privacy">Privacy</a>
+    <a class="footer-link" href="https://ai4websitedesign.com">English Site</a>
+    <a class="footer-link" href="https://espanola.ai4websitedesign.com">Spanish Site</a>
+    <a class="footer-link" href="https://ai4businesses.org">AI4 Businesses</a>
+    <a class="footer-link" href="https://ai4businesses.org/privacy">Privacy</a>
   </div>
+  <div class="footer-copy">© 2026 Apropos Group LLC — All rights reserved</div>
 </footer>
 
 <script>
-// ── PROMO CODE GENERATOR ─────────────────────────────────────
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
 function generatePromoCode(name) {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let code = '';
-  // Use name initials + random
-  const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+  const initials = name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
   const prefix = initials.length >= 2 ? initials : 'PT';
-  for (let i = 0; i < 6; i++) {
-    code += chars[Math.floor(Math.random() * chars.length)];
-  }
+  let code = '';
+  for(let i=0;i<6;i++) code += chars[Math.floor(Math.random()*chars.length)];
   return `${prefix}-${code}`;
 }
 
-// ── SUPABASE CONFIG ───────────────────────────────────────────
-const SUPABASE_URL = 'https://judislfknmhofcgzyozc.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp1ZGlzbGZrbm1ob2ZjZ3p5b3pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMDI3ODAsImV4cCI6MjA5Mjc3ODc4MH0.Kxpe0kJt0k7ZchYu70BOwm4KdT0C5aSsyeR1ov6NlQ0';
-
-// ── HANDLE FORM SUBMIT ────────────────────────────────────────
 async function handleSubmit(e) {
   e.preventDefault();
-
   const name = document.getElementById('fieldName').value.trim();
   const email = document.getElementById('fieldEmail').value.trim();
   const phone = document.getElementById('fieldPhone').value.trim();
   const type = document.getElementById('fieldType').value;
-
   const btn = document.getElementById('submitBtn');
-  btn.textContent = 'Checking...';
+  btn.textContent = 'Sending your promo code...';
   btn.disabled = true;
 
-  // Check if email already claimed a code
-  const checkRes = await fetch(
-    SUPABASE_URL + '/rest/v1/promo_leads' +
-    '?email=eq.' + encodeURIComponent(email) + '&select=promo_code,used',
-    {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY
-      }
-    }
-  );
-  const existing = await checkRes.json();
-
-  if (existing && existing.length > 0) {
-    const record = existing[0];
-    btn.textContent = '✦ Send Me My Promo Code';
-    btn.disabled = false;
-
-    if (record.used) {
-      alert('This email has already used their promo code. Each email is limited to one free website.');
-    } else {
-      alert('A promo code was already sent to this email: ' + record.promo_code + '\n\nCheck your inbox or use the code above to start building.');
-    }
-    return;
-  }
-
-  btn.textContent = 'Generating your promo code...';
-
-  // Generate unique one-time promo code
   const promoCode = generatePromoCode(name);
-  const timestamp = new Date().toISOString();
-  const expiresAt = new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString();
+  const expiresAt = new Date(Date.now() + 48*60*60*1000).toISOString();
 
-  // Store lead data
-  const leadData = { name, email, phone, type, promoCode, timestamp, expiresAt };
-
-  const response = await fetch('/.netlify/functions/submit-promo', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      name,
-      email,
-      phone,
-      website_type: type,
-      promo_code: promoCode,
-      expires_at: expiresAt
-    })
-  });
-
-  const result = await response.json();
-
-  if (result.duplicate) {
-    btn.textContent = '✦ Send Me My Promo Code';
-    btn.disabled = false;
-    if (result.used) {
-      alert('This email has already used their promo code. Each email is limited to one free website.');
-    } else {
-      alert('We already sent a promo code to this email: ' + result.promo_code + '\n\nCheck your inbox and use that code to start building.');
+  try {
+    const response = await fetch('/.netlify/functions/submit-promo', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({name, email, phone, website_type: type, promo_code: promoCode, expires_at: expiresAt})
+    });
+    const result = await response.json();
+    if(result.duplicate) {
+      btn.textContent = '✦ Send Me My Promo Code';
+      btn.disabled = false;
+      if(result.used) {
+        alert('This email has already used their promo code. Each email is limited to one free website.');
+      } else {
+        alert('We already sent a promo code to this email.\n\nCheck your inbox and use that code to start building.');
+      }
+      return;
     }
-    return;
+  } catch(err) {
+    console.log('Function error:', err);
   }
 
-  // Show promo code
   document.getElementById('captureForm').style.display = 'none';
   document.getElementById('promoCodeDisplay').textContent = promoCode;
+  document.getElementById('buildLinkEN').href = `https://ai4websitedesign.com/signup?promo=${promoCode}&type=${type}`;
+  document.getElementById('buildLinkES').href = `https://espanola.ai4websitedesign.com/signup?promo=${promoCode}&type=${type}`;
   document.getElementById('promoResult').classList.add('show');
 
-  // Set appropriate site link based on selection
-  const buildLinkEN = document.getElementById('buildLinkEN');
-  const buildLinkES = document.getElementById('buildLinkES');
-
-  buildLinkEN.href = `https://ai4websitedesign.com/signup?promo=${promoCode}&type=${type}`;
-  buildLinkES.href = `https://espanola.ai4websitedesign.com/signup?promo=${promoCode}&type=${type}`;
-
-  // Auto-copy to clipboard
-  try {
-    await navigator.clipboard.writeText(promoCode);
-    showToast('✓ Promo code copied to clipboard!');
-  } catch(e) {}
+  try { await navigator.clipboard.writeText(promoCode); showToast('✓ Code copied!'); } catch(e) {}
 }
 
-// ── COPY CODE ─────────────────────────────────────────────────
 async function copyCode() {
   const code = document.getElementById('promoCodeDisplay').textContent;
-  try {
-    await navigator.clipboard.writeText(code);
-    showToast('✓ Code copied!');
-  } catch(e) {
-    // Fallback
-    const el = document.createElement('textarea');
-    el.value = code;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-    showToast('✓ Code copied!');
-  }
+  try { await navigator.clipboard.writeText(code); showToast('✓ Copied!'); } catch(e) {}
 }
 
-// ── TOAST ─────────────────────────────────────────────────────
 function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2500);
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2500);
 }
-
-
 </script>
-
 </body>
 </html>
