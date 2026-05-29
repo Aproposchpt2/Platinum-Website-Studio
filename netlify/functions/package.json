@@ -1,0 +1,20 @@
+{
+  "name": "ai4websitedesign-design-studio-live-candidate",
+  "version": "1.1.0",
+  "description": "AI4 Website Design — Design Studio with purpose-first AI engine, multi-agent brief generation, live preview, color palette ribbon, template switcher, coach tour, signup gate, promo redemption, and Stripe checkout.",
+  "private": true,
+  "scripts": {
+    "build": "echo 'No build step required'",
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.20.0",
+    "@supabase/supabase-js": "^2.105.4",
+    "stripe": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Apropos Group LLC",
+  "license": "PRIVATE"
+}

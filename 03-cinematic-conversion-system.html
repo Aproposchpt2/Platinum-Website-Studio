@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{BUSINESS_NAME}} — Cinematic Conversion System</title>
+  <style>
+    :root{
+      --black:#050505;
+      --coal:#111111;
+      --cream:#fff4df;
+      --ember:#ff7a3d;
+      --red:#b61f24;
+      --muted:rgba(255,244,223,.72);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--black);
+      color:var(--cream);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    a{text-decoration:none;color:inherit}
+    .marquee{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.82)),
+        radial-gradient(circle at 50% 20%, rgba(255,122,61,.22), transparent 30%),
+        radial-gradient(circle at 10% 80%, rgba(182,31,36,.25), transparent 34%);
+      z-index:-3;
+    }
+    .spotlight{
+      position:fixed;
+      left:50%;top:-20vh;
+      transform:translateX(-50%);
+      width:90vw;height:92vh;
+      background:radial-gradient(ellipse at center, rgba(255,244,223,.2), transparent 58%);
+      filter:blur(8px);
+      z-index:-2;
+    }
+    header{
+      position:relative;
+      z-index:2;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:24px clamp(20px,5vw,72px);
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:11px;
+      color:rgba(255,244,223,.7);
+    }
+    .brand{
+      font-size:14px;
+      letter-spacing:.22em;
+      font-weight:900;
+      color:var(--cream);
+    }
+    .hero{
+      min-height:calc(100vh - 78px);
+      display:grid;
+      place-items:end start;
+      padding:clamp(30px,5vw,70px) clamp(20px,5vw,72px) 62px;
+      position:relative;
+      overflow:hidden;
+    }
+    .film-frame{
+      position:absolute;
+      inset:7vh clamp(18px,5vw,70px) 10vh;
+      border:1px solid rgba(255,244,223,.15);
+      border-radius:34px;
+      background:
+        linear-gradient(90deg, rgba(255,244,223,.06) 0 3px, transparent 3px 42px),
+        linear-gradient(180deg, transparent, rgba(0,0,0,.48)),
+        conic-gradient(from 210deg at 70% 42%, #1b0b06, #41100d, #ff7a3d, #060606, #1b0b06);
+      background-size:45px 100%, auto, auto;
+      box-shadow:0 50px 130px rgba(0,0,0,.65);
+      z-index:-1;
+      overflow:hidden;
+    }
+    .film-frame::before{
+      content:"";
+      position:absolute;
+      left:-10%;
+      top:28%;
+      width:120%;
+      height:180px;
+      background:linear-gradient(90deg, transparent, rgba(255,244,223,.17), transparent);
+      transform:rotate(-8deg);
+      filter:blur(2px);
+    }
+    .film-frame::after{
+      content:"PREMIUM SIGNAL";
+      position:absolute;
+      right:34px;
+      top:34px;
+      border:1px solid rgba(255,244,223,.18);
+      border-radius:999px;
+      padding:12px 16px;
+      color:rgba(255,244,223,.7);
+      letter-spacing:.19em;
+      font-size:10px;
+    }
+    .content{
+      width:min(980px,100%);
+      padding-bottom:2vh;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:14px;
+      color:var(--ember);
+      font-size:12px;
+      letter-spacing:.26em;
+      text-transform:uppercase;
+      margin-bottom:24px;
+    }
+    .eyebrow::before{content:"";width:70px;height:1px;background:var(--ember)}
+    h1{
+      margin:0;
+      font-size:clamp(52px,9.5vw,142px);
+      line-height:.84;
+      letter-spacing:-.085em;
+      font-weight:950;
+      text-transform:uppercase;
+    }
+    .description{
+      max-width:640px;
+      margin:28px 0 34px;
+      font-size:clamp(16px,1.5vw,20px);
+      line-height:1.72;
+      color:var(--muted);
+    }
+    .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+    .cta{
+      padding:17px 24px;
+      background:var(--cream);
+      color:#080808;
+      border-radius:999px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      box-shadow:0 20px 55px rgba(255,122,61,.22);
+    }
+    .ghost{
+      padding:16px 22px;
+      border:1px solid rgba(255,244,223,.22);
+      border-radius:999px;
+      color:rgba(255,244,223,.82);
+    }
+    .ticker{
+      display:flex;
+      align-items:center;
+      gap:22px;
+      overflow:hidden;
+      border-top:1px solid rgba(255,244,223,.14);
+      border-bottom:1px solid rgba(255,244,223,.14);
+      padding:18px 0;
+      white-space:nowrap;
+      color:rgba(255,244,223,.7);
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:11px;
+    }
+    .ticker span{padding-left:clamp(20px,5vw,72px)}
+    .services{
+      display:grid;
+      grid-template-columns:1.1fr .9fr 1fr;
+      gap:16px;
+      padding:36px clamp(20px,5vw,72px) 60px;
+    }
+    .card{
+      min-height:220px;
+      border:1px solid rgba(255,244,223,.14);
+      border-radius:28px;
+      padding:28px;
+      background:linear-gradient(180deg, rgba(255,244,223,.065), rgba(255,244,223,.018));
+      position:relative;
+      overflow:hidden;
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      right:-45px;bottom:-45px;
+      width:150px;height:150px;
+      border-radius:50%;
+      border:1px solid rgba(255,122,61,.26);
+    }
+    .card small{
+      color:var(--ember);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+    .card h2{
+      margin:42px 0 0;
+      font-size:clamp(22px,2.4vw,36px);
+      line-height:1.05;
+      letter-spacing:-.045em;
+    }
+    @media(max-width:840px){
+      header{align-items:flex-start;gap:14px;flex-direction:column}
+      .hero{min-height:760px;place-items:end start}
+      .film-frame{inset:4vh 14px 8vh;border-radius:24px}
+      h1{font-size:clamp(48px,15vw,86px)}
+      .services{grid-template-columns:1fr}
+      .card{min-height:180px}
+      .ticker span{padding-left:18px}
+    }
+  </style>
+</head>
+<body>
+  <div class="marquee"></div>
+  <div class="spotlight"></div>
+
+  <header>
+    <a class="brand" href="{{CTA_LINK}}">{{BUSINESS_NAME}}</a>
+    <span>{{CITY}} · {{PHONE}}</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="film-frame" aria-hidden="true"></div>
+      <div class="content">
+        <div class="eyebrow">Cinematic Conversion System</div>
+        <h1>{{HEADLINE}}</h1>
+        <p class="description">{{DESCRIPTION}}</p>
+        <div class="cta-row">
+          <a class="cta" href="{{CTA_LINK}}">{{CTA_TEXT}}</a>
+          <a class="ghost" href="tel:{{PHONE}}">Speak with {{BUSINESS_NAME}}</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="ticker" aria-label="Trust signal">
+      <span>Built to stop the scroll</span>
+      <span>Designed for premium buyers</span>
+      <span>{{CITY}}</span>
+      <span>{{PHONE}}</span>
+    </section>
+
+    <section class="services" aria-label="Offer preview">
+      <article class="card"><small>Scene One</small><h2>{{SERVICE_1}}</h2></article>
+      <article class="card"><small>Scene Two</small><h2>{{SERVICE_2}}</h2></article>
+      <article class="card"><small>Scene Three</small><h2>{{SERVICE_3}}</h2></article>
+    </section>
+  </main>
+</body>
+</html>

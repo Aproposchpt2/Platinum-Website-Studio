@@ -1,0 +1,58 @@
+# ================================================================
+# netlify.toml — AI4 Website Design Studio
+# ai4websitedesign.com | Apropos Group LLC
+# ================================================================
+
+[build]
+  publish = "."
+  command = "npm run build"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Language = "en"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[redirects]]
+  from = "/studio"
+  to = "/ai4-design-studio.html"
+  status = 200
+
+[[redirects]]
+  from = "/preview"
+  to = "/ai4-design-studio-preview.html"
+  status = 200
+
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/es"
+  to = "https://espanol.ai4websitedesign.com"
+  status = 301
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

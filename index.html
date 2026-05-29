@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI4 Website Design Studio — Custom AI-Built Websites</title>
+<meta name="description" content="AI4 Website Design Studio builds premium, purpose-first websites using an AI design engine. Not templates. Real design direction.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#030816;--bg2:#061225;--bg3:#07152a;
+  --line:rgba(184,196,217,.12);--line-s:rgba(45,184,255,.28);
+  --blue:#1EA7FF;--blue2:#2DB8FF;--blue4:#5BD3FF;
+  --silver:#D5DEEA;--white:#F5F8FF;--muted:#AEBED3;--muted2:#90A3BC;
+  --mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--display:'Syne',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{min-height:100vh;overflow-x:hidden;background:radial-gradient(circle at 18% 10%,rgba(30,167,255,.18),transparent 28%),radial-gradient(circle at 84% 12%,rgba(91,211,255,.10),transparent 32%),radial-gradient(circle at 50% 55%,rgba(30,167,255,.06),transparent 45%),linear-gradient(180deg,var(--bg) 0%,#02050e 54%,var(--bg2) 100%);color:var(--muted);font-family:var(--sans)}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(45,184,255,.038) 1px,transparent 1px),linear-gradient(90deg,rgba(45,184,255,.032) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(180deg,rgba(0,0,0,.8),rgba(0,0,0,.18) 60%,rgba(0,0,0,.04))}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:72px;padding:.85rem clamp(1rem,4vw,2.75rem);background:rgba(3,8,22,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(24px)}
+.nav-left{display:flex;align-items:center;gap:.9rem;text-decoration:none}
+.nav-logo-img{width:76px;height:40px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(91,211,255,.22);box-shadow:0 0 22px rgba(30,167,255,.18);object-fit:cover;object-position:center 43%}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1.08}
+.nav-logo-name{font-family:var(--display);font-size:.92rem;font-weight:800;color:var(--white);letter-spacing:.02em}
+.nav-logo-sub{font-family:var(--mono);font-size:.52rem;color:var(--muted2);letter-spacing:.13em;text-transform:uppercase}
+.nav-right{display:flex;align-items:center;gap:.75rem}
+.nav-link{font-size:.82rem;color:var(--muted2);text-decoration:none;padding:.4rem .7rem;border-radius:6px;transition:color .2s}
+.nav-link:hover{color:var(--silver)}
+.nav-cta{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--white),var(--blue4) 44%,var(--blue));border:none;border-radius:999px;padding:.6rem 1.4rem;font-size:.8rem;font-weight:800;color:#03101f;text-decoration:none;cursor:pointer;box-shadow:0 0 24px rgba(30,167,255,.28);transition:all .2s;font-family:var(--sans)}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 0 38px rgba(30,167,255,.44)}
+.hero{position:relative;z-index:1;min-height:calc(100vh - 72px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(2rem,5vw,4rem) clamp(1rem,4vw,2.5rem);text-align:center;gap:0}
+.hero-eyebrow{display:flex;align-items:center;justify-content:center;gap:.65rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--blue4);text-transform:uppercase;margin-bottom:1.4rem}
+.eyebrow-line{display:inline-block;width:28px;height:1px;background:linear-gradient(90deg,transparent,var(--blue4))}
+.eyebrow-line.r{background:linear-gradient(270deg,transparent,var(--blue4))}
+.hero-logo-wrap{position:relative;width:min(960px,88vw);height:clamp(320px,34vw,480px);margin:0 auto clamp(1.5rem,2.5vw,2.8rem);filter:drop-shadow(0 30px 60px rgba(0,0,0,.48))}
+.hero-logo-wrap::before{content:'';position:absolute;left:50%;top:8%;width:70%;height:55%;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(30,167,255,.26),rgba(30,167,255,.08) 48%,transparent 75%);filter:blur(32px);z-index:-1}
+.hero-logo-img{position:absolute;left:50%;top:10%;width:min(720px,76%);transform:translateX(-50%);height:auto;max-height:380px;object-fit:contain;display:block;filter:drop-shadow(0 24px 60px rgba(0,0,0,.52)) drop-shadow(0 0 30px rgba(30,167,255,.22))}
+.arc-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4}
+.hero-h1{font-family:var(--display);font-size:clamp(2.4rem,4.8vw,4rem);font-weight:800;line-height:1.06;letter-spacing:-.05em;color:var(--white);max-width:1000px;margin:0 auto .9rem}
+.grad{background:linear-gradient(135deg,var(--white) 0%,var(--silver) 28%,var(--blue4) 64%,var(--blue2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(.98rem,1.4vw,1.12rem);color:var(--silver);line-height:1.7;max-width:680px;margin:0 auto 1.8rem}
+.hero-actions{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.85rem}
+.btn-primary{display:inline-flex;align-items:center;gap:.65rem;background:linear-gradient(135deg,var(--white),var(--blue4) 44%,var(--blue));border:1px solid rgba(245,248,255,.55);border-radius:999px;padding:.95rem 2.1rem;font-weight:900;font-size:.96rem;color:#03101f;text-decoration:none;cursor:pointer;box-shadow:0 0 38px rgba(30,167,255,.32),inset 0 1px 0 rgba(255,255,255,.7);transition:all .22s;font-family:var(--sans)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 56px rgba(30,167,255,.5),0 16px 40px rgba(0,0,0,.28)}
+.btn-ghost{display:inline-flex;align-items:center;gap:.5rem;background:transparent;border:1px solid rgba(184,196,217,.22);border-radius:999px;padding:.85rem 1.8rem;font-size:.88rem;color:var(--muted);text-decoration:none;cursor:pointer;transition:all .2s;font-family:var(--sans)}
+.btn-ghost:hover{border-color:rgba(184,196,217,.4);color:var(--silver)}
+.hero-proof{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-top:2rem;flex-wrap:wrap}
+.proof-item{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;color:var(--muted2);text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.proof-dot{width:4px;height:4px;border-radius:50%;background:var(--blue)}
+.section{position:relative;z-index:1;padding:clamp(4rem,8vw,7rem) clamp(1rem,4vw,2.5rem)}
+.section-inner{max-width:1080px;margin:0 auto}
+.section-eyebrow{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--blue4);text-transform:uppercase;text-align:center;margin-bottom:.8rem}
+.section-title{font-family:var(--display);font-size:clamp(1.8rem,3.2vw,2.7rem);font-weight:800;letter-spacing:-.04em;color:var(--white);text-align:center;margin-bottom:.7rem}
+.section-sub{font-size:clamp(.88rem,1.2vw,1rem);color:var(--muted2);text-align:center;max-width:580px;margin:0 auto 3.5rem;line-height:1.7}
+.divider{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);margin:0 auto 3.5rem;box-shadow:0 0 12px rgba(30,167,255,.5)}
+.flow-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.2rem}
+.flow-step{background:rgba(6,18,37,.8);border:1px solid rgba(45,184,255,.14);border-radius:14px;padding:1.6rem 1.3rem;text-align:center;transition:border-color .2s}
+.flow-step:hover{border-color:rgba(45,184,255,.32)}
+.step-num{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--blue4);text-transform:uppercase;margin-bottom:.8rem}
+.step-icon{font-size:1.5rem;margin-bottom:.7rem;display:block}
+.step-name{font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--white);margin-bottom:.4rem}
+.step-desc{font-size:.76rem;color:var(--muted2);line-height:1.55}
+.systems-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+.system-card{background:rgba(6,18,37,.7);border:1px solid rgba(184,196,217,.1);border-radius:12px;padding:1.4rem;transition:all .22s}
+.system-card:hover{border-color:rgba(30,167,255,.3);background:rgba(6,18,37,.95);transform:translateY(-2px)}
+.sys-badge{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;color:var(--blue4);background:rgba(30,167,255,.1);border:1px solid rgba(30,167,255,.2);border-radius:20px;padding:3px 9px;display:inline-block;margin-bottom:.7rem;text-transform:uppercase}
+.sys-name{font-family:var(--display);font-size:.96rem;font-weight:700;color:var(--white);margin-bottom:.4rem}
+.sys-desc{font-size:.76rem;color:var(--muted2);line-height:1.55}
+.sys-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.75rem}
+.sys-tag{font-size:.67rem;color:var(--muted2);background:rgba(255,255,255,.04);border:1px solid rgba(184,196,217,.1);border-radius:4px;padding:2px 7px}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
+.why-card{background:rgba(6,18,37,.6);border:1px solid rgba(184,196,217,.09);border-radius:14px;padding:1.6rem}
+.why-icon{font-size:1.4rem;margin-bottom:.8rem;display:block}
+.why-title{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.4rem}
+.why-desc{font-size:.8rem;color:var(--muted2);line-height:1.6}
+.cta-section{position:relative;z-index:1;padding:clamp(4rem,8vw,7rem) clamp(1rem,4vw,2.5rem);text-align:center}
+.cta-card{max-width:760px;margin:0 auto;background:linear-gradient(135deg,rgba(6,18,37,.95),rgba(3,8,22,.98));border:1px solid rgba(30,167,255,.28);border-radius:20px;padding:clamp(2.5rem,5vw,4rem) clamp(1.5rem,4vw,3.5rem);position:relative;overflow:hidden}
+.cta-card::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;background:radial-gradient(circle,rgba(30,167,255,.1),transparent 70%);pointer-events:none}
+.cta-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--blue4);text-transform:uppercase;margin-bottom:1rem}
+.cta-title{font-family:var(--display);font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:800;letter-spacing:-.04em;color:var(--white);margin-bottom:.8rem}
+.cta-sub{font-size:.92rem;color:var(--silver);line-height:1.7;margin-bottom:2rem;max-width:520px;margin-left:auto;margin-right:auto}
+.demo-number{font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;color:var(--muted2);margin-top:1.2rem}
+.demo-number span{color:var(--blue4)}
+footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:2.2rem clamp(1rem,4vw,2.75rem);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.footer-logo-img{width:52px;height:28px;border-radius:6px;object-fit:cover;object-position:center 43%;opacity:.8}
+.footer-name{font-family:var(--display);font-size:.78rem;font-weight:700;color:var(--muted2)}
+.footer-links{display:flex;gap:1.2rem;flex-wrap:wrap}
+.footer-link{font-size:.75rem;color:var(--muted2);text-decoration:none;transition:color .2s}
+.footer-link:hover{color:var(--silver)}
+.footer-copy{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;color:rgba(144,163,188,.5);text-transform:uppercase}
+@media(max-width:680px){.nav-right .nav-link{display:none}.hero-logo-wrap{width:112vw;margin-left:-6vw;margin-right:-6vw;height:clamp(240px,58vw,360px)}}
+@media(max-width:460px){.hero-actions{flex-direction:column;width:100%}.btn-primary,.btn-ghost{width:100%;justify-content:center}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-left" href="index.html">
+    <img class="nav-logo-img" src="AI4-approved-logo-transparent.png" alt="AI4 logo">
+    <span class="nav-logo-text">
+      <span class="nav-logo-name">AI4 Website Design Studio</span>
+      <span class="nav-logo-sub">Powered by Apropos Group LLC</span>
+    </span>
+  </a>
+  <div class="nav-right">
+    <a class="nav-link" href="#how-it-works">How It Works</a>
+    <a class="nav-link" href="#design-systems">Design Systems</a>
+    <a class="nav-cta" href="signup.html">Start Building →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow"><span class="eyebrow-line"></span>AI4 Website Design Studio — Purpose-First Engine<span class="eyebrow-line r"></span></div>
+  <div class="hero-logo-wrap">
+    <img class="hero-logo-img" src="AI4-approved-logo-transparent.png" alt="AI4 Website Design">
+    <svg class="arc-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 540" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <defs>
+        <linearGradient id="silver" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1a1a28"/><stop offset="20%" stop-color="#7a8a9e"/><stop offset="45%" stop-color="#c8d8e8"/><stop offset="55%" stop-color="#eef8ff"/><stop offset="75%" stop-color="#a9bed2"/><stop offset="100%" stop-color="#1a1a28"/></linearGradient>
+        <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#010a1c"/><stop offset="30%" stop-color="#0860b8"/><stop offset="55%" stop-color="#1ea7ff"/><stop offset="75%" stop-color="#5bd3ff"/><stop offset="100%" stop-color="#010a1c"/></linearGradient>
+        <filter id="engrave"><feDropShadow dx="0" dy="2" stdDeviation="1.3" flood-color="#000" flood-opacity="1"/></filter>
+        <filter id="softGlow"><feGaussianBlur stdDeviation="3.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <path id="arc" d="M 118,374 Q 188,44 550,42 Q 912,44 982,374"/>
+      </defs>
+      <text font-family="Georgia,'Times New Roman',serif" font-size="43" font-weight="700" letter-spacing="8" fill="#000810" filter="url(#engrave)"><textPath href="#arc" startOffset="50%" text-anchor="middle">AI4 WEBSITE DESIGN STUDIO</textPath></text>
+      <text font-family="Georgia,'Times New Roman',serif" font-size="43" font-weight="700" letter-spacing="8" fill="url(#silver)"><textPath href="#arc" startOffset="50%" text-anchor="middle">AI4 WEBSITE DESIGN STUDIO</textPath></text>
+      <text font-family="Georgia,'Times New Roman',serif" font-size="43" font-weight="700" letter-spacing="8" fill="rgba(255,255,255,0.38)"><textPath href="#arc" startOffset="50%" text-anchor="middle">AI4 WEBSITE DESIGN STUDIO</textPath></text>
+      <line x1="170" y1="466" x2="398" y2="466" stroke="url(#blueGlow)" stroke-width="1" filter="url(#softGlow)" opacity="0.55"/>
+      <line x1="702" y1="466" x2="930" y2="466" stroke="url(#blueGlow)" stroke-width="1" filter="url(#softGlow)" opacity="0.55"/>
+    </svg>
+  </div>
+
+  <!-- ✦ UPDATED HERO MESSAGE ✦ -->
+  <h1 class="hero-h1">You direct the build.<br><span class="grad">We launch it same day.</span></h1>
+  <p class="hero-sub">Tell us your purpose. Our AI design engine builds a creative brief, selects a matching design system, and scores it through a quality gate — before a single template is chosen.</p>
+  <div class="hero-actions">
+    <!-- ✦ REDIRECTS TO SIGNUP ✦ -->
+    <a class="btn-primary" href="signup.html">Start Building My Website →</a>
+    <a class="btn-ghost" href="#how-it-works">See How It Works</a>
+  </div>
+  <div class="hero-proof">
+    <div class="proof-item"><span class="proof-dot"></span>17 website purposes</div>
+    <div class="proof-item"><span class="proof-dot"></span>12 design systems</div>
+    <div class="proof-item"><span class="proof-dot"></span>AI quality gate</div>
+    <div class="proof-item"><span class="proof-dot"></span>Same-day launch</div>
+  </div>
+</section>
+
+<section class="section" id="how-it-works">
+  <div class="section-inner">
+    <div class="section-eyebrow">The AI4 Design Engine</div>
+    <h2 class="section-title">Purpose → Brief → System → Quality Gate</h2>
+    <p class="section-sub">Six AI agents work in sequence to produce a premium, purpose-built design direction. No generic templates. No guesswork.</p>
+    <div class="divider"></div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="step-num">Agent 01</div><span class="step-icon">🎯</span><div class="step-name">Purpose Classifier</div><div class="step-desc">Analyzes your website goal, audience, and intent to establish a site category and content priorities.</div></div>
+      <div class="flow-step"><div class="step-num">Agent 02</div><span class="step-icon">🎨</span><div class="step-name">Design Director</div><div class="step-desc">Selects a creative direction and recommends the matching design system based on your impression and audience.</div></div>
+      <div class="flow-step"><div class="step-num">Agent 03</div><span class="step-icon">📐</span><div class="step-name">Content Architect</div><div class="step-desc">Plans your site sections, section order, headline direction, and CTA hierarchy.</div></div>
+      <div class="flow-step"><div class="step-num">Agent 04</div><span class="step-icon">🖌️</span><div class="step-name">Visual Identity</div><div class="step-desc">Defines color mood, typography direction, layout rhythm, and the visual motif for your design system.</div></div>
+      <div class="flow-step"><div class="step-num">Agent 05</div><span class="step-icon">⚡</span><div class="step-name">Template Matcher</div><div class="step-desc">Matches your design brief to the correct design system and configures the preview direction.</div></div>
+      <div class="flow-step"><div class="step-num">Agent 06</div><span class="step-icon">✦</span><div class="step-name">Quality Gate</div><div class="step-desc">Scores your design direction against 10 premium criteria. Only approved directions proceed to preview.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="design-systems" style="padding-top:0">
+  <div class="section-inner">
+    <div class="section-eyebrow">Design System Library</div>
+    <h2 class="section-title">12 Distinct Design Systems</h2>
+    <p class="section-sub">Each system has a different structural DNA — not just a color swap. The AI selects the system that matches your purpose.</p>
+    <div class="divider"></div>
+    <div class="systems-grid">
+      <div class="system-card"><div class="sys-badge">Luxury</div><div class="sys-name">Luxury Reveal</div><div class="sys-desc">Cinematic hero, elegant typography, spacious premium layout.</div><div class="sys-tags"><span class="sys-tag">Luxury services</span><span class="sys-tag">Real estate</span></div></div>
+      <div class="system-card"><div class="sys-badge">Authority</div><div class="sys-name">Executive Presence</div><div class="sys-desc">Editorial hero, trust-building sections, clean metrics layout.</div><div class="sys-tags"><span class="sys-tag">Business leaders</span><span class="sys-tag">B2B</span></div></div>
+      <div class="system-card"><div class="sys-badge">Creative</div><div class="sys-name">Cinematic Portfolio</div><div class="sys-desc">Full-screen visual entry, large project panels, motion rhythm.</div><div class="sys-tags"><span class="sys-tag">Designers</span><span class="sys-tag">Photographers</span></div></div>
+      <div class="system-card"><div class="sys-badge">Editorial</div><div class="sys-name">Digital Magazine</div><div class="sys-desc">Editorial grid, featured story section, magazine typography.</div><div class="sys-tags"><span class="sys-tag">Blogs</span><span class="sys-tag">Publications</span></div></div>
+      <div class="system-card"><div class="sys-badge">Creator</div><div class="sys-name">Creator Spotlight</div><div class="sys-desc">Personal hero, social proof bar, featured content modules.</div><div class="sys-tags"><span class="sys-tag">Influencers</span><span class="sys-tag">Podcasters</span></div></div>
+      <div class="system-card"><div class="sys-badge">Personal</div><div class="sys-name">Personal Brand Authority</div><div class="sys-desc">Strong personal hero, bio story, authority blocks.</div><div class="sys-tags"><span class="sys-tag">Coaches</span><span class="sys-tag">Speakers</span></div></div>
+      <div class="system-card"><div class="sys-badge">Launch</div><div class="sys-name">Product Launch</div><div class="sys-desc">Conversion-first hero, benefit cards, feature reveal, pricing CTA.</div><div class="sys-tags"><span class="sys-tag">SaaS</span><span class="sys-tag">App launches</span></div></div>
+      <div class="system-card"><div class="sys-badge">Event</div><div class="sys-name">Event Invitation</div><div class="sys-desc">Date-forward hero, event details, agenda timeline, RSVP block.</div><div class="sys-tags"><span class="sys-tag">Conferences</span><span class="sys-tag">Weddings</span></div></div>
+      <div class="system-card"><div class="sys-badge">Cause</div><div class="sys-name">Nonprofit Story</div><div class="sys-desc">Human story hero, mission section, impact stats, donation CTA.</div><div class="sys-tags"><span class="sys-tag">Nonprofits</span><span class="sys-tag">Causes</span></div></div>
+      <div class="system-card"><div class="sys-badge">Artistic</div><div class="sys-name">Artist Showcase</div><div class="sys-desc">Expressive visual hero, gallery, featured work, performance blocks.</div><div class="sys-tags"><span class="sys-tag">Musicians</span><span class="sys-tag">Artists</span></div></div>
+      <div class="system-card"><div class="sys-badge">Local</div><div class="sys-name">Modern Trust</div><div class="sys-desc">Clean trust-first hero, service explanation, reviews, contact CTA.</div><div class="sys-tags"><span class="sys-tag">Local services</span><span class="sys-tag">Small business</span></div></div>
+      <div class="system-card"><div class="sys-badge">Tech</div><div class="sys-name">Futuristic Interface</div><div class="sys-desc">Dark interface feel, grid overlays, neon accents, data-card layout.</div><div class="sys-tags"><span class="sys-tag">AI products</span><span class="sys-tag">Tech tools</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="section-inner">
+    <div class="section-eyebrow">Why AI4 Website Design</div>
+    <h2 class="section-title">Not a template builder. A design engine.</h2>
+    <p class="section-sub">The difference between a website that converts and one that sits there is design intent. AI4 builds intent first.</p>
+    <div class="divider"></div>
+    <div class="why-grid">
+      <div class="why-card"><span class="why-icon">🎯</span><div class="why-title">Purpose-first intake</div><div class="why-desc">17 website purposes. The system never forces you into a generic business-site pattern.</div></div>
+      <div class="why-card"><span class="why-icon">🤖</span><div class="why-title">AI creative direction</div><div class="why-desc">Six AI agents analyze your answers and produce a structured design brief before any template is selected.</div></div>
+      <div class="why-card"><span class="why-icon">✦</span><div class="why-title">Built-in quality gate</div><div class="why-desc">10 premium criteria scored before output is approved. Low-end output is flagged automatically.</div></div>
+      <div class="why-card"><span class="why-icon">🖼️</span><div class="why-title">12 structural design systems</div><div class="why-desc">Each system has a different layout DNA — different structure, rhythm, and visual signature.</div></div>
+      <div class="why-card"><span class="why-icon">⚡</span><div class="why-title">Same-day launch path</div><div class="why-desc">From brief approval to live site in one session. The design engine removes the guesswork.</div></div>
+      <div class="why-card"><span class="why-icon">🔒</span><div class="why-title">No generic output</div><div class="why-desc">The quality gate exists specifically to prevent boring, similar-looking websites. Premium or nothing.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-card">
+    <div class="cta-label">Ready to build?</div>
+    <h2 class="cta-title">You direct the build.<br><span class="grad">We launch it same day.</span></h2>
+    <p class="cta-sub">Answer 11 questions. Let the AI4 Design Engine create your brief, select your system, and score your direction — then move forward with a same-day launch path.</p>
+    <div class="hero-actions" style="justify-content:center">
+      <!-- ✦ REDIRECTS TO SIGNUP ✦ -->
+      <a class="btn-primary" href="signup.html">Start Building My Website →</a>
+    </div>
+    <div class="demo-number">Or call our AI demo line: <span>(702) 710-2622</span></div>
+  </div>
+</section>
+
+<footer>
+  <a class="footer-logo" href="index.html">
+    <img class="footer-logo-img" src="AI4-approved-logo-transparent.png" alt="AI4 logo">
+    <span class="footer-name">AI4 Website Design Studio</span>
+  </a>
+  <div class="footer-links">
+    <a class="footer-link" href="signup.html">Design Studio</a>
+    <a class="footer-link" href="#how-it-works">How It Works</a>
+    <a class="footer-link" href="#design-systems">Design Systems</a>
+    <a class="footer-link" href="offer.html">Pricing</a>
+  </div>
+  <div class="footer-copy">© 2025 Apropos Group LLC — All rights reserved</div>
+</footer>
+</body>
+</html>

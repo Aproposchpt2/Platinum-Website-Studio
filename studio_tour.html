@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI4 Design Studio</title>
+<style>
+:root{
+  --accent:#4F6EF7;--accent2:#7C3AED;
+  --bg:#06060a;--surface:#0e0e1c;
+  --border:rgba(251,244,231,.1);
+  --ivory:#fbf4e7;--muted:rgba(251,244,231,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Inter,ui-sans-serif,system-ui,sans-serif;background:var(--bg);color:var(--ivory);height:100vh;overflow:hidden;}
+
+/* ══ GRID BG ══ */
+.grid-bg{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(79,110,247,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(79,110,247,.06) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 85% 85% at 50% 50%,black,transparent);
+}
+
+/* ══ ORBS ══ */
+.orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0;}
+#o1{width:560px;height:560px;background:rgba(79,110,247,.16);top:-18%;left:-12%;animation:d1 9s ease-in-out infinite;}
+#o2{width:420px;height:420px;background:rgba(124,58,237,.14);bottom:-12%;right:-8%;animation:d2 11s ease-in-out infinite;}
+@keyframes d1{0%,100%{transform:translate(0,0)}50%{transform:translate(44px,32px)}}
+@keyframes d2{0%,100%{transform:translate(0,0)}50%{transform:translate(-28px,-22px)}}
+
+/* ══ TOUR SHELL ══ */
+#tour{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;}
+
+/* ══ STAGE 0 — CINEMATIC OPEN ══ */
+#stage-open{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:0;
+  opacity:1;transition:opacity .6s ease;
+}
+.open-mark{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:26px;opacity:0;animation:fu .7s ease forwards .4s;}
+.open-headline{
+  font-size:clamp(44px,9vw,108px);font-weight:1000;letter-spacing:-.04em;
+  line-height:.88;text-align:center;max-width:880px;padding:0 24px;
+  background:linear-gradient(105deg,var(--ivory) 20%,var(--accent) 50%,var(--ivory) 80%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  opacity:0;transform:translateY(22px);
+  animation:fu2 1s cubic-bezier(.2,0,.1,1) forwards .9s, shimmer 2s ease forwards 1.8s;
+}
+@keyframes shimmer{0%{background-position:100% 0}100%{background-position:-100% 0}}
+.open-sub{margin-top:22px;font-size:clamp(14px,1.8vw,19px);color:var(--muted);text-align:center;opacity:0;animation:fu .7s ease forwards 2s;}
+.open-line{width:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:24px auto 0;animation:grow .8s ease forwards 2.1s;}
+@keyframes grow{to{width:150px}}
+.open-dots{display:flex;gap:7px;margin-top:28px;opacity:0;animation:fu .5s ease forwards 2.4s;}
+.odot{width:6px;height:6px;border-radius:50%;background:rgba(251,244,231,.18);}
+.odot:nth-child(1){animation:don .3s ease forwards 2.6s}
+.odot:nth-child(2){animation:don .3s ease forwards 2.85s}
+.odot:nth-child(3){animation:don .3s ease forwards 3.1s}
+.odot:nth-child(4){animation:don .3s ease forwards 3.35s}
+@keyframes don{to{background:var(--accent);box-shadow:0 0 10px var(--accent)}}
+@keyframes fu{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+@keyframes fu2{0%{opacity:0;transform:translateY(22px)}100%{opacity:1;transform:none}}
+
+/* ══ STAGE 1–3 — FEATURE SPOTLIGHTS ══ */
+.spotlight{
+  position:absolute;inset:0;display:none;
+  flex-direction:column;align-items:center;justify-content:center;
+  padding:24px;gap:28px;
+}
+.spotlight.active{display:flex;}
+
+/* mock studio chrome */
+.mock-studio{
+  width:min(880px,95vw);height:min(440px,54vh);
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:18px;overflow:hidden;display:flex;flex-direction:column;
+  position:relative;flex-shrink:0;
+}
+.mock-header{
+  height:44px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 18px;gap:8px;
+  background:rgba(6,6,10,.7);flex-shrink:0;
+}
+.mock-dot{width:10px;height:10px;border-radius:50%;}
+.mock-dot:nth-child(1){background:#ff5f57}
+.mock-dot:nth-child(2){background:#febc2e}
+.mock-dot:nth-child(3){background:#28c840}
+.mock-logo{margin-left:auto;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.mock-logo span{color:var(--accent);}
+.mock-body{display:flex;flex:1;overflow:hidden;}
+
+/* left pane */
+.mock-left{
+  width:42%;border-right:1px solid var(--border);padding:20px 18px;
+  display:flex;flex-direction:column;gap:10px;flex-shrink:0;
+}
+.mock-q-tag{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.mock-q{font-size:16px;font-weight:800;color:var(--ivory);line-height:1.2;}
+.mock-hint{font-size:11px;color:var(--muted);line-height:1.5;}
+.mock-input{height:36px;background:rgba(251,244,231,.05);border:1px solid var(--border);border-radius:8px;padding:0 12px;font-size:12px;color:rgba(251,244,231,.5);}
+.mock-btn{height:36px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));font-size:11px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;margin-top:auto;}
+
+/* right pane */
+.mock-right{flex:1;display:flex;flex-direction:column;}
+.mock-pane-header{height:34px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 14px;justify-content:space-between;flex-shrink:0;}
+.mock-pane-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+.mock-pip{width:7px;height:7px;border-radius:50%;background:#28c840;box-shadow:0 0 8px #28c840;animation:pip 2s infinite;}
+@keyframes pip{0%,100%{opacity:1}50%{opacity:.3}}
+.mock-pane-body{flex:1;display:flex;align-items:center;justify-content:center;padding:14px;position:relative;}
+
+/* wireframe preview */
+.mini-wire{width:100%;max-width:280px;border-radius:10px;border:1px solid var(--border);overflow:hidden;background:#06060a;}
+.mw-bar{height:22px;background:rgba(251,244,231,.04);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 8px;gap:4px;}
+.mw-d{width:5px;height:5px;border-radius:50%;background:rgba(251,244,231,.1);}
+.mw-hero{padding:14px 12px 10px;border-bottom:1px solid var(--border);background:radial-gradient(circle at 50% -30%,rgba(79,110,247,.22),transparent 60%);}
+.mw-biz{font-size:13px;font-weight:950;color:var(--ivory);margin-bottom:3px;}
+.mw-hl{font-size:8px;color:var(--muted);margin-bottom:8px;line-height:1.4;}
+.mw-cta{display:flex;gap:5px;}
+.mw-btn{font-size:7px;padding:3px 9px;border-radius:999px;font-weight:800;text-transform:uppercase;}
+.mw-btn.p{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;}
+.mw-btn.s{border:1px solid var(--border);color:var(--muted);}
+.mw-cards{display:flex;gap:5px;padding:8px;}
+.mw-card{flex:1;padding:6px;border-radius:6px;border:1px solid var(--border);background:rgba(251,244,231,.03);}
+.mw-ct{font-size:7px;font-weight:800;color:var(--ivory);margin-bottom:2px;}
+.mw-cd{font-size:6px;color:var(--muted);line-height:1.3;}
+.mw-foot{display:flex;align-items:center;justify-content:space-between;padding:6px 9px;border-top:1px solid var(--border);}
+.mw-contact{font-size:7px;color:var(--muted);}
+.mw-hrs{font-size:6px;padding:2px 7px;border-radius:999px;background:rgba(79,110,247,.14);color:var(--accent);}
+
+/* colour palette overlay */
+.palette-overlay{
+  position:absolute;bottom:14px;right:14px;
+  background:rgba(6,6,10,.88);border:1px solid var(--border);
+  border-radius:12px;padding:12px 14px;backdrop-filter:blur(12px);
+  display:flex;flex-direction:column;gap:8px;
+  animation:slideIn .5s cubic-bezier(.2,0,.1,1) forwards;
+}
+@keyframes slideIn{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:none}}
+.palette-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+.palette-chips{display:flex;gap:6px;flex-wrap:wrap;max-width:180px;}
+.pchip{width:22px;height:22px;border-radius:6px;border:2px solid transparent;cursor:pointer;transition:all .2s;}
+.pchip.active{border-color:#fff;transform:scale(1.15);}
+
+/* template gallery overlay */
+.tmpl-overlay{
+  position:absolute;top:10px;right:10px;bottom:10px;
+  width:220px;background:rgba(6,6,10,.92);border:1px solid var(--border);
+  border-radius:12px;padding:12px;overflow-y:auto;
+  backdrop-filter:blur(14px);
+  animation:slideIn .5s cubic-bezier(.2,0,.1,1) forwards;
+  display:flex;flex-direction:column;gap:8px;
+}
+.tmpl-head{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding-bottom:6px;border-bottom:1px solid var(--border);}
+.tmpl-card{border-radius:8px;overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:all .2s;flex-shrink:0;}
+.tmpl-card.sel{border-color:var(--accent);box-shadow:0 0 14px rgba(79,110,247,.3);}
+.tmpl-preview{height:54px;position:relative;overflow:hidden;}
+.tmpl-name{font-size:10px;font-weight:700;color:var(--ivory);padding:6px 8px;background:rgba(6,6,10,.6);}
+
+/* SPOTLIGHT CAPTION */
+.spot-caption{
+  width:min(600px,92vw);text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.spot-step{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);}
+.spot-title{font-size:clamp(20px,3.5vw,30px);font-weight:900;color:var(--ivory);line-height:1.15;}
+.spot-desc{font-size:14px;color:var(--muted);line-height:1.65;max-width:500px;}
+
+/* ══ SPOTLIGHT CALLOUT TOOLTIP ══ */
+.callout{
+  position:absolute;background:rgba(6,6,10,.92);border:1px solid rgba(79,110,247,.45);
+  border-radius:12px;padding:10px 14px;backdrop-filter:blur(12px);
+  font-size:12px;color:var(--ivory);line-height:1.5;max-width:190px;
+  box-shadow:0 0 24px rgba(79,110,247,.2);
+  animation:pop .4s cubic-bezier(.2,0,.1,1) forwards;
+}
+@keyframes pop{0%{opacity:0;transform:scale(.9)}100%{opacity:1;transform:scale(1)}}
+.callout::before{content:'';position:absolute;width:8px;height:8px;background:rgba(79,110,247,.8);border-radius:50%;box-shadow:0 0 10px var(--accent);}
+
+/* ══ PROGRESS BAR ══ */
+#tour-progress{
+  position:fixed;bottom:32px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:14px;z-index:60;
+}
+.tp-dot{width:8px;height:8px;border-radius:50%;background:rgba(251,244,231,.18);transition:all .35s;cursor:pointer;}
+.tp-dot.on{background:var(--accent);box-shadow:0 0 10px var(--accent);width:24px;border-radius:4px;}
+#tour-skip{font-size:11px;color:var(--muted);cursor:pointer;margin-left:8px;letter-spacing:.08em;transition:color .2s;}
+#tour-skip:hover{color:var(--ivory);}
+#tour-next{
+  padding:9px 22px;border-radius:999px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border:none;color:#fff;font-size:12px;font-weight:800;
+  letter-spacing:.06em;text-transform:uppercase;cursor:pointer;
+  font-family:inherit;margin-left:8px;transition:opacity .2s;
+}
+#tour-next:hover{opacity:.85;}
+
+/* ══ PULSE RING (spotlight indicator) ══ */
+.pulse-ring{
+  position:absolute;border-radius:50%;pointer-events:none;
+  animation:ring 1.6s ease-out infinite;
+}
+@keyframes ring{
+  0%{transform:scale(.8);opacity:.9}
+  100%{transform:scale(2.2);opacity:0}
+}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="orb" id="o1"></div>
+<div class="orb" id="o2"></div>
+
+<!-- ══ TOUR ══ -->
+<div id="tour">
+
+  <!-- STAGE 0: Cinematic open -->
+  <div id="stage-open">
+    <div class="open-mark">✦ AI4 Website Design · Design Studio</div>
+    <div class="open-headline" id="open-headline">Let's Build Something Extraordinary</div>
+    <div class="open-line"></div>
+    <div class="open-sub">7 questions. A luxury website. Watch it build live.</div>
+    <div class="open-dots">
+      <div class="odot"></div><div class="odot"></div>
+      <div class="odot"></div><div class="odot"></div>
+    </div>
+  </div>
+
+  <!-- STAGE 1: Live wireframe -->
+  <div class="spotlight" id="spot-1">
+    <div class="mock-studio">
+      <div class="mock-header">
+        <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+        <div class="mock-logo">AI4 <span>Website Design</span></div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-left">
+          <div class="mock-q-tag">Question 1 of 7 · Business Identity</div>
+          <div class="mock-q">What is the name of your business?</div>
+          <div class="mock-hint">This becomes the banner at the top of your website.</div>
+          <div class="mock-input" style="color:var(--ivory);border-color:var(--accent);">Mitchell Plumbing & Heating</div>
+          <div class="mock-btn">Continue →</div>
+        </div>
+        <div class="mock-right">
+          <div class="mock-pane-header">
+            <span class="mock-pane-label">Live Preview</span>
+            <div style="display:flex;align-items:center;gap:5px;font-size:9px;color:rgba(40,200,64,.8);">
+              <div class="mock-pip"></div>Building
+            </div>
+          </div>
+          <div class="mock-pane-body">
+            <div class="mini-wire" id="live-wire">
+              <div class="mw-bar"><div class="mw-d"></div><div class="mw-d"></div><div class="mw-d"></div></div>
+              <div class="mw-hero">
+                <div class="mw-biz" id="mw-biz-name">Mitchell Plumbing & Heating</div>
+                <div class="mw-hl">Las Vegas's most trusted plumbing team — 24/7</div>
+                <div class="mw-cta"><div class="mw-btn p">Get Started</div><div class="mw-btn s">(702) 555-0100</div></div>
+              </div>
+              <div class="mw-cards">
+                <div class="mw-card"><div class="mw-ct">Emergency Repairs</div><div class="mw-cd">Available 24/7</div></div>
+                <div class="mw-card"><div class="mw-ct">Drain Cleaning</div><div class="mw-cd">Fast & reliable</div></div>
+                <div class="mw-card"><div class="mw-ct">Water Heaters</div><div class="mw-cd">Install & repair</div></div>
+              </div>
+              <div class="mw-foot">
+                <div class="mw-contact">📍 Las Vegas · 📞 (702) 555-0100</div>
+                <div class="mw-hrs">Mon–Sat 8–6</div>
+              </div>
+            </div>
+            <!-- Callout -->
+            <div class="callout" style="top:8px;left:8px;">
+              <div style="position:absolute;width:8px;height:8px;background:var(--accent);border-radius:50%;box-shadow:0 0 10px var(--accent);top:-4px;left:-4px;"></div>
+              <div style="font-weight:800;margin-bottom:3px;font-size:11px;">Live Wireframe Preview</div>
+              Your actual business name, services, and contact update here as you answer — in real time.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spot-caption">
+      <div class="spot-step">✦ Feature 1 of 3</div>
+      <div class="spot-title">Your site builds itself as you type</div>
+      <div class="spot-desc">Every answer you give populates a real section of your website. Watch your business name, headline, services, and contact info appear live in the preview — before you ever click launch.</div>
+    </div>
+  </div>
+
+  <!-- STAGE 2: Color Palette -->
+  <div class="spotlight" id="spot-2">
+    <div class="mock-studio">
+      <div class="mock-header">
+        <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+        <div class="mock-logo">AI4 <span>Website Design</span></div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-left">
+          <div class="mock-q-tag">Question 7 of 7 · Brand Color</div>
+          <div class="mock-q">Pick your brand color.</div>
+          <div class="mock-hint">Sets the accent across buttons, highlights, and cards on your entire site.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:4px;">
+            <div id="s2c1" class="pchip active" style="background:#4F6EF7;" onclick="s2pick('#4F6EF7','s2c1')"></div>
+            <div id="s2c2" class="pchip" style="background:#7C3AED;" onclick="s2pick('#7C3AED','s2c2')"></div>
+            <div id="s2c3" class="pchip" style="background:#10B981;" onclick="s2pick('#10B981','s2c3')"></div>
+            <div id="s2c4" class="pchip" style="background:#F59E0B;" onclick="s2pick('#F59E0B','s2c4')"></div>
+            <div id="s2c5" class="pchip" style="background:#EF4444;" onclick="s2pick('#EF4444','s2c5')"></div>
+            <div id="s2c6" class="pchip" style="background:#EC4899;" onclick="s2pick('#EC4899','s2c6')"></div>
+            <div id="s2c7" class="pchip" style="background:#e44cff;" onclick="s2pick('#e44cff','s2c7')"></div>
+            <div id="s2c8" class="pchip" style="background:#0EA5E9;" onclick="s2pick('#0EA5E9','s2c8')"></div>
+          </div>
+          <div class="mock-btn" id="s2-mockbtn" style="margin-top:12px;">✦ Generate My Design Brief</div>
+        </div>
+        <div class="mock-right">
+          <div class="mock-pane-header">
+            <span class="mock-pane-label">Live Preview</span>
+            <div style="display:flex;align-items:center;gap:5px;font-size:9px;color:rgba(40,200,64,.8);">
+              <div class="mock-pip"></div>Building
+            </div>
+          </div>
+          <div class="mock-pane-body">
+            <div class="mini-wire">
+              <div class="mw-bar"><div class="mw-d"></div><div class="mw-d"></div><div class="mw-d"></div></div>
+              <div class="mw-hero" id="s2-hero" style="background:radial-gradient(circle at 50% -30%,rgba(79,110,247,.22),transparent 60%);">
+                <div class="mw-biz">Mitchell Plumbing & Heating</div>
+                <div class="mw-hl">Las Vegas's most trusted plumbing team — 24/7</div>
+                <div class="mw-cta">
+                  <div class="mw-btn p" id="s2-cta" style="background:linear-gradient(135deg,#4F6EF7,#4F6EF7cc);">Get Started</div>
+                  <div class="mw-btn s">(702) 555-0100</div>
+                </div>
+              </div>
+              <div class="mw-cards">
+                <div class="mw-card" id="s2-card1"><div class="mw-ct">Emergency Repairs</div><div class="mw-cd">Available 24/7</div></div>
+                <div class="mw-card" id="s2-card2"><div class="mw-ct">Drain Cleaning</div><div class="mw-cd">Fast & reliable</div></div>
+                <div class="mw-card" id="s2-card3"><div class="mw-ct">Water Heaters</div><div class="mw-cd">Install & repair</div></div>
+              </div>
+              <div class="mw-foot">
+                <div class="mw-contact">📍 Las Vegas · 📞 (702) 555-0100</div>
+                <div class="mw-hrs" id="s2-hrs" style="color:#4F6EF7;background:rgba(79,110,247,.14);">Mon–Sat 8–6</div>
+              </div>
+            </div>
+            <!-- Callout -->
+            <div class="callout" style="bottom:8px;left:6px;">
+              <div style="position:absolute;width:8px;height:8px;background:var(--accent);border-radius:50%;box-shadow:0 0 10px var(--accent);top:-4px;right:-4px;"></div>
+              <div style="font-weight:800;margin-bottom:3px;font-size:11px;">🎨 Color Palette</div>
+              Pick a color above — watch it instantly repaint your buttons, badges, and accents across the entire site.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spot-caption">
+      <div class="spot-step">✦ Feature 2 of 3</div>
+      <div class="spot-title">Your brand color. Your identity.</div>
+      <div class="spot-desc">Choose from a curated palette or enter your own hex. One tap repaints every button, highlight, and accent across your entire website instantly. Try it — tap a color above.</div>
+    </div>
+  </div>
+
+  <!-- STAGE 3: Template Gallery -->
+  <div class="spotlight" id="spot-3">
+    <div class="mock-studio">
+      <div class="mock-header">
+        <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+        <div class="mock-logo">AI4 <span>Website Design</span></div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-left">
+          <div class="mock-q-tag">AI selects your template</div>
+          <div class="mock-q">10 premium systems. One chosen for you.</div>
+          <div class="mock-hint" style="margin-top:4px;">Based on your business type, personality, and answers — our Brand Intelligence Agent selects the template that fits your brand best. You can always switch.</div>
+          <div style="margin-top:auto;display:flex;flex-direction:column;gap:6px;">
+            <div style="font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;">✓ Selected for you</div>
+            <div style="font-size:13px;font-weight:800;color:var(--ivory);" id="s3-selected">Command Authority</div>
+            <div style="font-size:11px;color:var(--muted);" id="s3-reason">Bold, technical, authoritative — ideal for service businesses that command trust.</div>
+          </div>
+        </div>
+        <div class="mock-right" style="position:relative;overflow:hidden;">
+          <div class="mock-pane-header">
+            <span class="mock-pane-label">Template Gallery</span>
+            <span style="font-size:9px;color:var(--muted);">10 systems</span>
+          </div>
+          <div class="mock-pane-body" style="padding:8px;align-items:flex-start;overflow-y:auto;flex-wrap:wrap;gap:7px;display:flex;">
+            <!-- Template mini cards -->
+            <div class="tmpl-card sel" onclick="s3pick(this,'Command Authority','Bold, technical, authoritative — ideal for service businesses.')" style="width:calc(50% - 4px);">
+              <div class="tmpl-preview" style="background:linear-gradient(135deg,#020617,#0a1628);display:flex;align-items:center;justify-content:center;">
+                <div style="font-size:8px;font-weight:900;color:#3df5ff;letter-spacing:.1em;">COMMAND</div>
+              </div>
+              <div class="tmpl-name">Command Authority</div>
+            </div>
+            <div class="tmpl-card" onclick="s3pick(this,'Elite Brand Experience','Ultra-luxury, editorial — for premium and high-end brands.')" style="width:calc(50% - 4px);">
+              <div class="tmpl-preview" style="background:linear-gradient(135deg,#06060a,#1a0a26);display:flex;align-items:center;justify-content:center;">
+                <div style="font-size:8px;font-weight:900;color:#e44cff;letter-spacing:.08em;">ELITE</div>
+              </div>
+              <div class="tmpl-name">Elite Brand Experience</div>
+            </div>
+            <div class="tmpl-card" onclick="s3pick(this,'Warm Local','Friendly and community-focused — for local service businesses.')" style="width:calc(50% - 4px);">
+              <div class="tmpl-preview" style="background:linear-gradient(135deg,#1a0a00,#2d1500);display:flex;align-items:center;justify-content:center;">
+                <div style="font-size:8px;font-weight:900;color:#F59E0B;letter-spacing:.08em;">WARM LOCAL</div>
+              </div>
+              <div class="tmpl-name">Warm Local</div>
+            </div>
+            <div class="tmpl-card" onclick="s3pick(this,'Modern Trust','Clean lines, credibility-first — for professional services.')" style="width:calc(50% - 4px);">
+              <div class="tmpl-preview" style="background:linear-gradient(135deg,#050d1f,#0a1a38);display:flex;align-items:center;justify-content:center;">
+                <div style="font-size:8px;font-weight:900;color:#4F6EF7;letter-spacing:.08em;">MODERN</div>
+              </div>
+              <div class="tmpl-name">Modern Trust</div>
+            </div>
+            <div class="tmpl-card" onclick="s3pick(this,'Digital Showroom','Product-first — ideal for ecommerce and retail.')" style="width:calc(50% - 4px);">
+              <div class="tmpl-preview" style="background:linear-gradient(135deg,#001a10,#002d1a);display:flex;align-items:center;justify-content:center;">
+                <div style="font-size:8px;font-weight:900;color:#10B981;letter-spacing:.08em;">SHOWROOM</div>
+              </div>
+              <div class="tmpl-name">Digital Showroom</div>
+            </div>
+            <div class="tmpl-card" onclick="s3pick(this,'Portfolio Prestige','Editorial and refined — for agencies and creatives.')" style="width:calc(50% - 4px);">
+              <div class="tmpl-preview" style="background:linear-gradient(135deg,#0a0a0a,#1a1a1a);display:flex;align-items:center;justify-content:center;">
+                <div style="font-size:8px;font-weight:900;color:#d4d4d4;letter-spacing:.12em;">PRESTIGE</div>
+              </div>
+              <div class="tmpl-name">Portfolio Prestige</div>
+            </div>
+          </div>
+          <!-- Callout -->
+          <div class="callout" style="top:44px;left:8px;z-index:10;max-width:160px;">
+            <div style="position:absolute;width:8px;height:8px;background:var(--accent);border-radius:50%;box-shadow:0 0 10px var(--accent);top:-4px;right:-4px;"></div>
+            <div style="font-weight:800;margin-bottom:3px;font-size:11px;">🏛 Template Gallery</div>
+            Our AI picks the best fit. Tap any template to preview it.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spot-caption">
+      <div class="spot-step">✦ Feature 3 of 3</div>
+      <div class="spot-title">10 premium templates. AI picks yours.</div>
+      <div class="spot-desc">Our Brand Intelligence Agent reads your answers and selects the template that fits your industry, personality, and style — then injects all your content into it. Tap any template in the gallery to see it instantly.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ PROGRESS NAV ══ -->
+<div id="tour-progress">
+  <div class="tp-dot on" id="tp0" onclick="goTo(0)"></div>
+  <div class="tp-dot" id="tp1" onclick="goTo(1)"></div>
+  <div class="tp-dot" id="tp2" onclick="goTo(2)"></div>
+  <div class="tp-dot" id="tp3" onclick="goTo(3)"></div>
+  <span id="tour-skip" onclick="endTour()">Skip tour</span>
+  <button id="tour-next" onclick="nextSlide()">Next →</button>
+</div>
+
+<script>
+let current = 0;
+const TOTAL = 4; // 0=open, 1,2,3=spotlights
+
+// ── auto-advance from cinematic open ─────────────────────────────────────
+setTimeout(() => { if(current===0) nextSlide(); }, 4200);
+
+function goTo(n) {
+  current = n;
+  // hide all
+  document.getElementById('stage-open').style.opacity = n===0?'1':'0';
+  document.getElementById('stage-open').style.pointerEvents = n===0?'all':'none';
+  [1,2,3].forEach(i => {
+    const el = document.getElementById('spot-'+i);
+    el.classList.toggle('active', i===n);
+  });
+  // dots
+  [0,1,2,3].forEach(i => document.getElementById('tp'+i).classList.toggle('on', i===n));
+  // button label
+  document.getElementById('tour-next').textContent = n===3 ? "Start Building →" : "Next →";
+  document.getElementById('tour-skip').style.display = n===3 ? 'none' : 'inline';
+}
+
+function nextSlide() {
+  if(current >= TOTAL-1) { endTour(); return; }
+  goTo(current + 1);
+}
+
+function endTour() {
+  document.getElementById('tour').style.transition = 'opacity .5s';
+  document.getElementById('tour').style.opacity = '0';
+  document.getElementById('tour-progress').style.opacity = '0';
+  setTimeout(() => {
+    document.getElementById('tour').style.display = 'none';
+    document.getElementById('tour-progress').style.display = 'none';
+    // In the real page, the studio fades in here
+    alert('🚀 Studio would launch here — integrate with ai4-design-studio.html');
+  }, 500);
+}
+
+// ── Stage 2: live color picker ────────────────────────────────────────────
+function s2pick(hex, chipId) {
+  document.querySelectorAll('.pchip').forEach(c => c.classList.remove('active'));
+  document.getElementById(chipId).classList.add('active');
+  // repaint wireframe accents
+  document.getElementById('s2-cta').style.background = `linear-gradient(135deg,${hex},${hex}cc)`;
+  document.getElementById('s2-hrs').style.color = hex;
+  document.getElementById('s2-hrs').style.background = hex+'22';
+  document.getElementById('s2-hero').style.background = `radial-gradient(circle at 50% -30%,${hex}38,transparent 60%)`;
+  ['s2-card1','s2-card2','s2-card3'].forEach(id => {
+    document.getElementById(id).style.borderColor = hex+'44';
+  });
+  document.getElementById('s2-mockbtn').style.background = `linear-gradient(135deg,${hex},${hex}bb)`;
+}
+
+// ── Stage 3: template picker ──────────────────────────────────────────────
+function s3pick(el, name, reason) {
+  document.querySelectorAll('.tmpl-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('s3-selected').textContent = name;
+  document.getElementById('s3-reason').textContent = reason;
+}
+</script>
+</body>
+</html>

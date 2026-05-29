@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{BUSINESS_NAME}} — Modern Trust System</title>
+  <style>
+    :root{
+      --base:#f3f7f5;
+      --ink:#10201a;
+      --forest:#174b38;
+      --mint:#bfe8d2;
+      --aqua:#6ddbc3;
+      --line:rgba(16,32,26,.13);
+      --white:#fff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--base);
+      color:var(--ink);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    a{color:inherit;text-decoration:none}
+    .trust{
+      min-height:100vh;
+      padding:18px;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(109,219,195,.3), transparent 28%),
+        radial-gradient(circle at 82% 74%, rgba(191,232,210,.5), transparent 32%),
+        var(--base);
+    }
+    .shell{
+      min-height:calc(100vh - 36px);
+      border:1px solid var(--line);
+      border-radius:36px;
+      background:rgba(255,255,255,.52);
+      overflow:hidden;
+      box-shadow:0 30px 100px rgba(16,32,26,.08);
+    }
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:24px clamp(20px,5vw,66px);
+      border-bottom:1px solid var(--line);
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:11px;
+      color:rgba(16,32,26,.67);
+    }
+    .brand{font-weight:950;color:var(--ink);letter-spacing:.2em}
+    .hero{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:clamp(30px,6vw,82px);
+      align-items:center;
+      padding:clamp(40px,7vw,92px) clamp(20px,5vw,66px) 70px;
+      min-height:690px;
+    }
+    .eyebrow{
+      display:inline-flex;
+      gap:12px;
+      align-items:center;
+      color:var(--forest);
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      font-size:12px;
+      margin-bottom:24px;
+    }
+    .eyebrow::before{content:"";width:42px;height:1px;background:var(--forest)}
+    h1{
+      margin:0;
+      font-size:clamp(48px,8vw,120px);
+      line-height:.9;
+      letter-spacing:-.085em;
+      font-weight:950;
+      max-width:930px;
+    }
+    .description{
+      margin:28px 0 34px;
+      max-width:640px;
+      color:rgba(16,32,26,.68);
+      line-height:1.72;
+      font-size:clamp(16px,1.45vw,20px);
+    }
+    .actions{display:flex;gap:14px;flex-wrap:wrap}
+    .primary{
+      padding:17px 24px;
+      border-radius:999px;
+      background:var(--forest);
+      color:var(--white);
+      font-weight:900;
+      box-shadow:0 18px 55px rgba(23,75,56,.18);
+    }
+    .secondary{
+      padding:16px 22px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.52);
+    }
+    .proof{
+      min-height:560px;
+      border-radius:34px;
+      border:1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.34));
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+    .proof::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, transparent 49%, rgba(16,32,26,.08) 50%, transparent 51%),
+        linear-gradient(transparent 49%, rgba(16,32,26,.08) 50%, transparent 51%);
+      background-size:46px 46px;
+      opacity:.55;
+    }
+    .proof-inner{
+      position:relative;
+      min-height:516px;
+      border-radius:24px;
+      background:
+        radial-gradient(circle at 50% 30%, rgba(109,219,195,.5), transparent 34%),
+        linear-gradient(145deg, rgba(23,75,56,.94), rgba(16,32,26,.9));
+      color:var(--white);
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      overflow:hidden;
+    }
+    .proof-inner::after{
+      content:"";
+      position:absolute;
+      width:310px;height:310px;
+      right:-90px;bottom:-90px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.2);
+      box-shadow:0 0 0 55px rgba(255,255,255,.04), 0 0 0 110px rgba(255,255,255,.025);
+    }
+    .proof-top,.proof-bottom{position:relative;z-index:1}
+    .proof-top{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:10px;
+      color:rgba(255,255,255,.72);
+    }
+    .proof-bottom strong{
+      display:block;
+      font-size:clamp(36px,5vw,76px);
+      line-height:.94;
+      letter-spacing:-.07em;
+    }
+    .proof-bottom span{
+      display:block;margin-top:14px;color:rgba(255,255,255,.7);line-height:1.6
+    }
+    .services{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      padding:0 clamp(20px,5vw,66px) 64px;
+    }
+    .service{
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:28px;
+      background:rgba(255,255,255,.5);
+      min-height:170px;
+    }
+    .service small{color:var(--forest);letter-spacing:.17em;text-transform:uppercase}
+    .service h2{margin:38px 0 0;font-size:clamp(20px,2vw,31px);line-height:1.08;letter-spacing:-.04em}
+    @media(max-width:920px){
+      .trust{padding:10px}
+      .shell{border-radius:24px}
+      nav{flex-direction:column;align-items:flex-start;gap:12px}
+      .hero{grid-template-columns:1fr;min-height:auto}
+      .proof{order:-1;min-height:420px}
+      .proof-inner{min-height:376px}
+      h1{font-size:clamp(46px,14vw,86px)}
+      .services{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <main class="trust">
+    <section class="shell">
+      <nav>
+        <a class="brand" href="{{CTA_LINK}}">{{BUSINESS_NAME}}</a>
+        <span>{{CITY}} · {{PHONE}}</span>
+      </nav>
+
+      <section class="hero">
+        <div>
+          <div class="eyebrow">Modern Trust System</div>
+          <h1>{{HEADLINE}}</h1>
+          <p class="description">{{DESCRIPTION}}</p>
+          <div class="actions">
+            <a class="primary" href="{{CTA_LINK}}">{{CTA_TEXT}}</a>
+            <a class="secondary" href="tel:{{PHONE}}">Call {{PHONE}}</a>
+          </div>
+        </div>
+
+        <aside class="proof" aria-label="Trust signal">
+          <div class="proof-inner">
+            <div class="proof-top"><span>Verified presence</span><span>{{CITY}}</span></div>
+            <div class="proof-bottom">
+              <strong>Confidence before contact.</strong>
+              <span>{{BUSINESS_NAME}} creates a polished first impression that helps visitors feel they are in the right place.</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="services" aria-label="Service preview">
+        <article class="service"><small>Trust 01</small><h2>{{SERVICE_1}}</h2></article>
+        <article class="service"><small>Trust 02</small><h2>{{SERVICE_2}}</h2></article>
+        <article class="service"><small>Trust 03</small><h2>{{SERVICE_3}}</h2></article>
+      </section>
+    </section>
+  </main>
+</body>
+</html>

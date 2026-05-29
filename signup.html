@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI4 Website Design Studio — Start Building</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#030816;--bg2:#061225;--bg3:#07152a;
+  --line:rgba(184,196,217,.11);--line-s:rgba(45,184,255,.26);
+  --blue:#1EA7FF;--blue2:#2DB8FF;--blue4:#5BD3FF;
+  --silver:#D5DEEA;--white:#F5F8FF;--muted:#AEBED3;--muted2:#90A3BC;
+  --green:#22d87a;--amber:#f5a623;--red:#ff4f6d;
+  --mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--display:'Syne',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;overflow-x:hidden;
+  background:radial-gradient(circle at 18% 10%,rgba(30,167,255,.18),transparent 28%),
+    radial-gradient(circle at 84% 12%,rgba(91,211,255,.10),transparent 32%),
+    linear-gradient(180deg,var(--bg) 0%,#02050e 54%,var(--bg2) 100%);
+  color:var(--muted);font-family:var(--sans);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(45,184,255,.038) 1px,transparent 1px),linear-gradient(90deg,rgba(45,184,255,.032) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(180deg,rgba(0,0,0,.8),rgba(0,0,0,.18) 60%,rgba(0,0,0,.04))}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:68px;padding:.8rem clamp(1rem,4vw,2.75rem);background:rgba(3,8,22,.95);border-bottom:1px solid var(--line);backdrop-filter:blur(24px)}
+.nav-left{display:flex;align-items:center;gap:.8rem;text-decoration:none}
+.nav-logo-img{width:68px;height:36px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(91,211,255,.2);object-fit:cover;object-position:center 43%}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1.1}
+.nav-logo-name{font-family:var(--display);font-size:.88rem;font-weight:800;color:var(--white);letter-spacing:.02em}
+.nav-logo-sub{font-family:var(--mono);font-size:.5rem;color:var(--muted2);letter-spacing:.13em;text-transform:uppercase}
+.nav-home{font-size:.78rem;color:var(--muted2);text-decoration:none;transition:color .2s}
+.nav-home:hover{color:var(--silver)}
+
+/* SIGNUP CARD */
+.signup-wrap{
+  position:relative;z-index:1;
+  width:min(520px,94vw);
+  margin:100px auto 3rem;
+  padding:0 1rem;
+}
+.signup-card{
+  background:linear-gradient(135deg,rgba(6,18,37,.96),rgba(3,8,22,.98));
+  border:1px solid rgba(30,167,255,.24);
+  border-radius:20px;
+  padding:clamp(2rem,5vw,3rem) clamp(1.5rem,4vw,2.5rem);
+  position:relative;overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.4),0 0 0 1px rgba(30,167,255,.08);
+}
+.signup-card::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(30,167,255,.1),transparent 70%);pointer-events:none}
+.signup-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(30,167,255,.3),transparent)}
+
+.signup-eyebrow{display:flex;align-items:center;justify-content:center;gap:.6rem;font-family:var(--mono);font-size:.58rem;letter-spacing:.15em;color:var(--blue4);text-transform:uppercase;margin-bottom:1rem}
+.eline{display:inline-block;width:20px;height:1px;background:var(--blue4)}
+
+.signup-logo{display:flex;justify-content:center;margin-bottom:1.2rem}
+.signup-logo img{width:80px;height:42px;object-fit:cover;object-position:center 43%;border-radius:8px;border:1px solid rgba(91,211,255,.22);box-shadow:0 0 20px rgba(30,167,255,.2)}
+
+.signup-title{font-family:var(--display);font-size:clamp(1.5rem,3vw,2rem);font-weight:800;letter-spacing:-.04em;color:var(--white);text-align:center;margin-bottom:.4rem;line-height:1.1}
+.grad{background:linear-gradient(135deg,var(--white) 0%,var(--blue4) 60%,var(--blue2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.signup-sub{font-size:.86rem;color:var(--muted2);text-align:center;line-height:1.6;margin-bottom:1.8rem}
+
+/* FORM */
+.field-group{display:flex;flex-direction:column;gap:1rem;margin-bottom:1.4rem}
+.field-wrap{display:flex;flex-direction:column;gap:.4rem}
+.field-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;color:var(--muted2);text-transform:uppercase}
+.field-input{
+  width:100%;background:rgba(255,255,255,.05);
+  border:1px solid rgba(184,196,217,.16);border-radius:10px;
+  padding:.82rem 1rem;font-size:.92rem;color:var(--white);font-family:var(--sans);
+  outline:none;transition:all .2s;
+}
+.field-input:focus{border-color:rgba(30,167,255,.5);background:rgba(30,167,255,.05);box-shadow:0 0 0 3px rgba(30,167,255,.08)}
+.field-input::placeholder{color:var(--muted2)}
+.field-input.error{border-color:rgba(255,79,109,.5)}
+
+.btn-signup{
+  display:block;width:100%;padding:.95rem;
+  background:linear-gradient(135deg,var(--white),var(--blue4) 44%,var(--blue));
+  border:none;border-radius:12px;
+  font-family:var(--display);font-size:1rem;font-weight:800;
+  color:#03101f;cursor:pointer;text-align:center;
+  box-shadow:0 0 30px rgba(30,167,255,.3),inset 0 1px 0 rgba(255,255,255,.6);
+  transition:all .22s;
+}
+.btn-signup:hover{transform:translateY(-2px);box-shadow:0 0 46px rgba(30,167,255,.46)}
+.btn-signup:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+.status-msg{display:none;margin-top:.9rem;padding:.75rem 1rem;border-radius:8px;font-size:.8rem;line-height:1.5;text-align:center}
+.status-msg.error{background:rgba(255,79,109,.1);border:1px solid rgba(255,79,109,.25);color:var(--red)}
+.status-msg.success{background:rgba(34,216,122,.1);border:1px solid rgba(34,216,122,.25);color:var(--green)}
+
+.signup-footer{margin-top:1.2rem;text-align:center;font-size:.76rem;color:var(--muted2)}
+.signup-footer a{color:var(--blue4);text-decoration:none}
+.signup-footer a:hover{text-decoration:underline}
+
+.privacy-note{display:flex;align-items:center;justify-content:center;gap:.4rem;margin-top:1rem;font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;color:rgba(144,163,188,.5);text-transform:uppercase}
+.privacy-dot{width:4px;height:4px;border-radius:50%;background:rgba(144,163,188,.3)}
+
+/* LOADING SPINNER */
+.btn-spinner{display:none;width:16px;height:16px;border:2px solid rgba(3,16,31,.3);border-top-color:#03101f;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-left" href="index.html">
+    <img class="nav-logo-img" src="AI4-approved-logo-transparent.png" alt="AI4 logo">
+    <span class="nav-logo-text">
+      <span class="nav-logo-name">AI4 Website Design Studio</span>
+      <span class="nav-logo-sub">Powered by Apropos Group LLC</span>
+    </span>
+  </a>
+  <a class="nav-home" href="index.html">← Back to Home</a>
+</nav>
+
+<div class="signup-wrap">
+  <div class="signup-card">
+
+    <div class="signup-eyebrow"><span class="eline"></span>Step 1 of 2 — Create Your Profile<span class="eline"></span></div>
+
+    <div class="signup-logo">
+      <img src="AI4-approved-logo-transparent.png" alt="AI4 Website Design Studio">
+    </div>
+
+    <h1 class="signup-title">You direct the build.<br><span class="grad">We launch it same day.</span></h1>
+    <p class="signup-sub">Enter your details to get started. We'll use this to personalize your design brief and deliver your completed website.</p>
+
+    <div class="field-group">
+      <div class="field-wrap">
+        <label class="field-label" for="fullName">Full Name</label>
+        <input class="field-input" id="fullName" type="text" placeholder="e.g. Maria Garcia" autocomplete="name" maxlength="80">
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" for="email">Email Address</label>
+        <input class="field-input" id="email" type="email" placeholder="you@yourbusiness.com" autocomplete="email" maxlength="120">
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" for="phone">Phone Number</label>
+        <input class="field-input" id="phone" type="tel" placeholder="(702) 555-0100" autocomplete="tel" maxlength="20">
+      </div>
+    </div>
+
+    <button class="btn-signup" id="signupBtn" onclick="handleSignup()">
+      <span id="btnText">Start Building My Website →</span>
+      <div class="btn-spinner" id="btnSpinner"></div>
+    </button>
+
+    <div class="status-msg" id="statusMsg"></div>
+
+    <div class="signup-footer">
+      Already have an account? <a href="login.html">Sign in here</a>
+    </div>
+
+    <div class="privacy-note">
+      <span class="privacy-dot"></span>
+      Your info is never shared or sold
+      <span class="privacy-dot"></span>
+    </div>
+
+  </div>
+</div>
+
+<script>
+'use strict';
+
+function validateEmail(e){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
+function validatePhone(p){return p.replace(/\D/g,'').length>=10;}
+
+function setStatus(msg,type){
+  const el=document.getElementById('statusMsg');
+  el.textContent=msg;
+  el.className='status-msg '+(type||'');
+  el.style.display=msg?'block':'none';
+}
+
+function setLoading(loading){
+  const btn=document.getElementById('signupBtn');
+  const txt=document.getElementById('btnText');
+  const spin=document.getElementById('btnSpinner');
+  btn.disabled=loading;
+  txt.style.display=loading?'none':'inline';
+  spin.style.display=loading?'block':'none';
+}
+
+async function handleSignup(){
+  const name=document.getElementById('fullName').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+
+  // Validation
+  if(!name){
+    document.getElementById('fullName').classList.add('error');
+    setStatus('Please enter your full name.','error');
+    document.getElementById('fullName').focus();
+    return;
+  }
+  if(!email||!validateEmail(email)){
+    document.getElementById('email').classList.add('error');
+    setStatus('Please enter a valid email address.','error');
+    document.getElementById('email').focus();
+    return;
+  }
+  if(!phone||!validatePhone(phone)){
+    document.getElementById('phone').classList.add('error');
+    setStatus('Please enter a valid phone number (10 digits minimum).','error');
+    document.getElementById('phone').focus();
+    return;
+  }
+
+  // Clear errors
+  ['fullName','email','phone'].forEach(id=>document.getElementById(id).classList.remove('error'));
+  setStatus('','');
+  setLoading(true);
+
+  try{
+    const resp=await fetch('/.netlify/functions/signup',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({full_name:name,email,phone,lang:'en'})
+    });
+    const data=await resp.json();
+
+    if(!resp.ok||data.error){
+      throw new Error(data.error||'Signup failed. Please try again.');
+    }
+
+    // Save to sessionStorage for downstream use
+    sessionStorage.setItem('ai4_full_name',name);
+    sessionStorage.setItem('ai4_email',email);
+    sessionStorage.setItem('ai4_phone',phone);
+    if(data.user_id) sessionStorage.setItem('ai4_user_id',data.user_id);
+
+    setStatus('✓ Account created! Taking you to the design studio…','success');
+
+    setTimeout(()=>{
+      window.location.href='ai4-design-studio.html';
+    },1000);
+
+  } catch(err){
+    setStatus(err.message||'Something went wrong. Please try again.','error');
+    setLoading(false);
+  }
+}
+
+// Clear error state on input
+['fullName','email','phone'].forEach(id=>{
+  document.getElementById(id)?.addEventListener('input',function(){
+    this.classList.remove('error');
+  });
+});
+
+// Allow Enter key to submit
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter') handleSignup();
+});
+
+// If already signed up this session, skip straight to studio
+if(sessionStorage.getItem('ai4_email')&&sessionStorage.getItem('ai4_user_id')){
+  window.location.href='ai4-design-studio.html';
+}
+</script>
+</body>
+</html>

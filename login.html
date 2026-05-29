@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In — AI4 Website Design</title>
+<meta name="description" content="Sign in to your AI4 Website Design member area with a secure email access code.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#030816;
+  --bg2:#061225;
+  --panel:rgba(8,24,47,.78);
+  --line:rgba(184,196,217,.15);
+  --line-strong:rgba(45,184,255,.38);
+  --blue:#1EA7FF;
+  --blue2:#2DB8FF;
+  --blue4:#5BD3FF;
+  --silver:#D5DEEA;
+  --white:#F5F8FF;
+  --muted:#AEBED3;
+  --muted2:#90A3BC;
+  --display:'Syne',sans-serif;
+  --sans:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 18% 12%,rgba(30,167,255,.20),transparent 28%),
+    radial-gradient(circle at 82% 10%,rgba(91,211,255,.10),transparent 30%),
+    linear-gradient(180deg,var(--bg) 0%,#02050e 54%,var(--bg2) 100%);
+  color:var(--muted);
+  font-family:var(--sans);
+  line-height:1.65;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(45,184,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(45,184,255,.035) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.75),rgba(0,0,0,.22) 62%,rgba(0,0,0,.05));
+}
+a{color:inherit}
+button,input{font:inherit}
+.shell{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
+nav{
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding:.75rem clamp(1rem,4vw,2.5rem);
+  background:rgba(3,8,22,.76);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(184,196,217,.11);
+}
+.brand{display:flex;align-items:center;gap:.78rem;text-decoration:none;color:var(--white)}
+.brand img{
+  width:58px;
+  height:36px;
+  border-radius:12px;
+  object-fit:cover;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(91,211,255,.22);
+  box-shadow:0 0 24px rgba(30,167,255,.18);
+}
+.brand-name{font-family:var(--display);font-size:.92rem;font-weight:800;letter-spacing:.02em}
+.brand-sub{display:block;font-family:var(--mono);font-size:.58rem;color:var(--muted2);letter-spacing:.14em;text-transform:uppercase}
+.nav-link{
+  color:var(--muted);
+  font-size:.84rem;
+  font-weight:800;
+  text-decoration:none;
+  transition:color .2s ease;
+}
+.nav-link:hover{color:var(--white)}
+main{flex:1;display:grid;place-items:center;padding:clamp(2rem,6vw,5rem) 1rem}
+.card{
+  width:min(520px,100%);
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:32px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.018)),
+    var(--panel);
+  box-shadow:0 28px 90px rgba(0,0,0,.42);
+  padding:clamp(1.35rem,4vw,2.25rem);
+}
+.card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(120deg,rgba(255,255,255,.12),transparent 24%),
+    radial-gradient(circle at 20% 0%,rgba(45,184,255,.18),transparent 36%);
+}
+.card>*{position:relative;z-index:1}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:.55rem;
+  font-family:var(--mono);
+  font-size:.72rem;
+  font-weight:700;
+  color:var(--blue4);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-bottom:1rem;
+}
+.eyebrow::before{
+  content:'';
+  width:34px;
+  height:1px;
+  background:linear-gradient(90deg,var(--blue),transparent);
+  box-shadow:0 0 16px rgba(30,167,255,.65);
+}
+h1{
+  color:var(--white);
+  font-family:var(--display);
+  font-size:clamp(2.2rem,7vw,3.55rem);
+  line-height:.98;
+  letter-spacing:-.06em;
+  margin-bottom:.9rem;
+}
+.copy{color:var(--silver);font-size:1rem;margin-bottom:1.45rem}
+.field{margin-bottom:1rem}
+label{display:block;color:var(--silver);font-size:.78rem;font-weight:900;margin-bottom:.42rem}
+input{
+  width:100%;
+  border:1px solid rgba(184,196,217,.16);
+  border-radius:14px;
+  background:rgba(255,255,255,.045);
+  color:var(--white);
+  padding:.95rem 1rem;
+  outline:none;
+}
+input:focus{border-color:rgba(91,211,255,.58);box-shadow:0 0 0 3px rgba(30,167,255,.12)}
+.btn{
+  width:100%;
+  min-height:50px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(245,248,255,.58);
+  border-radius:999px;
+  color:#03101f;
+  background:linear-gradient(135deg,var(--white),var(--blue4) 44%,var(--blue));
+  box-shadow:0 0 36px rgba(30,167,255,.34),inset 0 1px 0 rgba(255,255,255,.74);
+  font-weight:950;
+  cursor:pointer;
+  transition:transform .2s ease,box-shadow .2s ease,opacity .2s ease;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 0 48px rgba(30,167,255,.46)}
+.btn:disabled{opacity:.68;cursor:not-allowed;transform:none}
+.status{
+  display:none;
+  margin:0 0 1rem;
+  border-radius:14px;
+  padding:.75rem .9rem;
+  font-size:.86rem;
+  line-height:1.45;
+  border:1px solid rgba(184,196,217,.16);
+  background:rgba(255,255,255,.045);
+}
+.status.error{display:block;color:#fecaca;border-color:rgba(248,113,113,.25);background:rgba(248,113,113,.08)}
+.status.ok{display:block;color:#bbf7d0;border-color:rgba(74,222,128,.25);background:rgba(74,222,128,.08)}
+.helper{
+  margin-top:1rem;
+  color:var(--muted2);
+  font-size:.86rem;
+  text-align:center;
+}
+.helper a{color:var(--blue4);font-weight:900;text-decoration:none}
+.notice{
+  margin-top:1.25rem;
+  border:1px solid rgba(91,211,255,.16);
+  border-radius:18px;
+  padding:1rem;
+  color:var(--muted);
+  background:rgba(255,255,255,.032);
+  font-size:.86rem;
+}
+footer{padding:1.5rem;text-align:center;color:var(--muted2);font-size:.82rem}
+@media(max-width:640px){
+  .brand-sub{display:none}
+  .brand img{width:48px;height:30px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav>
+    <a class="brand" href="index.html" aria-label="AI4 Website Design home">
+      <img src="AI4-approved-logo.png" alt="AI4 Website Design logo">
+      <span>
+        <span class="brand-name">AI4 Website Design</span>
+        <span class="brand-sub">Member Access</span>
+      </span>
+    </a>
+    <a class="nav-link" href="index.html">Home</a>
+  </nav>
+
+  <main>
+    <section class="card" aria-labelledby="signinTitle">
+      <div class="eyebrow">Secure Sign In</div>
+      <h1 id="signinTitle">Welcome back.</h1>
+      <p class="copy">Enter the email connected to your AI4 Website Design account. We’ll send a secure access code to your inbox.</p>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@yourbusiness.com" required>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+
+        <button id="submitBtn" class="btn" type="submit">Send Access Code</button>
+      </form>
+
+      <p class="helper">New here? Return to the homepage and choose <a href="index.html">Sign Up</a>.</p>
+
+      <div class="notice">
+        Returning members use this page to access package status, Care Plan status, remaining Entrepreneur builds, and member actions.
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 Apropos Group LLC · ai4websitedesign.com</footer>
+</div>
+
+<script>
+'use strict';
+
+const form = document.getElementById('loginForm');
+const emailInput = document.getElementById('email');
+const statusBox = document.getElementById('status');
+const submitBtn = document.getElementById('submitBtn');
+
+function showStatus(message, type) {
+  statusBox.textContent = message;
+  statusBox.className = 'status ' + type;
+}
+
+function normalizeEmail(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const email = normalizeEmail(emailInput.value);
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showStatus('Please enter a valid email address.', 'error');
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending code...';
+  showStatus('Sending your secure access code.', 'ok');
+
+  try {
+    const res = await fetch('/.netlify/functions/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || 'Could not send access code. Please try again.');
+    }
+
+    try {
+      sessionStorage.setItem('ai4_pending_login_email', email);
+      localStorage.setItem('ai4_pending_login_email', email);
+    } catch(e) {}
+
+    window.location.href = 'verify.html?email=' + encodeURIComponent(email);
+  } catch (err) {
+    showStatus(err.message || 'Could not send access code. Please try again.', 'error');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Access Code';
+  }
+});
+
+window.addEventListener('load', () => {
+  try {
+    const saved = localStorage.getItem('ai4_portal_email') || localStorage.getItem('ai4_pending_login_email') || '';
+    if (saved && !emailInput.value) emailInput.value = saved;
+  } catch(e) {}
+  emailInput.focus();
+});
+</script>
+</body>
+</html>

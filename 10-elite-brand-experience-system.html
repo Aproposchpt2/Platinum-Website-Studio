@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{BUSINESS_NAME}} — Elite Brand Experience System</title>
+  <style>
+    :root{
+      --obsidian:#06060a;
+      --ivory:#fbf4e7;
+      --platinum:#d7d9dc;
+      --royal:#3226ff;
+      --fuchsia:#e44cff;
+      --line:rgba(251,244,231,.14);
+      --muted:rgba(251,244,231,.7);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--obsidian);
+      color:var(--ivory);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    a{text-decoration:none;color:inherit}
+    .experience{
+      min-height:100vh;
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 52% -10%, rgba(228,76,255,.32), transparent 32%),
+        radial-gradient(circle at 8% 92%, rgba(50,38,255,.32), transparent 36%),
+        linear-gradient(135deg,#06060a,#100e18 58%,#06060a);
+    }
+    .experience::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(251,244,231,.04) 1px, transparent 1px),
+        linear-gradient(rgba(251,244,231,.04) 1px, transparent 1px);
+      background-size:68px 68px;
+      mask-image:radial-gradient(circle at center, black, transparent 78%);
+    }
+    nav{
+      position:relative;
+      z-index:2;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:28px clamp(20px,5vw,74px);
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:rgba(251,244,231,.72);
+      font-size:11px;
+    }
+    .brand{font-weight:950;color:var(--ivory);letter-spacing:.24em}
+    .hero{
+      position:relative;
+      z-index:1;
+      min-height:calc(100vh - 83px);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(320px,500px);
+      gap:clamp(32px,6vw,86px);
+      align-items:center;
+      padding:clamp(36px,6vw,82px) clamp(20px,5vw,74px) 74px;
+    }
+    .eyebrow{
+      color:var(--platinum);
+      text-transform:uppercase;
+      letter-spacing:.27em;
+      font-size:12px;
+      margin-bottom:24px;
+    }
+    h1{
+      margin:0;
+      font-size:clamp(48px,8.3vw,128px);
+      line-height:.86;
+      letter-spacing:-.09em;
+      font-weight:1000;
+      max-width:980px;
+    }
+    .description{
+      margin:28px 0 34px;
+      max-width:660px;
+      color:var(--muted);
+      line-height:1.74;
+      font-size:clamp(16px,1.45vw,20px);
+    }
+    .actions{display:flex;gap:14px;flex-wrap:wrap}
+    .primary{
+      padding:17px 24px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--ivory),var(--platinum));
+      color:#09080c;
+      font-weight:950;
+      box-shadow:0 22px 64px rgba(228,76,255,.2);
+    }
+    .secondary{
+      padding:16px 22px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      color:rgba(251,244,231,.83);
+    }
+    .monolith{
+      min-height:640px;
+      position:relative;
+      display:grid;
+      place-items:center;
+      perspective:1000px;
+    }
+    .core{
+      width:min(390px,88%);
+      aspect-ratio:.68;
+      border-radius:42px;
+      border:1px solid rgba(251,244,231,.22);
+      background:
+        linear-gradient(145deg, rgba(251,244,231,.16), rgba(251,244,231,.03)),
+        linear-gradient(135deg, rgba(50,38,255,.45), transparent 45%),
+        linear-gradient(315deg, rgba(228,76,255,.4), transparent 42%);
+      box-shadow:0 50px 130px rgba(0,0,0,.62), inset 0 0 80px rgba(251,244,231,.05);
+      transform:rotateY(-13deg) rotateX(4deg);
+      position:relative;
+      overflow:hidden;
+    }
+    .core::before{
+      content:"";
+      position:absolute;
+      inset:22px;
+      border:1px solid rgba(251,244,231,.14);
+      border-radius:30px;
+    }
+    .core::after{
+      content:"";
+      position:absolute;
+      top:-20%;left:-30%;
+      width:160%;height:55%;
+      background:linear-gradient(90deg, transparent, rgba(251,244,231,.2), transparent);
+      transform:rotate(-23deg);
+    }
+    .floating{
+      position:absolute;
+      right:4%;
+      bottom:17%;
+      width:170px;
+      padding:18px;
+      border-radius:22px;
+      background:rgba(6,6,10,.66);
+      border:1px solid var(--line);
+      backdrop-filter:blur(18px);
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:10px;
+      color:rgba(251,244,231,.74);
+      line-height:1.7;
+    }
+    .services{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      padding:0 clamp(20px,5vw,74px) 72px;
+    }
+    .service{
+      min-height:190px;
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:28px;
+      background:linear-gradient(180deg, rgba(251,244,231,.07), rgba(251,244,231,.02));
+      position:relative;
+      overflow:hidden;
+    }
+    .service::after{
+      content:"";
+      position:absolute;
+      right:-55px;bottom:-55px;
+      width:150px;height:150px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(228,76,255,.18), transparent 70%);
+    }
+    .service small{color:var(--platinum);letter-spacing:.18em;text-transform:uppercase}
+    .service h2{margin:42px 0 0;font-size:clamp(21px,2.2vw,34px);line-height:1.05;letter-spacing:-.05em}
+    @media(max-width:930px){
+      nav{flex-direction:column;align-items:flex-start;gap:12px}
+      .hero{grid-template-columns:1fr;min-height:auto}
+      .monolith{order:-1;min-height:470px}
+      .core{transform:none}
+      h1{font-size:clamp(46px,14vw,86px)}
+      .services{grid-template-columns:1fr}
+      .floating{right:8%;bottom:10%}
+    }
+  </style>
+</head>
+<body>
+  <main class="experience">
+    <nav>
+      <a class="brand" href="{{CTA_LINK}}">{{BUSINESS_NAME}}</a>
+      <span>{{CITY}} · {{PHONE}}</span>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Elite Brand Experience System</div>
+        <h1>{{HEADLINE}}</h1>
+        <p class="description">{{DESCRIPTION}}</p>
+        <div class="actions">
+          <a class="primary" href="{{CTA_LINK}}">{{CTA_TEXT}}</a>
+          <a class="secondary" href="tel:{{PHONE}}">{{PHONE}}</a>
+        </div>
+      </div>
+
+      <aside class="monolith" aria-label="Elite brand visual">
+        <div class="core"></div>
+        <div class="floating">{{BUSINESS_NAME}}<br>{{CITY}}<br>Elite presence</div>
+      </aside>
+    </section>
+
+    <section class="services" aria-label="Service preview">
+      <article class="service"><small>Experience 01</small><h2>{{SERVICE_1}}</h2></article>
+      <article class="service"><small>Experience 02</small><h2>{{SERVICE_2}}</h2></article>
+      <article class="service"><small>Experience 03</small><h2>{{SERVICE_3}}</h2></article>
+    </section>
+  </main>
+</body>
+</html>

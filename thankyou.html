@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedido Confirmado — AI4 Website Design</title>
+<!-- AI4 Espanola thankyou.html: business-bundle mapping verified -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Lato:wght@300;400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#080c10;--bg2:#0f1419;--bg3:#161d25;
+  --accent:#4F6EF7;--accent2:#7C3AED;
+  --green:#3fb950;--gold:#f0a500;
+  --text1:#f0f6fc;--text2:#c9d1d9;--text3:#8b949e;
+  --border:rgba(255,255,255,.07);--border-m:rgba(255,255,255,.14);
+  --mono:'JetBrains Mono',monospace;--sans:'Lato',sans-serif;--display:'Syne',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text2);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;}
+
+/* BG GLOW */
+body::before{content:'';position:fixed;top:-20vh;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(63,185,80,.08) 0%,transparent 60%);pointer-events:none;z-index:0;}
+
+nav{background:rgba(8,12,16,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.nav-brand{font-family:var(--display);font-size:.95rem;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-tag{font-family:var(--mono);font-size:.6rem;color:var(--green);letter-spacing:.1em;display:flex;align-items:center;gap:6px;}
+.nav-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* MAIN */
+.main{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:56px 24px 80px;text-align:center;}
+
+/* SUCCESS ICON */
+.success-ring{width:88px;height:88px;border-radius:50%;background:rgba(63,185,80,.1);border:2px solid rgba(63,185,80,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;animation:ringPop .6s cubic-bezier(.23,1,.32,1) both;}
+@keyframes ringPop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.success-icon{font-size:2.2rem;animation:iconPop .6s cubic-bezier(.23,1,.32,1) .2s both;}
+@keyframes iconPop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* HEADLINE */
+.confirmed-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(63,185,80,.08);border:1px solid rgba(63,185,80,.2);border-radius:999px;padding:7px 18px;margin-bottom:20px;font-family:var(--mono);font-size:.65rem;color:var(--green);letter-spacing:.1em;text-transform:uppercase;animation:fadeUp .6s cubic-bezier(.23,1,.32,1) .3s both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+h1{font-family:var(--display);font-size:clamp(2rem,5vw,3rem);font-weight:800;color:var(--text1);line-height:1.1;margin-bottom:12px;letter-spacing:-.02em;animation:fadeUp .6s cubic-bezier(.23,1,.32,1) .4s both;}
+h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:1rem;color:var(--text3);line-height:1.75;max-width:500px;margin:0 auto 32px;animation:fadeUp .6s cubic-bezier(.23,1,.32,1) .5s both;}
+
+/* PLAN BADGE */
+.plan-badge{display:inline-flex;align-items:center;gap:12px;background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.2);border-radius:14px;padding:14px 24px;margin-bottom:40px;animation:fadeUp .6s cubic-bezier(.23,1,.32,1) .6s both;}
+.plan-badge-icon{font-size:1.6rem;}
+.plan-badge-info{}
+.plan-badge-name{font-family:var(--display);font-size:1.1rem;font-weight:800;color:var(--text1);line-height:1;}
+.plan-badge-detail{font-family:var(--mono);font-size:.65rem;color:var(--gold);margin-top:3px;letter-spacing:.04em;}
+
+/* TIMELINE */
+.timeline{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:32px;text-align:left;animation:fadeUp .6s cubic-bezier(.23,1,.32,1) .7s both;}
+.timeline-label{font-family:var(--mono);font-size:.6rem;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.timeline-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.tl-steps{display:flex;flex-direction:column;gap:0;}
+.tl-step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);position:relative;}
+.tl-step:last-child{border-bottom:none;padding-bottom:0;}
+.tl-left{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;width:32px;}
+.tl-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;}
+.tl-dot.done{background:rgba(63,185,80,.15);border:1px solid rgba(63,185,80,.3);color:var(--green);}
+.tl-dot.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 0 16px rgba(79,110,247,.4);}
+.tl-dot.pending{background:var(--bg3);border:1px solid var(--border);color:var(--text3);}
+.tl-line{flex:1;width:1px;background:var(--border);margin:4px auto 0;}
+.tl-step:last-child .tl-line{display:none;}
+.tl-body{padding-top:4px;flex:1;}
+.tl-title{font-size:.9rem;font-weight:700;color:var(--text1);margin-bottom:3px;}
+.tl-desc{font-size:.78rem;color:var(--text3);line-height:1.6;}
+.tl-time{font-family:var(--mono);font-size:.62rem;color:var(--accent);margin-top:4px;font-weight:700;}
+
+/* DOMAIN CALLOUT */
+.domain-card{background:linear-gradient(135deg,rgba(79,110,247,.1),rgba(124,58,237,.08));border:1px solid rgba(79,110,247,.25);border-radius:16px;padding:24px 28px;margin-bottom:32px;text-align:left;animation:fadeUp .6s cubic-bezier(.23,1,.32,1) .8s both;}
+.domain-card-label{font-family:var(--mono);font-size:.6rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;}
+.domain-card h3{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text1);margin-bottom:6px;}
+.domain-card p{font-size:.83rem;color:var(--text3);line-height:1.7;margin-bottom:14px;}
+.domain-input-wrap{display:flex;gap:8px;}
+.domain-input{flex:1;background:var(--bg);border:1px solid var(--border-m);border-radius:10px;padding:11px 14px;font-family:var(--mono);font-size:.82rem;color:var(--text1);outline:none;transition:border-color .2s;}
+.domain-input:focus{border-color:var(--accent);}
+.domain-input::placeholder{color:var(--text3);}
+.btn-send-domain{padding:11px 20px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;font-family:var(--display);font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s;}
+.btn-send-domain:hover{opacity:.88;transform:translateY(-1px);}
+.btn-send-domain:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.domain-sent{display:none;font-family:var(--mono);font-size:.72rem;color:var(--green);margin-top:8px;}
+
+/* WHAT WE NEED */
+.info-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px 28px;margin-bottom:32px;text-align:left;animation:fadeUp .6s cubic-bezier(.23,1,.32,1) .85s both;}
+.info-card-label{font-family:var(--mono);font-size:.6rem;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;}
+.info-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.info-list li{display:flex;align-items:flex-start;gap:10px;font-size:.83rem;color:var(--text2);}
+.info-list li::before{content:'→';color:var(--accent);font-weight:700;flex-shrink:0;}
+
+/* CTA BUTTONS */
+.cta-wrap{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;animation:fadeUp .6s cubic-bezier(.23,1,.32,1) .9s both;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;font-family:var(--display);font-size:.9rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .25s;box-shadow:0 8px 20px rgba(79,110,247,.25);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(79,110,247,.4);}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;background:transparent;border:1px solid var(--border-m);color:var(--text1);font-family:var(--display);font-size:.9rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .25s;}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+/* SUPPORT */
+.support-note{font-family:var(--mono);font-size:.65rem;color:var(--text3);line-height:1.9;animation:fadeUp .6s cubic-bezier(.23,1,.32,1) 1s both;}
+.support-note a{color:var(--accent);text-decoration:none;}
+.support-note a:hover{text-decoration:underline;}
+
+/* FOOTER */
+.page-footer{margin-top:auto;padding:12px 20px;background:var(--bg2);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1;}
+.footer-left{font-size:.65rem;color:var(--text3);}
+.footer-links{display:flex;gap:14px;}
+.footer-links a{font-size:.65rem;color:var(--accent);text-decoration:none;}
+
+@media(max-width:480px){
+  .domain-input-wrap{flex-direction:column;}
+  .cta-wrap{flex-direction:column;align-items:center;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">AI4 Website Design</div>
+  <div class="nav-tag">Pedido Confirmado</div>
+</nav>
+
+<div class="main">
+
+  <!-- SUCCESS ICON -->
+  <div class="success-ring">
+    <div class="success-icon">🚀</div>
+  </div>
+
+  <!-- HEADLINE -->
+  <div class="confirmed-badge">✓ Pago Confirmado</div>
+  <h1>Tu Sitio Estará En Línea<br><span>Dentro de 4 Horas.</span></h1>
+  <p class="hero-sub">Tu pedido está confirmado y nuestro equipo ya está trabajando. Crédito de registro de dominio estándar, configuración de hosting y lanzamiento — todo manejado por nosotros.</p>
+
+  <!-- PLAN BADGE -->
+  <div class="plan-badge" id="plan-badge">
+    <div class="plan-badge-icon" id="plan-icon">🌐</div>
+    <div class="plan-badge-info">
+      <div class="plan-badge-name" id="plan-name">Business Starter</div>
+      <div class="plan-badge-detail" id="plan-detail">1 Sitio · Crédito de Dominio hasta $20 · Hosting · Lanzamiento</div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline">
+    <div class="timeline-label">// Qué Sucede Ahora</div>
+    <div class="tl-steps">
+      <div class="tl-step">
+        <div class="tl-left">
+          <div class="tl-dot done">✓</div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-title">Pago Confirmado</div>
+          <div class="tl-desc">Tu pedido está en nuestro sistema y tu paquete está activo.</div>
+          <div class="tl-time">// Ahora mismo</div>
+        </div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-left">
+          <div class="tl-dot active">2</div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-title">Registro de Dominio</div>
+          <div class="tl-desc">Revisamos tu dominio preferido y aplicamos el crédito de registro de dominio estándar incluido con tu compra. Si un dominio premium, extensión especial, renovación o upgrade cuesta extra, confirmaremos contigo antes de continuar.</div>
+          <div class="tl-time">// Dentro de 1 hora</div>
+        </div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-left">
+          <div class="tl-dot pending">3</div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-title">Configuración de Hosting</div>
+          <div class="tl-desc">Tu sitio se despliega en nuestros servidores, se instala el certificado SSL y se prueba en todos los dispositivos.</div>
+          <div class="tl-time">// Dentro de 2 horas</div>
+        </div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-left">
+          <div class="tl-dot pending">4</div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-title">Tu Sitio Se Publica</div>
+          <div class="tl-desc">Te enviaremos por correo la URL en vivo, credenciales de acceso y todo lo que necesitas. Tu negocio estará abierto.</div>
+          <div class="tl-time">// Dentro de 4 horas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN PREFERENCE -->
+  <div class="domain-card">
+    <div class="domain-card-label">// Opcional — Preferencia de Dominio</div>
+    <h3>¿Tienes un nombre de dominio en mente?</h3>
+    <p>Si tienes un nombre de dominio preferido, ingrésalo abajo y revisaremos disponibilidad. Tu compra incluye un crédito de registro de dominio estándar de hasta $20 para el primer año. Los dominios premium, extensiones especiales, renovaciones y upgrades de dominio pueden costar extra.</p>
+    <div class="domain-input-wrap">
+      <input class="domain-input" id="domain-input" type="text" placeholder="ej. minegocio.com" maxlength="80"/>
+      <button class="btn-send-domain" id="domain-btn" onclick="sendDomainPref()">Enviar Preferencia →</button>
+    </div>
+    <div class="domain-sent" id="domain-sent">✓ Preferencia de dominio enviada — revisaremos disponibilidad de inmediato.</div>
+  </div>
+
+  <!-- WHAT WE NEED FROM YOU -->
+  <div class="info-card">
+    <div class="info-card-label">// Nosotros Manejamos Todo — Esto Es Lo Que Sigue</div>
+    <ul class="info-list">
+      <li>Revisa tu correo — recibirás una confirmación nuestra en breve</li>
+      <li>Te enviaremos un correo después de revisar y confirmar tu preferencia de dominio</li>
+      <li>Tu URL en vivo será enviada por correo dentro de 4 horas del pago</li>
+      <li>Responde a cualquiera de nuestros correos si necesitas cambios o tienes preguntas</li>
+      <li id="multi-site-note" style="display:none;">Para sitios adicionales en tu paquete — regresa a espanola.ai4websitedesign.com y construye otro</li>
+    </ul>
+  </div>
+
+  <!-- CTA BUTTONS -->
+  <div class="cta-wrap">
+    <a class="btn-primary" href="/build.html">Construir Otro Sitio →</a>
+    <a class="btn-ghost" href="/">Volver al Inicio</a>
+  </div>
+
+  <!-- SUPPORT -->
+  <div class="support-note">
+    ¿Preguntas? Escríbenos a <a href="mailto:jmitchell@ai4websitedesign.com">jmitchell@ai4websitedesign.com</a><br>
+    Respondemos dentro de 1 hora laboral · Lun–Vie 9am–6pm PT<br><br>
+    Con tecnología de Apropos Group LLC · espanola.ai4websitedesign.com · © 2026
+  </div>
+
+</div>
+
+<div class="page-footer">
+  <div class="footer-left">Con tecnología de Apropos Group LLC</div>
+  <div class="footer-links">
+    <a href="https://ai4businesses.org" target="_blank">AI4Businesses.org</a>
+    <a href="https://aiflowdeskpro.com" target="_blank">FlowDesk Pro</a>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+const AI4_LANGUAGE = 'es';
+const AI4_EMAIL_KEYS = [
+  'ai4_email',
+  'ai4_customer_email',
+  'customer_email',
+  'email',
+  'signup_email'
+];
+
+const AI4_PLAN_ALIASES = {
+  'starter': 'starter',
+  'business-starter': 'starter',
+  'business_starter': 'starter',
+  'business starter': 'starter',
+  'inicio': 'starter',
+  'inicio-empresarial': 'starter',
+  'inicio empresarial': 'starter',
+  'founder': 'starter',
+  'founders-offer': 'starter',
+  'fundador': 'starter',
+  'oferta-fundador': 'starter',
+  'oferta-para-fundadores': 'starter',
+
+  'premier': 'premier',
+  'advanced': 'premier',
+  'avanzado': 'premier',
+
+  'business': 'business-bundle',
+  'business-bundle': 'business-bundle',
+  'business_bundle': 'business-bundle',
+  'business bundle': 'business-bundle',
+  'paquete-business-bundle': 'business-bundle',
+  'paquete business bundle': 'business-bundle',
+
+  'pro': 'business-bundle',
+  'professional': 'business-bundle',
+  'profesional': 'business-bundle',
+  'entrepreneur': 'business-bundle',
+  'entrepreneur-bundle': 'business-bundle',
+  'entrepreneurs-bundle': 'business-bundle',
+  'entrepreneur’s bundle': 'business-bundle'
+};
+
+const AI4_PLANS = {
+  starter: {
+    icon:   '🌐',
+    name:   'Oferta para Fundadores',
+    detail: '1 Sitio · Entrega instantánea · Listo para lanzar',
+    sites:  1
+  },
+  premier: {
+    icon:   '🚀',
+    name:   'Premier',
+    detail: '1 Sitio · Crédito de dominio hasta $20 · Hosting · Lanzamiento',
+    sites:  1
+  },
+  'business-bundle': {
+    icon:   '💼',
+    name:   'Paquete Business Bundle',
+    detail: '1 Sitio · Sistema listo para negocio · Lanzamiento incluido',
+    sites:  1
+  }
+};
+
+let ai4PurchaseContext = {
+  plan: 'starter',
+  planName: AI4_PLANS.starter.name,
+  sites: AI4_PLANS.starter.sites,
+  language: AI4_LANGUAGE,
+  email: ''
+};
+
+function normalizePlan(value) {
+  const raw = String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/\+/g, ' ')
+    .replace(/_/g, '-');
+
+  return AI4_PLAN_ALIASES[raw] || 'starter';
+}
+
+function getStoredValue(keys) {
+  for (const key of keys) {
+    try {
+      const sessionValue = sessionStorage.getItem(key);
+      if (sessionValue) return sessionValue;
+    } catch (e) {}
+
+    try {
+      const localValue = localStorage.getItem(key);
+      if (localValue) return localValue;
+    } catch (e) {}
+  }
+
+  return '';
+}
+
+function persistValue(key, value) {
+  if (!value) return;
+
+  try {
+    sessionStorage.setItem(key, value);
+  } catch (e) {}
+
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {}
+}
+
+function getCustomerEmail(params) {
+  const fromUrl =
+    params.get('email') ||
+    params.get('customer_email') ||
+    params.get('prefilled_email') ||
+    params.get('client_email') ||
+    '';
+
+  const email = (fromUrl || getStoredValue(AI4_EMAIL_KEYS)).trim().toLowerCase();
+
+  if (email) {
+    persistValue('ai4_email', email);
+  }
+
+  return email;
+}
+
+function getPlanFromContext() {
+  const params = new URLSearchParams(window.location.search);
+  return normalizePlan(
+    params.get('plan') ||
+    params.get('package') ||
+    params.get('tier') ||
+    getStoredValue(['ai4_purchase_type', 'ai4_plan', 'purchase_type', 'plan'])
+  );
+}
+
+// ── READ PLAN FROM URL PARAMS ─────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const plan = getPlanFromContext();
+  const email = getCustomerEmail(params);
+  const p = AI4_PLANS[plan] || AI4_PLANS.starter;
+
+  ai4PurchaseContext = {
+    plan,
+    planName: p.name,
+    sites: p.sites,
+    language: AI4_LANGUAGE,
+    email
+  };
+
+  persistValue('ai4_purchase_type', plan);
+  persistValue('ai4_plan', plan);
+  persistValue('ai4_language', AI4_LANGUAGE);
+
+  document.getElementById('plan-icon').textContent   = p.icon;
+  document.getElementById('plan-name').textContent   = p.name;
+  document.getElementById('plan-detail').textContent = p.detail;
+
+  // Mostrar nota de varios sitios solo si un plan futuro incluye múltiples sitios
+  if (p.sites > 1) {
+    document.getElementById('multi-site-note').style.display = 'flex';
+  }
+});
+
+// ── SEND DOMAIN PREFERENCE ─────────────────────────────────────
+async function sendDomainPref() {
+  const input  = document.getElementById('domain-input');
+  const btn    = document.getElementById('domain-btn');
+  const sent   = document.getElementById('domain-sent');
+  const domain = input.value.trim();
+
+  if (!domain) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const plan = ai4PurchaseContext.plan || getPlanFromContext();
+  const planDetails = AI4_PLANS[plan] || AI4_PLANS.starter;
+  const email = ai4PurchaseContext.email || getCustomerEmail(params);
+
+  btn.disabled    = true;
+  btn.textContent = 'Enviando...';
+
+  try {
+    const response = await fetch('/.netlify/functions/send-domain-pref', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({
+        domain,
+        email,
+        plan,
+        plan_name: planDetails.name,
+        language: AI4_LANGUAGE,
+        source_url: window.location.href
+      })
+    });
+
+    if (!response.ok) {
+      const message = await response.text();
+      throw new Error(message || 'Error al enviar preferencia de dominio');
+    }
+
+    btn.textContent    = 'Enviado ✓';
+    sent.style.display = 'block';
+    input.disabled     = true;
+  } catch(e) {
+    console.error('Domain pref error:', e);
+    btn.disabled    = false;
+    btn.textContent = 'Enviar Preferencia →';
+    alert('No pudimos enviar tu preferencia de dominio. Inténtalo otra vez o escribe a jmitchell@ai4websitedesign.com.');
+  }
+}
+</script>
+</body>
+</html>

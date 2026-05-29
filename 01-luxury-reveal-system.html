@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{BUSINESS_NAME}} — Luxury Reveal System</title>
+  <style>
+    :root{
+      --ink:#080706;
+      --velvet:#14100d;
+      --champagne:#f4e6c8;
+      --gold:#c9a45f;
+      --stone:#a99d8d;
+      --cream:#fff8ec;
+      --glass:rgba(255,248,236,.08);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--ink);
+      color:var(--cream);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    .page{
+      min-height:100vh;
+      position:relative;
+      isolation:isolate;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(201,164,95,.22), transparent 28%),
+        radial-gradient(circle at 80% 0%, rgba(244,230,200,.12), transparent 32%),
+        linear-gradient(135deg, #060504 0%, #15100c 50%, #090807 100%);
+    }
+    .page::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:80px 80px;
+      mask-image:linear-gradient(to bottom, black, transparent 75%);
+      z-index:-2;
+    }
+    .reveal-blade{
+      position:absolute;
+      top:-10vh;
+      right:6vw;
+      width:min(33vw,440px);
+      height:120vh;
+      background:linear-gradient(180deg, rgba(244,230,200,.22), rgba(201,164,95,.04), transparent);
+      transform:skewX(-14deg);
+      border-left:1px solid rgba(244,230,200,.22);
+      border-right:1px solid rgba(244,230,200,.10);
+      filter:blur(.2px);
+      z-index:-1;
+    }
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:28px clamp(22px,5vw,72px);
+      color:rgba(255,248,236,.78);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:12px;
+    }
+    .brand{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      color:var(--cream);
+      font-weight:700;
+    }
+    .brand-mark{
+      width:38px;height:38px;
+      border:1px solid rgba(244,230,200,.34);
+      display:grid;place-items:center;
+      transform:rotate(45deg);
+      background:rgba(255,255,255,.04);
+    }
+    .brand-mark span{transform:rotate(-45deg);color:var(--gold)}
+    .nav-signal{border-bottom:1px solid rgba(201,164,95,.7);padding-bottom:6px}
+    .hero{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:clamp(28px,6vw,90px);
+      padding:clamp(34px,7vw,92px) clamp(22px,5vw,72px) 80px;
+      min-height:calc(100vh - 95px);
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      gap:12px;
+      align-items:center;
+      color:var(--gold);
+      text-transform:uppercase;
+      letter-spacing:.24em;
+      font-size:12px;
+      margin-bottom:22px;
+    }
+    .eyebrow::before{content:"";width:48px;height:1px;background:var(--gold)}
+    h1{
+      font-family:Georgia, "Times New Roman", serif;
+      font-weight:500;
+      margin:0;
+      font-size:clamp(48px,8.8vw,130px);
+      line-height:.88;
+      letter-spacing:-.075em;
+      max-width:920px;
+    }
+    .description{
+      margin:28px 0 34px;
+      max-width:680px;
+      color:rgba(255,248,236,.74);
+      font-size:clamp(17px,1.6vw,21px);
+      line-height:1.7;
+    }
+    .cta-row{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .primary{
+      min-width:205px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      padding:17px 24px;
+      border:1px solid var(--gold);
+      background:linear-gradient(135deg, var(--champagne), #b98b35);
+      color:#090706;
+      font-weight:800;
+      letter-spacing:.04em;
+      border-radius:999px;
+      box-shadow:0 22px 55px rgba(201,164,95,.22);
+    }
+    .secondary{
+      color:rgba(255,248,236,.8);
+      border-bottom:1px solid rgba(255,248,236,.35);
+      padding-bottom:7px;
+    }
+    .gallery{
+      position:relative;
+      min-height:620px;
+      display:grid;
+      place-items:center;
+    }
+    .frame{
+      width:min(100%,460px);
+      aspect-ratio:.74;
+      border:1px solid rgba(244,230,200,.22);
+      padding:16px;
+      background:linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      box-shadow:0 45px 110px rgba(0,0,0,.55);
+      position:relative;
+    }
+    .frame::before{
+      content:"";
+      position:absolute;
+      inset:42px -34px -42px 42px;
+      border:1px solid rgba(201,164,95,.28);
+      z-index:-1;
+    }
+    .art{
+      height:100%;
+      border:1px solid rgba(255,248,236,.16);
+      background:
+        linear-gradient(160deg, rgba(8,7,6,.1), rgba(8,7,6,.88)),
+        radial-gradient(circle at 50% 15%, rgba(244,230,200,.35), transparent 25%),
+        conic-gradient(from 215deg at 50% 55%, #241b13, #9b753a, #0d0a08, #e8d0a2, #241b13);
+      position:relative;
+      overflow:hidden;
+    }
+    .art::after{
+      content:"";
+      position:absolute;
+      width:180%;
+      height:38%;
+      left:-40%;
+      top:39%;
+      background:rgba(255,248,236,.08);
+      transform:rotate(-24deg);
+      border-top:1px solid rgba(244,230,200,.18);
+      border-bottom:1px solid rgba(244,230,200,.10);
+    }
+    .seal{
+      position:absolute;
+      right:-26px;
+      bottom:62px;
+      width:122px;height:122px;
+      border:1px solid rgba(244,230,200,.38);
+      border-radius:50%;
+      display:grid;place-items:center;
+      background:rgba(8,7,6,.78);
+      backdrop-filter:blur(14px);
+      color:var(--champagne);
+      text-align:center;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:10px;
+      line-height:1.55;
+    }
+    .services{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1px;
+      background:rgba(244,230,200,.14);
+      margin:0 clamp(22px,5vw,72px) 70px;
+      border:1px solid rgba(244,230,200,.14);
+    }
+    .service{
+      min-height:170px;
+      padding:28px;
+      background:rgba(8,7,6,.72);
+      position:relative;
+    }
+    .service b{
+      display:block;
+      color:var(--gold);
+      margin-bottom:30px;
+      font-family:Georgia,serif;
+      font-size:34px;
+      font-weight:400;
+    }
+    .service span{
+      font-size:18px;
+      line-height:1.4;
+      color:rgba(255,248,236,.9);
+    }
+    .trust{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+      margin:0 clamp(22px,5vw,72px) 48px;
+      padding:22px 0;
+      border-top:1px solid rgba(244,230,200,.15);
+      color:rgba(255,248,236,.68);
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:11px;
+    }
+    @media (max-width:900px){
+      nav{padding-top:22px}
+      .nav-signal{display:none}
+      .hero{grid-template-columns:1fr;padding-top:34px}
+      .gallery{min-height:500px;order:-1}
+      .frame{width:min(86vw,390px)}
+      h1{font-size:clamp(50px,17vw,88px)}
+      .services{grid-template-columns:1fr}
+      .service{min-height:auto}
+      .seal{right:8px;bottom:34px}
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="reveal-blade"></div>
+    <nav>
+      <a class="brand" href="{{CTA_LINK}}" aria-label="{{BUSINESS_NAME}}">
+        <span class="brand-mark"><span>✦</span></span>
+        <span>{{BUSINESS_NAME}}</span>
+      </a>
+      <span class="nav-signal">{{CITY}} · {{PHONE}}</span>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Luxury Reveal System</div>
+        <h1>{{HEADLINE}}</h1>
+        <p class="description">{{DESCRIPTION}}</p>
+        <div class="cta-row">
+          <a class="primary" href="{{CTA_LINK}}">{{CTA_TEXT}}</a>
+          <a class="secondary" href="tel:{{PHONE}}">Call {{PHONE}}</a>
+        </div>
+      </div>
+
+      <div class="gallery" aria-hidden="true">
+        <div class="frame">
+          <div class="art"></div>
+          <div class="seal">Private<br>Digital<br>Presence</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" aria-label="Service preview">
+      <article class="service"><b>01</b><span>{{SERVICE_1}}</span></article>
+      <article class="service"><b>02</b><span>{{SERVICE_2}}</span></article>
+      <article class="service"><b>03</b><span>{{SERVICE_3}}</span></article>
+    </section>
+
+    <section class="trust">
+      <span>Built for premium visibility</span>
+      <span>{{CITY}}</span>
+      <span>{{BUSINESS_NAME}}</span>
+    </section>
+  </main>
+</body>
+</html>

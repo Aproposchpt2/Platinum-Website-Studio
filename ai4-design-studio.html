@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Web Designer — AI4 Website Design</title>
+  <style>
+    :root{--accent:#4F6EF7;--accent2:#7C3AED;--bg:#06060a;--surface:#0f0f1c;--border:rgba(251,244,231,.11);--ivory:#fbf4e7;--muted:rgba(251,244,231,.58);}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ivory);min-height:100vh;overflow:hidden;}
+
+    /* ══ INTRO ══ */
+    #intro{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;}
+    #intro-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(79,110,247,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(79,110,247,.07) 1px,transparent 1px);background-size:60px 60px;opacity:0;animation:gridIn 1s ease forwards .3s;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);}
+    @keyframes gridIn{to{opacity:1}}
+    .orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;}
+    #orb1{width:500px;height:500px;background:rgba(79,110,247,.18);top:-15%;left:-10%;animation:d1 8s ease-in-out infinite;}
+    #orb2{width:400px;height:400px;background:rgba(124,58,237,.15);bottom:-10%;right:-8%;animation:d2 10s ease-in-out infinite;}
+    @keyframes d1{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,30px)}}
+    @keyframes d2{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,-20px)}}
+    #intro-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;}
+    #intro-mark{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;opacity:0;animation:fu .7s ease forwards .6s;}
+    #intro-headline{font-size:clamp(42px,9vw,110px);font-weight:1000;letter-spacing:-.04em;line-height:.9;text-align:center;max-width:900px;padding:0 24px;background:linear-gradient(105deg,var(--ivory) 20%,var(--accent) 50%,var(--ivory) 80%);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:0;transform:translateY(24px);animation:fu2 .9s cubic-bezier(.2,0,.1,1) forwards 1s,shimmer 2.2s ease forwards 1.9s;}
+    @keyframes shimmer{0%{background-position:100% 0}100%{background-position:-100% 0}}
+    #intro-tag{margin-top:24px;font-size:clamp(14px,2vw,20px);color:var(--muted);letter-spacing:.06em;text-align:center;opacity:0;animation:fu .7s ease forwards 2.1s;}
+    #intro-tag .wr{display:inline-block;opacity:0;}
+    #intro-tag .wr:nth-child(1){animation:wp .4s ease forwards 2.3s}
+    #intro-tag .wr:nth-child(2){animation:wp .4s ease forwards 2.6s}
+    #intro-tag .wr:nth-child(3){animation:wp .4s ease forwards 2.9s}
+    @keyframes wp{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
+    #intro-line{width:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:28px auto 0;animation:lg .8s ease forwards 2.2s;}
+    @keyframes lg{to{width:160px}}
+    #intro-dots{display:flex;gap:8px;margin-top:32px;opacity:0;animation:fu .5s ease forwards 2.8s;}
+    .idot{width:6px;height:6px;border-radius:50%;background:rgba(251,244,231,.2);}
+    .idot:nth-child(1){animation:don .3s ease forwards 3.0s}
+    .idot:nth-child(2){animation:don .3s ease forwards 3.25s}
+    .idot:nth-child(3){animation:don .3s ease forwards 3.5s}
+    .idot:nth-child(4){animation:don .3s ease forwards 3.75s}
+    @keyframes don{to{background:var(--accent);box-shadow:0 0 10px var(--accent)}}
+    #intro.exit{animation:ie .7s cubic-bezier(.4,0,1,1) forwards;}
+    @keyframes ie{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.04);pointer-events:none}}
+    @keyframes fu{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:none}}
+    @keyframes fu2{0%{opacity:0;transform:translateY(22px)}100%{opacity:1;transform:none}}
+
+    /* ══ STUDIO ══ */
+    #studio-wrap{display:flex;flex-direction:column;min-height:100vh;opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;pointer-events:none;}
+    #studio-wrap.visible{opacity:1;transform:none;pointer-events:all;}
+    body.studio-active{overflow:hidden;}
+
+    header{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid var(--border);background:rgba(6,6,10,.92);backdrop-filter:blur(14px);position:sticky;top:0;z-index:10;flex-shrink:0;}
+    .logo{font-size:14px;font-weight:950;letter-spacing:.22em;text-transform:uppercase;}
+    .logo span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .hdr-tag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+
+    .prog-rail{height:2px;background:rgba(251,244,231,.07);flex-shrink:0;}
+    .prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .5s cubic-bezier(.4,0,.2,1);}
+
+    /* ══ MAIN LAYOUT ══ */
+    .studio{display:flex;flex:1;height:calc(100vh - 62px);overflow:hidden;}
+
+    /* ── LEFT: Q COL ── */
+    .q-col{width:380px;flex-shrink:0;display:flex;flex-direction:column;border-right:1px solid var(--border);overflow-y:auto;}
+    .q-inner{padding:32px 28px;display:flex;flex-direction:column;gap:0;flex:1;}
+
+    .history{display:flex;flex-direction:column;gap:7px;margin-bottom:24px;}
+    .h-item{padding:9px 13px;border-radius:10px;background:rgba(251,244,231,.04);border:1px solid var(--border);}
+    .h-q{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:3px;}
+    .h-a{font-size:12px;color:var(--muted);white-space:pre-wrap;}
+
+    .step-tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+    .step-q{font-size:22px;font-weight:900;line-height:1.18;letter-spacing:-.02em;color:var(--ivory);margin-bottom:7px;}
+    .step-hint{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:22px;}
+
+    .field{width:100%;background:rgba(251,244,231,.05);border:1px solid var(--border);border-radius:10px;padding:13px 16px;color:var(--ivory);font-size:14px;font-family:inherit;transition:border-color .2s;margin-bottom:5px;}
+    .field:focus{outline:none;border-color:var(--accent);}
+    .field::placeholder{color:rgba(251,244,231,.26);}
+
+    .stmts{display:flex;flex-direction:column;gap:8px;margin-bottom:6px;}
+    .stmt-row{display:flex;gap:7px;align-items:flex-start;}
+    .stmt-num{width:22px;height:22px;border-radius:50%;background:rgba(79,110,247,.18);border:1px solid rgba(79,110,247,.32);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--accent);flex-shrink:0;margin-top:12px;}
+
+    .tog-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;}
+    .tog{display:flex;align-items:center;gap:9px;padding:11px 14px;border-radius:10px;background:rgba(251,244,231,.04);border:1px solid var(--border);cursor:pointer;font-size:12px;font-weight:600;user-select:none;transition:all .2s;}
+    .tog.on{border-color:var(--accent);background:rgba(79,110,247,.12);color:var(--ivory);}
+    .tog .dot{width:9px;height:9px;border-radius:50%;border:2px solid rgba(251,244,231,.28);transition:all .2s;flex-shrink:0;}
+    .tog.on .dot{background:var(--accent);border-color:var(--accent);}
+    .contact-fields{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+
+    .days-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:12px;}
+    .day-btn{padding:7px 0;border-radius:7px;border:1px solid var(--border);background:rgba(251,244,231,.04);font-size:10px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .2s;font-family:inherit;}
+    .day-btn.on{border-color:var(--accent);background:rgba(79,110,247,.14);color:var(--ivory);}
+    .hours-row{display:flex;align-items:center;gap:10px;margin-bottom:18px;font-size:12px;color:var(--muted);}
+    .hours-row input{background:rgba(251,244,231,.05);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--ivory);font-size:12px;font-family:inherit;width:130px;min-width:130px;}
+    .hours-row input:focus{outline:none;border-color:var(--accent);}
+    .hours-row input[type=time]::-webkit-datetime-edit-ampm-field{padding-left:3px;}
+
+    .next{width:100%;padding:14px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;font-size:14px;font-weight:900;letter-spacing:.04em;cursor:pointer;font-family:inherit;transition:opacity .2s;margin-top:8px;text-transform:uppercase;}
+    .next:hover{opacity:.87;}
+
+    /* ── RIGHT: PREVIEW COL ── */
+    .p-col{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+
+    /* top toolbar — palette + gallery */
+    .p-toolbar{display:flex;align-items:stretch;border-bottom:1px solid var(--border);background:rgba(6,6,10,.6);flex-shrink:0;}
+
+    /* palette section */
+    .palette-section{display:flex;align-items:center;gap:10px;padding:10px 16px;border-right:1px solid var(--border);}
+    .tool-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+    .palette-chips{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+    .pchip{width:22px;height:22px;border-radius:6px;border:2px solid transparent;cursor:pointer;transition:all .18s;flex-shrink:0;}
+    .pchip:hover{transform:scale(1.15);}
+    .pchip.active{border-color:#fff;transform:scale(1.2);}
+    .pchip-custom{width:22px;height:22px;border-radius:6px;border:1px solid var(--border);cursor:pointer;overflow:hidden;flex-shrink:0;}
+    .pchip-custom input{width:28px;height:28px;border:none;cursor:pointer;margin:-3px 0 0 -3px;background:none;}
+
+    /* template gallery section */
+    .gallery-section{display:flex;align-items:center;gap:10px;padding:10px 16px;flex:1;overflow:hidden;}
+    .gallery-scroll{display:flex;gap:8px;overflow-x:auto;flex:1;scrollbar-width:none;padding-bottom:2px;}
+    .gallery-scroll::-webkit-scrollbar{display:none;}
+    .tmpl-chip{flex-shrink:0;display:flex;align-items:center;gap:7px;padding:5px 12px 5px 6px;border-radius:8px;border:1px solid var(--border);background:rgba(251,244,231,.04);cursor:pointer;transition:all .2s;white-space:nowrap;}
+    .tmpl-chip:hover{border-color:rgba(79,110,247,.5);background:rgba(79,110,247,.08);}
+    .tmpl-chip.active{border-color:var(--accent);background:rgba(79,110,247,.15);}
+    .tmpl-swatch{width:28px;height:28px;border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;letter-spacing:.06em;}
+    .tmpl-name{font-size:11px;font-weight:700;color:var(--ivory);}
+    .tmpl-chip.active .tmpl-name{color:#fff;}
+    .ai-pick{font-size:9px;color:var(--accent);margin-left:2px;}
+
+    /* live preview header */
+    .p-header{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;border-bottom:1px solid var(--border);background:rgba(6,6,10,.4);flex-shrink:0;}
+    .p-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+    .live-pip{display:flex;align-items:center;gap:5px;font-size:9px;color:rgba(40,200,64,.8);}
+    .pip{width:6px;height:6px;border-radius:50%;background:#28c840;box-shadow:0 0 7px #28c840;animation:pip 2s infinite;}
+    @keyframes pip{0%,100%{opacity:1}50%{opacity:.3}}
+
+    /* ── THE BIG PREVIEW ── */
+    .p-body{flex:1;display:flex;align-items:stretch;justify-content:stretch;padding:0;overflow:hidden;position:relative;}
+
+    /* info card — shown before Q1 answered */
+    .info-card{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:32px;}
+    .info-inner{width:100%;max-width:480px;border-radius:20px;border:1px solid var(--border);background:linear-gradient(145deg,rgba(251,244,231,.055),rgba(251,244,231,.018));overflow:hidden;}
+    .info-top{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;}
+    .info-mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+    .info-top-txt strong{display:block;font-size:14px;font-weight:800;color:var(--ivory);margin-bottom:2px;}
+    .info-top-txt span{font-size:11px;color:var(--muted);}
+    .info-steps{padding:16px 20px;display:flex;flex-direction:column;gap:14px;}
+    .i-step{display:flex;gap:12px;align-items:flex-start;}
+    .i-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px;transition:all .35s;}
+    .i-num.idle{background:rgba(251,244,231,.06);border:1px solid var(--border);color:var(--muted);}
+    .i-num.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 0 14px rgba(79,110,247,.45);}
+    .i-num.done{background:rgba(40,200,64,.14);border:1px solid rgba(40,200,64,.32);color:#28c840;}
+    .i-txt strong{display:block;font-size:12px;font-weight:700;color:var(--ivory);margin-bottom:2px;}
+    .i-txt span{font-size:11px;color:var(--muted);line-height:1.55;}
+
+    /* wireframe — fills the whole preview area */
+    #wireframe{
+      position:absolute;inset:16px;
+      border-radius:14px;border:1px solid var(--border);
+      overflow:hidden;background:#06060a;
+      display:none;
+      flex-direction:column;
+    }
+    .wf-nav{height:38px;background:rgba(251,244,231,.04);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 14px;gap:6px;flex-shrink:0;}
+    .wf-dot{width:9px;height:9px;border-radius:50%;background:rgba(251,244,231,.1);}
+    .wf-dot:nth-child(1){background:#ff5f57}
+    .wf-dot:nth-child(2){background:#febc2e}
+    .wf-dot:nth-child(3){background:#28c840}
+    .wf-url{flex:1;height:22px;background:rgba(251,244,231,.06);border-radius:6px;margin-left:10px;display:flex;align-items:center;padding:0 10px;}
+    .wf-url-text{font-size:10px;color:rgba(251,244,231,.3);}
+
+    /* HERO — big and bold */
+    .wf-hero{
+      padding:48px 40px 36px;
+      border-bottom:1px solid var(--border);
+      background:radial-gradient(circle at 50% -10%,rgba(79,110,247,.25),transparent 55%);
+      flex-shrink:0;
+    }
+    .wf-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;transition:all .4s;}
+    .wf-biz{font-size:clamp(28px,4vw,48px);font-weight:1000;letter-spacing:-.03em;color:var(--ivory);margin-bottom:10px;line-height:.95;transition:all .4s;}
+    .wf-headline{font-size:clamp(13px,1.4vw,17px);color:var(--muted);margin-bottom:22px;line-height:1.55;max-width:580px;transition:all .4s;}
+    .wf-cta-row{display:flex;gap:10px;flex-wrap:wrap;}
+    .wf-btn{padding:10px 22px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
+    .wf-btn.pri{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;}
+    .wf-btn.sec{border:1px solid var(--border);color:var(--muted);font-size:11px;}
+
+    /* SERVICES — 3 cards side by side */
+    .wf-services{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:20px;border-bottom:1px solid var(--border);flex-shrink:0;}
+    .wf-card{padding:16px;border-radius:10px;border:1px solid var(--border);background:rgba(251,244,231,.03);}
+    .wf-ct{font-size:12px;font-weight:800;color:var(--ivory);margin-bottom:6px;transition:all .3s;}
+    .wf-cd{font-size:11px;color:var(--muted);line-height:1.5;transition:all .3s;}
+    .wf-card-num{font-size:9px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;}
+
+    /* ABOUT strip */
+    .wf-about{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;flex-shrink:0;}
+    .wf-about-bar{width:3px;height:36px;border-radius:2px;background:linear-gradient(135deg,var(--accent),var(--accent2));flex-shrink:0;}
+    .wf-about-text{font-size:11px;color:var(--muted);line-height:1.6;}
+
+    /* CONTACT footer */
+    .wf-foot{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;flex-shrink:0;}
+    .wf-contact-items{display:flex;gap:16px;flex-wrap:wrap;}
+    .wf-contact-item{font-size:11px;color:var(--muted);}
+    .wf-hours-badge{font-size:10px;padding:4px 12px;border-radius:999px;white-space:nowrap;}
+
+    /* complete state */
+    .complete{display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:32px;}
+    .complete-check{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 0 50px rgba(79,110,247,.45);}
+    .complete h2{font-size:26px;font-weight:900;color:var(--ivory);}
+    .complete p{font-size:14px;color:var(--muted);line-height:1.65;max-width:360px;}
+    .view-btn{padding:16px 36px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;font-size:14px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;font-family:inherit;}
+
+    @media(max-width:900px){
+      .q-col{width:100%;border-right:none;}
+      .p-col{display:none;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ INTRO ══ -->
+<div id="intro">
+  <div class="orb" id="orb1"></div>
+  <div class="orb" id="orb2"></div>
+  <div id="intro-grid"></div>
+  <div id="intro-content">
+    <div id="intro-mark">✦ AI4 Website Design · Design Studio</div>
+    <div id="intro-headline">Let's Build Something Extraordinary</div>
+    <div id="intro-line"></div>
+    <div id="intro-tag">
+      <span class="wr">Your&nbsp;site.</span>&nbsp;
+      <span class="wr">Building&nbsp;now.</span>&nbsp;
+      <span class="wr">Watch.</span>
+    </div>
+    <div id="intro-dots">
+      <div class="idot"></div><div class="idot"></div>
+      <div class="idot"></div><div class="idot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ STUDIO ══ -->
+<div id="studio-wrap">
+  <header>
+    <div class="logo">AI4 <span>Website Design</span></div>
+    <div class="hdr-tag">✦ Design Studio · Apropos Group</div>
+  </header>
+  <div class="prog-rail"><div class="prog-fill" id="prog" style="width:4%"></div></div>
+
+  <div class="studio">
+
+    <!-- LEFT: QUESTIONS -->
+    <div class="q-col">
+      <div class="q-inner">
+        <div class="history" id="history"></div>
+        <div id="step"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: PREVIEW -->
+    <div class="p-col">
+
+      <!-- TOOLBAR: Palette + Template Gallery -->
+      <div class="p-toolbar">
+
+        <!-- Color Palette -->
+        <div class="palette-section">
+          <span class="tool-label">Color</span>
+          <div class="palette-chips" id="palette-chips">
+            <div class="pchip active" style="background:#4F6EF7" data-color="#4F6EF7" onclick="pickColor('#4F6EF7',this)" title="Electric Blue"></div>
+            <div class="pchip" style="background:#7C3AED" data-color="#7C3AED" onclick="pickColor('#7C3AED',this)" title="Deep Purple"></div>
+            <div class="pchip" style="background:#0EA5E9" data-color="#0EA5E9" onclick="pickColor('#0EA5E9',this)" title="Sky Blue"></div>
+            <div class="pchip" style="background:#10B981" data-color="#10B981" onclick="pickColor('#10B981',this)" title="Emerald"></div>
+            <div class="pchip" style="background:#F59E0B" data-color="#F59E0B" onclick="pickColor('#F59E0B',this)" title="Gold"></div>
+            <div class="pchip" style="background:#EF4444" data-color="#EF4444" onclick="pickColor('#EF4444',this)" title="Red"></div>
+            <div class="pchip" style="background:#EC4899" data-color="#EC4899" onclick="pickColor('#EC4899',this)" title="Pink"></div>
+            <div class="pchip" style="background:#e44cff" data-color="#e44cff" onclick="pickColor('#e44cff',this)" title="Fuchsia"></div>
+            <div class="pchip" style="background:#fff;border:1px solid rgba(251,244,231,.2)" data-color="#ffffff" onclick="pickColor('#ffffff',this)" title="White"></div>
+            <div class="pchip-custom" title="Custom color">
+              <input type="color" id="custom-color" value="#4F6EF7" oninput="pickColor(this.value,null)">
+            </div>
+          </div>
+        </div>
+
+        <!-- Template Gallery -->
+        <div class="gallery-section">
+          <span class="tool-label" style="white-space:nowrap;">Template</span>
+          <div class="gallery-scroll" id="gallery-scroll">
+            <div class="tmpl-chip active" id="tmpl-06" onclick="pickTemplate('06-command-authority',this)">
+              <div class="tmpl-swatch" style="background:linear-gradient(135deg,#020617,#0a1628);color:#3df5ff;">CMD</div>
+              <span class="tmpl-name">Command Authority</span>
+              <span class="ai-pick">✦ AI pick</span>
+            </div>
+            <div class="tmpl-chip" id="tmpl-10" onclick="pickTemplate('10-elite-brand-experience',this)">
+              <div class="tmpl-swatch" style="background:linear-gradient(135deg,#06060a,#1a0a26);color:#e44cff;">ELT</div>
+              <span class="tmpl-name">Elite Brand</span>
+            </div>
+            <div class="tmpl-chip" id="tmpl-01" onclick="pickTemplate('01-luxury-reveal',this)">
+              <div class="tmpl-swatch" style="background:linear-gradient(135deg,#0a0a0f,#1a1a2e);color:#4F6EF7;">LUX</div>
+              <span class="tmpl-name">Luxury Reveal</span>
+            </div>
+            <div class="tmpl-chip" id="tmpl-02" onclick="pickTemplate('02-executive-presence',this)">
+              <div class="tmpl-swatch" style="background:linear-gradient(135deg,#0f0f0f,#1a1a1a);color:#d4d4d4;">EXC</div>
+              <span class="tmpl-name">Executive Presence</span>
+            </div>
+            <div class="tmpl-chip" id="tmpl-03" onclick="pickTemplate('03-cinematic-conversion',this)">
+              <div class="tmpl-swatch" style="background:linear-gradient(135deg,#0d0005,#1a000a);color:#ff3d7f;">CIN</div>
+              <span class="tmpl-name">Cinematic</span>
+            </div>
+            <div class="tmpl-chip" id="tmpl-04" onclick="pickTemplate('04-private-invitation',this)">
+              <div class="tmpl-swatch" style="background:linear-gradient(135deg,#0a0800,#1a1400);color:#c9a84c;">PVT</div>
+              <span class="tmpl-name">Private Invitation</span>
+            </div>
+            <div class="tmpl-chip" id="tmpl-05" onclick="pickTemplate('05-digital-showroom',this)">
+              <div class="tmpl-swatch" style="background:linear-gradient(135deg,#001a10,#002d1a);color:#10B981;">SHW</div>
+              <span class="tmpl-name">Digital Showroom</span>
+            </div>
+            <div class="tmpl-chip" id="tmpl-07" onclick="pickTemplate('07-premium-launch',this)">
+              <div class="tmpl-swatch" style="background:linear-gradient(135deg,#0a0014,#14002a);color:#7C3AED;">PRM</div>
+              <span class="tmpl-name">Premium Launch</span>
+            </div>
+            <div class="tmpl-chip" id="tmpl-08" onclick="pickTemplate('08-portfolio-prestige',this)">
+              <div class="tmpl-swatch" style="background:linear-gradient(135deg,#080808,#111);color:#aaa;">PRT</div>
+              <span class="tmpl-name">Portfolio Prestige</span>
+            </div>
+            <div class="tmpl-chip" id="tmpl-09" onclick="pickTemplate('09-modern-trust',this)">
+              <div class="tmpl-swatch" style="background:linear-gradient(135deg,#050d1f,#0a1a38);color:#4F6EF7;">MOD</div>
+              <span class="tmpl-name">Modern Trust</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview label bar -->
+      <div class="p-header">
+        <span class="p-label">Live Preview</span>
+        <div class="live-pip"><div class="pip"></div>Building your site</div>
+      </div>
+
+      <!-- BIG PREVIEW BODY -->
+      <div class="p-body">
+
+        <!-- Info card (before Q1) -->
+        <div class="info-card" id="info-card">
+          <div class="info-inner">
+            <div class="info-top">
+              <div class="info-mark">✦</div>
+              <div class="info-top-txt">
+                <strong>How This Works</strong>
+                <span>7 questions. A luxury website. Watch it build live.</span>
+              </div>
+            </div>
+            <div class="info-steps">
+              <div class="i-step"><div class="i-num active" id="in1">1</div><div class="i-txt"><strong>Tell us about your business</strong><span>Your answers become real content — nothing generic, nothing templated.</span></div></div>
+              <div class="i-step"><div class="i-num idle" id="in2">2</div><div class="i-txt"><strong>Watch your site take shape</strong><span>Your business name, services, contact, and hours update live in the preview as you type.</span></div></div>
+              <div class="i-step"><div class="i-num idle" id="in3">3</div><div class="i-txt"><strong>Pick your color and template</strong><span>Use the palette and gallery above to style your site in real time — see every change instantly.</span></div></div>
+              <div class="i-step"><div class="i-num idle" id="in4">4</div><div class="i-txt"><strong>Launch with one click</strong><span>Real domain, intake form, Stripe payments — all included.</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WIREFRAME — full size -->
+        <div id="wireframe">
+          <div class="wf-nav">
+            <div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div>
+            <div class="wf-url"><span class="wf-url-text" id="wf-url-text">yourwebsite.com</span></div>
+          </div>
+          <div class="wf-hero">
+            <div class="wf-eyebrow" id="wf-eyebrow">✦ Premium Service</div>
+            <div class="wf-biz" id="wf-biz">Your Business Name</div>
+            <div class="wf-headline" id="wf-hl">Your bold headline appears here as you answer the questions...</div>
+            <div class="wf-cta-row">
+              <div class="wf-btn pri" id="wf-cta">Get Started</div>
+              <div class="wf-btn sec" id="wf-phone-btn">Call Us</div>
+            </div>
+          </div>
+          <div class="wf-services">
+            <div class="wf-card" id="wf-card1">
+              <div class="wf-card-num">01</div>
+              <div class="wf-ct" id="wf-s1">Service One</div>
+              <div class="wf-cd" id="wf-s1d">Your first service description appears here.</div>
+            </div>
+            <div class="wf-card" id="wf-card2">
+              <div class="wf-card-num">02</div>
+              <div class="wf-ct" id="wf-s2">Service Two</div>
+              <div class="wf-cd" id="wf-s2d">Your second service description appears here.</div>
+            </div>
+            <div class="wf-card" id="wf-card3">
+              <div class="wf-card-num">03</div>
+              <div class="wf-ct" id="wf-s3">Service Three</div>
+              <div class="wf-cd" id="wf-s3d">Your third service description appears here.</div>
+            </div>
+          </div>
+          <div class="wf-about">
+            <div class="wf-about-bar" id="wf-about-bar"></div>
+            <div class="wf-about-text" id="wf-about-text">Your business story and additional services will appear here as you answer the questions.</div>
+          </div>
+          <div class="wf-foot">
+            <div class="wf-contact-items">
+              <span class="wf-contact-item" id="wf-city">📍 Your City</span>
+              <span class="wf-contact-item" id="wf-phone">📞 Your Phone</span>
+              <span class="wf-contact-item" id="wf-email-foot">✉ Your Email</span>
+            </div>
+            <div class="wf-hours-badge" id="wf-hours">Mon–Fri · 8am–6pm</div>
+          </div>
+        </div>
+
+        <!-- Complete state -->
+        <div class="complete" id="complete">
+          <div class="complete-check">✓</div>
+          <h2 id="complete-h">Your site is ready.</h2>
+          <p>Louis Vuitton. Gucci. That's what we just built. View your Design Brief then launch or download free.</p>
+          <button class="view-btn" onclick="launchPipeline()">Generate My Design Brief →</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Intro ──────────────────────────────────────────────────────────────────
+const clientName=(()=>{try{return JSON.parse(sessionStorage.getItem('ai4_signup')||'{}').name||'';}catch{return '';}})();
+if(clientName){document.getElementById('intro-headline').textContent=clientName.split(' ')[0]+", let's build your site.";}
+setTimeout(()=>{
+  const intro=document.getElementById('intro');
+  const studio=document.getElementById('studio-wrap');
+  intro.classList.add('exit');
+  studio.classList.add('visible');
+  document.body.classList.add('studio-active');
+  setTimeout(()=>{intro.style.display='none';},700);
+},4600);
+
+// ── State ──────────────────────────────────────────────────────────────────
+const A={};
+let step=0;
+let selectedColor='#4F6EF7';
+let selectedTemplate='06-command-authority';
+
+// ── Color picker ───────────────────────────────────────────────────────────
+function pickColor(hex,el){
+  selectedColor=hex;
+  A.color=hex;
+  // deselect all palette chips in toolbar AND Q7
+  document.querySelectorAll('.pchip').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.q7chip').forEach(c=>c.style.border='2px solid transparent');
+  if(el){
+    if(el.classList.contains('pchip')) el.classList.add('active');
+    else el.style.border='2px solid #fff';
+  }
+  // sync toolbar custom color input
+  const cc=document.getElementById('custom-color');
+  if(cc && /^#[0-9a-f]{6}$/i.test(hex)) cc.value=hex;
+  applyAccent(hex);
+}
+
+function applyAccent(hex){
+  // Update wireframe accent elements
+  document.getElementById('wf-cta').style.background=`linear-gradient(135deg,${hex},${hex}cc)`;
+  document.getElementById('wf-hours').style.background=hex+'22';
+  document.getElementById('wf-hours').style.color=hex;
+  document.getElementById('wf-hours').style.border=`1px solid ${hex}44`;
+  document.getElementById('wf-about-bar').style.background=`linear-gradient(135deg,${hex},${hex}88)`;
+  document.getElementById('wf-eyebrow').style.color=hex;
+  ['wf-card1','wf-card2','wf-card3'].forEach(id=>{
+    document.getElementById(id).style.borderColor=hex+'33';
+  });
+  document.querySelectorAll('.wf-card-num').forEach(el=>el.style.color=hex);
+  document.querySelector('.wf-hero').style.background=`radial-gradient(circle at 50% -10%,${hex}33,transparent 55%)`;
+}
+
+// ── Template picker ────────────────────────────────────────────────────────
+function pickTemplate(key,el){
+  selectedTemplate=key;
+  A.template=key;
+  document.querySelectorAll('.tmpl-chip').forEach(c=>c.classList.remove('active'));
+  if(el)el.classList.add('active');
+  // Remove AI pick badge from all, mark selected
+  document.querySelectorAll('.ai-pick').forEach(b=>b.style.display='none');
+}
+
+// ── Steps ──────────────────────────────────────────────────────────────────
+const STEPS=[
+  {tag:'Question 1 of 7 · Business Identity',q:'What is the name of your business?',hint:'This becomes the hero banner — the first thing every visitor sees.',
+    render(){return`<input class="field" id="f" placeholder="e.g. Mitchell Plumbing & Heating" autocomplete="off">`;},
+    validate(){return val('f');},collect(){A.name=val('f');},
+    preview(){
+      wf('wf-biz',A.name);
+      wf('wf-url-text',A.name.toLowerCase().replace(/[^a-z0-9]/g,'')+'.com');
+      showWireframe();
+    }
+  },
+  {tag:'Question 2 of 7 · What You Do',q:'Do you sell a product or deliver a service?',hint:'This shapes how your entire website is written and structured.',
+    render(){return`
+      <div class="tog-grid">${['Service — I do work for clients','Product — I sell items','Both — Products and services','Other'].map((o,i)=>`<div class="tog" id="opt${i}" onclick="pickOpt(${i},4,'type');toggleOther(${i})">${o}</div>`).join('')}</div>
+      <div id="other-wrap" style="display:none;margin-top:-8px;margin-bottom:8px;">
+        <input class="field" id="other-input" placeholder="Describe what your business does..." autocomplete="off">
+      </div>`;},
+    validate(){return A.type!==undefined && (A.type!=='3' || val('other-input'));},
+    collect(){ if(A.type==='3') A.otherType=val('other-input'); },
+    preview(){}
+  },
+  {tag:'Question 3 of 7 · What You Offer',q(){return A.type==='1'?'What are your products?':'What are your services?';},
+    hint:'Give us 3 to 5 key statements. Each becomes a card on your homepage.',
+    render(){return`<div class="stmts">${[1,2,3,4,5].map(n=>`<div class="stmt-row"><div class="stmt-num">${n}</div><input class="field stmt-input" id="stmt${n}" placeholder="${n<=3?'Required':'Optional'}"></div>`).join('')}</div>`;},
+    validate(){return val('stmt1')&&val('stmt2')&&val('stmt3');},
+    collect(){A.stmts=[1,2,3,4,5].map(n=>val('stmt'+n)).filter(Boolean);},
+    preview(){
+      wf('wf-s1',A.stmts[0]||'Service One'); wf('wf-s1d',A.stmts[3]||'Your first service.');
+      wf('wf-s2',A.stmts[1]||'Service Two'); wf('wf-s2d',A.stmts[4]||'Your second service.');
+      wf('wf-s3',A.stmts[2]||'Service Three');
+      if(A.stmts[3])wf('wf-about-text',A.stmts.slice(3).join(' · '));
+    }
+  },
+  {tag:'Question 4 of 7 · Contact Information',q:'What contact information do you want on your website?',
+    hint:'Select everything that applies, then fill in the details.',
+    render(){return`<div class="tog-grid"><div class="tog on" id="cog-phone" onclick="togContact('phone',this)"><div class="dot"></div>Phone</div><div class="tog on" id="cog-email" onclick="togContact('email',this)"><div class="dot"></div>Email</div><div class="tog" id="cog-addr" onclick="togContact('addr',this)"><div class="dot"></div>Address</div><div class="tog" id="cog-web" onclick="togContact('web',this)"><div class="dot"></div>Website URL</div></div><div class="contact-fields"><input class="field" id="c-phone" placeholder="Phone number"><input class="field" id="c-email" placeholder="Email address"><input class="field" id="c-addr" placeholder="Business address" style="display:none"><input class="field" id="c-web" placeholder="Website URL" style="display:none"><input class="field" id="c-city" placeholder="City, State (e.g. Las Vegas, NV)"></div>`;},
+    validate(){return val('c-phone')||val('c-email');},
+    collect(){A.phone=val('c-phone');A.email=val('c-email');A.address=val('c-addr');A.city=val('c-city');},
+    preview(){
+      wf('wf-city',A.city?`📍 ${A.city}`:'📍 Your City');
+      wf('wf-phone',A.phone?`📞 ${A.phone}`:'📞 Your Phone');
+      wf('wf-email-foot',A.email?`✉ ${A.email}`:'✉ Your Email');
+      wf('wf-phone-btn',A.phone||'Call Us');
+      if(A.city)wf('wf-url-text',(A.name||'yoursite').toLowerCase().replace(/[^a-z0-9]/g,'')+'.com');
+    }
+  },
+  {tag:'Question 5 of 7 · Hours of Operation',q:'What are your hours of operation?',
+    hint:'Select the days you are open and set your opening and closing times.',
+    render(){const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];return`<div class="days-grid">${days.map((d,i)=>`<button class="day-btn${[1,2,3,4,5].includes(i)?' on':''}" id="d${i}" onclick="toggleDay(${i})">${d}</button>`).join('')}</div><div class="hours-row"><span>Open</span><input type="time" id="open-t" value="08:00"><span>Close</span><input type="time" id="close-t" value="18:00"></div>`;},
+    validate(){return true;},
+    collect(){const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];A.days=days.filter((_,i)=>document.getElementById('d'+i)?.classList.contains('on'));A.openTime=document.getElementById('open-t')?.value||'08:00';A.closeTime=document.getElementById('close-t')?.value||'18:00';A.hours=`${A.days.join(', ')} · ${A.openTime}–${A.closeTime}`;},
+    preview(){
+      const fmt=t=>{const[h,m]=t.split(':');const hh=+h;return`${hh>12?hh-12:hh||12}:${m}${hh>=12?'pm':'am'}`;};
+      const d=A.days||['Mon','Fri'];
+      wf('wf-hours',`${d[0]}–${d[d.length-1]} · ${fmt(A.openTime||'08:00')}–${fmt(A.closeTime||'18:00')}`);
+    }
+  },
+  {tag:'Question 6 of 7 · Your Headline',q:'In one sentence — what makes your business the right choice?',
+    hint:"This becomes your hero headline. Be bold and specific.",
+    render(){return`<input class="field" id="f" placeholder="e.g. Las Vegas's most trusted HVAC team — 24/7, licensed & insured.">`;},
+    validate(){return val('f');},collect(){A.headline=val('f');},
+    preview(){wf('wf-hl',A.headline);}
+  },
+  {tag:'Question 7 of 7 · Your Brand Color',q:'Pick your brand color.',
+    hint:'Use the palette and template gallery in the top bar above the preview — watch everything update live.',
+    render(){
+      const palette=[
+        {h:'#4F6EF7',n:'Electric Blue'},{h:'#7C3AED',n:'Deep Purple'},
+        {h:'#0EA5E9',n:'Sky Blue'},{h:'#10B981',n:'Emerald'},
+        {h:'#F59E0B',n:'Gold'},{h:'#EF4444',n:'Red'},
+        {h:'#EC4899',n:'Pink'},{h:'#e44cff',n:'Fuchsia'},
+        {h:'#ffffff',n:'White'},{h:'#1a1a2e',n:'Midnight'},
+      ];
+      return`
+        <div style="margin-bottom:14px;display:flex;flex-wrap:wrap;gap:9px;">
+          ${palette.map(c=>`<div onclick="pickColor('${c.h}',this)" title="${c.n}" style="width:36px;height:36px;border-radius:9px;background:${c.h};border:2px solid transparent;cursor:pointer;transition:all .2s;flex-shrink:0;" class="q7chip"></div>`).join('')}
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+          <input type="color" id="custom-c2" value="#4F6EF7" oninput="pickColor(this.value,null)" style="width:36px;height:36px;border:none;border-radius:9px;cursor:pointer;background:none;flex-shrink:0;">
+          <span style="font-size:12px;color:var(--muted);">Or pick a custom color</span>
+        </div>`;
+    },
+    validate(){return true;},collect(){A.color=selectedColor;},preview(){}
+  }
+];
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+function val(id){const e=document.getElementById(id);return e?(e.value||'').trim():'';}
+function wf(id,txt){const e=document.getElementById(id);if(e&&txt!==undefined)e.textContent=txt;}
+
+function showWireframe(){
+  document.getElementById('info-card').style.display='none';
+  const wfEl=document.getElementById('wireframe');
+  wfEl.style.display='flex';
+  applyAccent(selectedColor);
+}
+
+function updateIndicators(){
+  const phase=Math.floor(step/2);
+  ['in1','in2','in3','in4'].forEach((id,i)=>{
+    const el=document.getElementById(id);if(!el)return;
+    if(i<phase){el.className='i-num done';el.textContent='✓';}
+    else if(i===phase){el.className='i-num active';el.textContent=i+1;}
+    else{el.className='i-num idle';el.textContent=i+1;}
+  });
+}
+
+function pickOpt(idx,total,key){
+  A[key]=String(idx);
+  for(let i=0;i<total;i++){const e=document.getElementById('opt'+i);if(e)e.classList.toggle('on',i===idx);}
+}
+
+function toggleOther(idx){
+  const wrap=document.getElementById('other-wrap');
+  if(!wrap)return;
+  const show=idx===3;
+  wrap.style.display=show?'block':'none';
+  if(show){const inp=document.getElementById('other-input');if(inp)inp.focus();}
+}
+
+const _tog={phone:true,email:true,addr:false,web:false};
+function togContact(k,el){_tog[k]=!_tog[k];el.classList.toggle('on',_tog[k]);const f=document.getElementById('c-'+k);if(f)f.style.display=_tog[k]?'block':'none';}
+
+const _days=new Set([1,2,3,4,5]);
+function toggleDay(i){_days.has(i)?_days.delete(i):_days.add(i);document.getElementById('d'+i)?.classList.toggle('on',_days.has(i));}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function render(){
+  if(step>=STEPS.length){done();return;}
+  const s=STEPS[step];
+  const pct=Math.round(((step+1)/STEPS.length)*100);
+  document.getElementById('prog').style.width=pct+'%';
+  updateIndicators();
+  const q=typeof s.q==='function'?s.q():s.q;
+  document.getElementById('step').innerHTML=`
+    <div class="step-tag">${s.tag}</div>
+    <div class="step-q">${q}</div>
+    <div class="step-hint">${s.hint}</div>
+    ${s.render()}
+    <button class="next" onclick="advance()">${step===STEPS.length-1?'✦ Generate My Design Brief':'Continue →'}</button>
+  `;
+  const f=document.getElementById('f');
+  if(f){f.focus();f.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();advance();}});}
+}
+
+function advance(){
+  const s=STEPS[step];
+  if(!s.validate()){
+    const f=document.getElementById('f')||document.getElementById('stmt1');
+    if(f){f.style.borderColor='#EF4444';setTimeout(()=>f.style.borderColor='',1400);}return;
+  }
+  s.collect();s.preview();
+  const q=typeof s.q==='function'?s.q():s.q;
+  let ans='';
+  if(s.tag.includes('Contact')){ans=[A.phone,A.email,A.address,A.city].filter(Boolean).join(' · ');}
+  else if(s.tag.includes('Offer')){ans=A.stmts?.slice(0,3).join(' / ')||'';}
+  else if(s.tag.includes('Hours')){ans=A.hours||'';}
+  else if(s.tag.includes('Color')){ans=selectedColor;}
+  else{ans=Object.values(A).filter(v=>typeof v==='string').slice(-1)[0]||'';}
+  const hist=document.getElementById('history');
+  const item=document.createElement('div');item.className='h-item';
+  item.innerHTML=`<div class="h-q">${q}</div><div class="h-a">${ans}</div>`;
+  hist.appendChild(item);
+  step++;render();
+  document.querySelector('.q-col')?.scrollTo({top:0,behavior:'smooth'});
+}
+
+function done(){
+  document.getElementById('step').innerHTML='';
+  document.getElementById('prog').style.width='100%';
+  document.getElementById('wireframe').style.display='none';
+  document.getElementById('complete').style.display='flex';
+  document.getElementById('complete-h').textContent=`${A.name||'Your site'} is ready.`;
+  try{
+    sessionStorage.setItem('ai4_design_brief',JSON.stringify({
+      businessName:A.name||'',businessType:A.type==='0'?'Service Business':A.type==='1'?'Product Business':'Business',
+      city:A.city||'',phone:A.phone||'',email:A.email||'',address:A.address||'',
+      heroHeadline:A.headline||'',statements:A.stmts||[],
+      service1:A.stmts?.[0]||'',service2:A.stmts?.[1]||'',service3:A.stmts?.[2]||'',
+      hours:A.hours||'',accentColor:selectedColor,template:selectedTemplate,
+      recommendedTemplate:selectedTemplate,
+      pages:['Home','Services','Contact'],
+      features:['Intake Form','Stripe Payments','Mobile Responsive','SEO Ready'],
+      contentAssets:'All content collected from client intake.',
+      timeline:'Ready to launch immediately.',
+    }));
+  }catch(e){}
+}
+
+window.launchPipeline=async function(){
+  if(typeof runPipeline==='function'){await runPipeline(A);}
+  else{window.location.href='brief.html';}
+};
+
+setTimeout(render,200);
+</script>
+<script src="/js/pipeline-caller.js" defer></script>
+</body>
+</html>

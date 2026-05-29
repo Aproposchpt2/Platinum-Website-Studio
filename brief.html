@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Website Design Brief — AI4 Website Design</title>
+  <style>
+    :root{--accent:#4F6EF7;--accent2:#7C3AED;--bg:#06060a;--surface:#0f0f1c;--border:rgba(251,244,231,.12);--ivory:#fbf4e7;--muted:rgba(251,244,231,.6);}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ivory);min-height:100vh;}
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid var(--border);background:rgba(6,6,10,.85);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);}
+    .logo{font-size:14px;font-weight:950;letter-spacing:.22em;text-transform:uppercase;}
+    .logo span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .qa-badge{font-size:10px;padding:4px 12px;border-radius:999px;font-weight:700;letter-spacing:.06em;}
+    .qa-pass{background:rgba(40,200,64,.15);border:1px solid rgba(40,200,64,.35);color:#28c840;}
+    .qa-warn{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:#ef4444;}
+    .wrap{max-width:720px;margin:0 auto;padding:36px 24px 60px;}
+    .page-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
+    .page-hdr-left .eyebrow{font-size:10px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px;}
+    .page-hdr-left h1{font-size:24px;font-weight:900;color:var(--ivory);}
+    .globe{width:48px;height:48px;border-radius:50%;background:rgba(79,110,247,.12);border:1px solid rgba(79,110,247,.28);display:flex;align-items:center;justify-content:center;font-size:22px;}
+    .card{background:#0f0f1c;border-radius:18px;border:1px solid var(--border);overflow:hidden;margin-bottom:20px;}
+    .card-accent{height:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+    .card-hero{padding:24px 26px 20px;border-bottom:1px solid var(--border);}
+    .card-hero .eyebrow{font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
+    .card-hero h2{font-size:26px;font-weight:900;color:var(--ivory);}
+    .card-hero .biz-type{font-size:14px;color:var(--muted);margin-top:4px;}
+    .template-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;margin-top:14px;font-size:12px;font-weight:700;}
+    .badge-dot{width:8px;height:8px;border-radius:50%;}
+    .sections{padding:20px 26px;display:flex;flex-direction:column;gap:18px;}
+    .section{border-bottom:1px solid rgba(251,244,231,.06);padding-bottom:18px;}
+    .section:last-child{border-bottom:none;padding-bottom:0;}
+    .sec-label{font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;}
+    .sec-value{font-size:14px;color:var(--muted);line-height:1.7;}
+    .color-row{display:flex;align-items:center;gap:10px;}
+    .color-swatch{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;}
+    .tag-feat{padding:3px 12px;border-radius:999px;background:rgba(251,244,231,.06);border:1px solid var(--border);font-size:12px;color:var(--muted);}
+    .preview-box{margin:0 26px 24px;border-radius:12px;border:1px solid var(--border);background:var(--bg);overflow:hidden;}
+    .preview-box-header{padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+    .preview-box-label{font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;}
+    .preview-toggle{font-size:11px;color:var(--accent);cursor:pointer;font-weight:600;}
+    #site-preview-frame{width:100%;height:480px;border:none;display:none;}
+    .no-preview{padding:32px;text-align:center;font-size:13px;color:var(--muted);line-height:1.7;}
+    .eco-box{margin:0 26px 24px;background:rgba(79,110,247,.06);border:1px solid rgba(79,110,247,.2);border-radius:12px;padding:16px 18px;}
+    .eco-title{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+    .eco-text{font-size:12px;color:var(--muted);line-height:1.65;}
+    .card-foot{padding:14px 26px;background:var(--bg);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+    .card-foot span{font-size:11px;color:rgba(251,244,231,.3);}
+    .cta-wrap{display:flex;flex-direction:column;gap:12px;margin-top:8px;}
+    .btn-primary{width:100%;padding:16px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;font-size:15px;font-weight:900;cursor:pointer;font-family:inherit;letter-spacing:.04em;text-transform:uppercase;transition:opacity .2s;}
+    .btn-primary:hover{opacity:.88;}
+    .btn-secondary{width:100%;padding:14px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;}
+    .btn-secondary:hover{border-color:var(--accent);color:var(--ivory);}
+    .cta-note{text-align:center;font-size:12px;color:rgba(251,244,231,.3);}
+    /* ── Webflow Platinum Panel ── */
+    .btn-webflow{width:100%;padding:16px;border-radius:999px;background:linear-gradient(135deg,#4353ff,#9333ea);border:none;color:#fff;font-size:15px;font-weight:900;cursor:pointer;font-family:inherit;letter-spacing:.04em;text-transform:uppercase;transition:opacity .2s;display:flex;align-items:center;justify-content:center;gap:10px;}
+    .btn-webflow:hover{opacity:.88;}
+    .btn-webflow:disabled{opacity:.45;cursor:not-allowed;}
+    .webflow-panel{margin-top:20px;background:rgba(67,83,255,.06);border:1px solid rgba(67,83,255,.28);border-radius:18px;overflow:hidden;display:none;}
+    .webflow-panel.visible{display:block;}
+    .webflow-panel-hdr{padding:14px 20px;border-bottom:1px solid rgba(67,83,255,.18);display:flex;align-items:center;justify-content:space-between;}
+    .webflow-panel-label{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9ab}
+    .webflow-panel-status{font-size:11px;font-weight:600;color:#6b9fff;display:flex;align-items:center;gap:6px;}
+    .wf-dot{width:7px;height:7px;border-radius:50%;background:#6b9fff;box-shadow:0 0 8px rgba(107,159,255,.7);animation:pulse 1.6s ease-in-out infinite;}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    #webflow-preview-frame{width:100%;height:500px;border:none;background:#06060a;display:block;}
+    .webflow-deploy-bar{padding:16px 20px;background:rgba(6,6,10,.6);border-top:1px solid rgba(67,83,255,.18);display:flex;flex-direction:column;gap:10px;}
+    .deploy-meta{font-size:12px;color:rgba(251,244,231,.45);line-height:1.5;}
+    .btn-deploy{width:100%;padding:15px;border-radius:999px;background:linear-gradient(135deg,#059669,#047857);border:none;color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:inherit;letter-spacing:.05em;text-transform:uppercase;transition:opacity .2s;}
+    .btn-deploy:hover{opacity:.88;}
+    .btn-deploy:disabled{opacity:.4;cursor:not-allowed;}
+    .deploy-success{padding:20px;text-align:center;display:none;}
+    .deploy-success.on{display:block;}
+    .deploy-check{font-size:36px;margin-bottom:8px;}
+    .deploy-url{font-size:13px;color:#6b9fff;word-break:break-all;margin-top:8px;}
+    .deploy-url a{color:#6b9fff;}
+    #upsell-page{display:none;}
+    #upsell-page .wrap{display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:60px;}
+    .upsell-check{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:24px;box-shadow:0 0 40px rgba(79,110,247,.4);}
+    .upsell-h{font-size:28px;font-weight:900;color:var(--ivory);max-width:500px;line-height:1.2;margin-bottom:10px;}
+    .upsell-sub{font-size:15px;color:var(--muted);max-width:420px;line-height:1.65;margin-bottom:36px;}
+    .perks{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:520px;width:100%;margin-bottom:28px;}
+    .perk{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;text-align:left;}
+    .perk-icon{font-size:22px;margin-bottom:8px;}
+    .perk-title{font-size:13px;font-weight:700;color:var(--ivory);margin-bottom:4px;}
+    .perk-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+    .price-card{background:var(--surface);border-radius:18px;padding:28px 36px;max-width:380px;width:100%;text-align:center;margin-bottom:16px;}
+    .price-eyebrow{font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;}
+    .price-row{display:flex;align-items:baseline;justify-content:center;gap:4px;margin-bottom:4px;}
+    .price-main{font-size:52px;font-weight:900;color:var(--ivory);}
+    .price-cents{font-size:22px;color:var(--muted);}
+    .price-note{font-size:12px;color:rgba(251,244,231,.3);margin-bottom:24px;}
+    .eco-strip{max-width:380px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px;text-align:left;}
+    .eco-strip-icon{font-size:22px;}
+    .eco-strip-title{font-size:12px;font-weight:700;color:var(--ivory);margin-bottom:2px;}
+    .eco-strip-text{font-size:11px;color:rgba(251,244,231,.3);line-height:1.5;}
+    #loading{display:none;position:fixed;inset:0;background:rgba(6,6,10,.92);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+    #loading.on{display:flex;}
+    .spinner{width:40px;height:40px;border:3px solid rgba(79,110,247,.2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading-txt{font-size:14px;color:var(--muted);}
+    @media(max-width:540px){.perks{grid-template-columns:1fr;}.sections{padding:16px;}.card-hero{padding:18px 16px;}}
+  </style>
+</head>
+<body>
+<div id="loading"><div class="spinner"></div><div class="loading-txt">Generating your brief...</div></div>
+<div id="brief-page">
+  <header>
+    <div class="logo">AI4 <span>Website Design</span></div>
+    <div class="qa-badge qa-pass" id="qa-badge" style="display:none">✓ QA Passed</div>
+  </header>
+  <div class="wrap">
+    <div class="page-hdr">
+      <div class="page-hdr-left"><div class="eyebrow">ai4websitedesign.com</div><h1>Your Website Design Brief</h1></div>
+      <div class="globe">🌐</div>
+    </div>
+    <div class="card">
+      <div class="card-accent"></div>
+      <div class="card-hero">
+        <div class="eyebrow">Prepared for</div>
+        <h2 id="biz-name">Your Business</h2>
+        <div class="biz-type" id="biz-type"></div>
+        <div class="template-badge" id="template-badge"><div class="badge-dot" id="badge-dot"></div><span id="badge-text"></span></div>
+      </div>
+      <div class="sections">
+        <div class="section"><div class="sec-label">Hero Headline</div><div class="sec-value" id="hero-headline">—</div></div>
+        <div class="section"><div class="sec-label">Target Audience</div><div class="sec-value" id="target-audience">—</div></div>
+        <div class="section"><div class="sec-label">Style Direction</div><div class="sec-value" id="style-direction">—</div></div>
+        <div class="section"><div class="sec-label">Services / Key Statements</div><div class="sec-value" id="services-list">—</div></div>
+        <div class="section"><div class="sec-label">Brand Color</div><div class="color-row"><div class="color-swatch" id="color-swatch"></div><span class="sec-value" id="color-hex"></span></div></div>
+        <div class="section"><div class="sec-label">Pages & Structure</div><div class="tags" id="pages-tags"></div></div>
+        <div class="section"><div class="sec-label">Features Included</div><div class="tags" id="features-tags"></div></div>
+        <div class="section"><div class="sec-label">Contact Info</div><div class="sec-value" id="contact-info">—</div></div>
+        <div class="section"><div class="sec-label">Hours of Operation</div><div class="sec-value" id="hours-info">—</div></div>
+        <div class="section"><div class="sec-label">Timeline</div><div class="sec-value" id="timeline">Ready to launch immediately.</div></div>
+      </div>
+      <div class="preview-box" id="preview-box" style="display:none;">
+        <div class="preview-box-header"><div class="preview-box-label">Site Preview</div><div class="preview-toggle" onclick="togglePreview()">Show Preview ▾</div></div>
+        <div class="no-preview" id="no-preview-msg">Click "Show Preview" to see your site.</div>
+        <iframe id="site-preview-frame" title="Your website preview"></iframe>
+      </div>
+      <div class="eco-box">
+        <div class="eco-title">The Apropos Group Ecosystem</div>
+        <div class="eco-text">Your website is just the beginning. As your business grows, The Apropos Group scales with you — AI business tools at AI4Businesses.org, AI call intake at aiflowdeskpro.com, and ultimately White Label Partnership.</div>
+      </div>
+      <div class="card-foot"><span>© 2026 Apropos Group LLC · ai4websitedesign.com</span><span id="brief-date"></span></div>
+    </div>
+    <div class="cta-wrap">
+      <button class="btn-primary" id="download-btn" onclick="handleDownload()">⬇ Download My Design Brief — FREE</button>
+      <button class="btn-secondary" onclick="handleLaunch()">🚀 See It Live — Launch My Site</button>
+      <div class="cta-note">No credit card required for download · Powered by Stripe for launch</div>
+      <button class="btn-webflow" id="webflow-approve-btn" onclick="handleWebflowApprove()">
+        <span>◆</span> Approve &amp; Publish to Webflow — Platinum
+      </button>
+    </div>
+
+    <!-- Webflow Deploy Panel (revealed after approve) -->
+    <div class="webflow-panel" id="webflow-panel">
+      <div class="webflow-panel-hdr">
+        <span class="webflow-panel-label">Webflow Preview</span>
+        <span class="webflow-panel-status" id="wf-panel-status">
+          <span class="wf-dot"></span> Ready to publish
+        </span>
+      </div>
+      <iframe id="webflow-preview-frame" title="Webflow site preview" src="about:blank"></iframe>
+      <div class="webflow-deploy-bar" id="webflow-deploy-bar">
+        <div class="deploy-meta" id="deploy-meta">Review your site in the preview above, then confirm to publish it live.</div>
+        <button class="btn-deploy" id="webflow-deploy-btn" onclick="handleWebflowDeploy()">
+          ✓ Confirm &amp; Go Live
+        </button>
+      </div>
+      <div class="deploy-success" id="deploy-success">
+        <div class="deploy-check">🚀</div>
+        <div style="font-size:16px;font-weight:900;color:#fbf4e7">Your site is live!</div>
+        <div class="deploy-url" id="deploy-url-display"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="upsell-page">
+  <header><div class="logo">AI4 <span>Website Design</span></div></header>
+  <div class="wrap">
+    <div class="upsell-check">✓</div>
+    <h2 class="upsell-h">Ready to see <span id="upsell-biz" style="font-style:italic;"></span> live on the internet?</h2>
+    <p class="upsell-sub">Your site is built and waiting. One click launches it with your domain, hosting, and intake form — all included.</p>
+    <div class="perks">
+      <div class="perk"><div class="perk-icon">🌐</div><div class="perk-title">Live website, real domain</div><div class="perk-desc">Your site goes live instantly at your own domain.</div></div>
+      <div class="perk"><div class="perk-icon">✏️</div><div class="perk-title">Edit anytime</div><div class="perk-desc">Change copy, colors, and pages — just ask the AI.</div></div>
+      <div class="perk"><div class="perk-icon">💳</div><div class="perk-title">Intake form included</div><div class="perk-desc">Capture leads from day one — no extra setup.</div></div>
+      <div class="perk"><div class="perk-icon">📈</div><div class="perk-title">Grow with Apropos Group</div><div class="perk-desc">Unlock AI4Businesses.org + FlowDesk Pro as you scale.</div></div>
+    </div>
+    <div class="price-card" id="price-card">
+      <div class="price-eyebrow">Launch your site</div>
+      <div class="price-row"><span class="price-main">$19</span><span class="price-cents">.99<span style="font-size:14px;">/mo</span></span></div>
+      <div class="price-note">Cancel anytime · 30-day money back guarantee</div>
+      <button class="btn-primary" onclick="handleStripe()">🚀 Launch My Site Now</button>
+      <div style="font-size:11px;color:rgba(251,244,231,.3);margin-top:10px;">Powered by Stripe · 256-bit encrypted</div>
+    </div>
+    <div class="eco-strip"><div class="eco-strip-icon">🌱</div><div><div class="eco-strip-title">This is just the beginning</div><div class="eco-strip-text">ai4websitedesign → AI4Businesses.org → FlowDesk Pro → White Label Partner</div></div></div>
+  </div>
+</div>
+<script>
+const STRIPE_LINK='https://buy.stripe.com/cNi7sK3Zw8SHcNt2UE7EQ0k';
+let brief={},builtHTML=null,previewVisible=false;
+try{const r=sessionStorage.getItem('ai4_design_brief');brief=r?JSON.parse(r):getSample();}catch(e){brief=getSample();}
+try{builtHTML=sessionStorage.getItem('ai4_built_html')||null;}catch(e){}
+try{const pr=JSON.parse(sessionStorage.getItem('ai4_pipeline_result')||'{}');if(pr.qaPass!==undefined){const b=document.getElementById('qa-badge');b.style.display='inline-flex';if(!pr.qaPass){b.className='qa-badge qa-warn';b.textContent=`⚠ ${pr.unresolvedTokens} tokens unresolved`;}}}catch(e){}
+function getSample(){return{businessName:'Mitchell AI Systems',businessType:'Service Business',city:'Las Vegas, NV',phone:'(702) 555-0100',email:'info@example.com',heroHeadline:"Las Vegas's Most Trusted AI Automation Partner",targetAudience:'Small to mid-size businesses seeking to automate operations.',styleDirection:'Modern, forward-thinking, and authoritative.',statements:['AI Workflow Automation','24/7 Call Intake','White Label Solutions'],service1:'AI Workflow Automation',service2:'24/7 Call Intake',service3:'White Label Solutions',hours:'Mon–Fri · 8am–6pm',accentColor:'#7C3AED',recommendedTemplate:'Command Authority',pages:['Home','About','Services','Contact'],features:['Intake Form','Stripe Payments','Mobile Responsive','SEO Ready'],contentAssets:'All content captured from client intake.',timeline:'Ready to launch immediately.'};}
+function set(id,val){const e=document.getElementById(id);if(e)e.textContent=val;}
+function render(){
+  const accent=brief.accentColor||'#4F6EF7';
+  set('biz-name',brief.businessName||'Your Business');set('biz-type',brief.businessType||'');
+  set('hero-headline',brief.heroHeadline||'—');set('target-audience',brief.targetAudience||'—');
+  set('style-direction',brief.styleDirection||'—');set('timeline',brief.timeline||'Ready to launch immediately.');
+  set('brief-date',new Date().toLocaleDateString());set('upsell-biz',brief.businessName||'your site');set('color-hex',accent);
+  const stmts=brief.statements||[brief.service1,brief.service2,brief.service3].filter(Boolean);
+  const sl=document.getElementById('services-list');if(sl){sl.textContent=stmts.map((s,i)=>`${i+1}. ${s}`).join('\n');sl.style.whiteSpace='pre-line';}
+  const ci=document.getElementById('contact-info');if(ci){ci.textContent=[brief.phone&&`📞 ${brief.phone}`,brief.email&&`✉ ${brief.email}`,brief.city&&`📍 ${brief.city}`,brief.address&&`🏢 ${brief.address}`].filter(Boolean).join('\n')||'—';ci.style.whiteSpace='pre-line';}
+  set('hours-info',brief.hours||'—');
+  document.getElementById('color-swatch').style.background=accent;
+  const badge=document.getElementById('template-badge');badge.style.background=accent+'22';badge.style.border=`1px solid ${accent}44`;
+  document.getElementById('badge-dot').style.background=accent;document.getElementById('badge-text').style.color=accent;
+  set('badge-text',`${brief.recommendedTemplate||'Premium'} Template · ${accent}`);
+  const pe=document.getElementById('pages-tags');(brief.pages||[]).forEach(p=>{const sp=document.createElement('span');sp.style.cssText=`border:1px solid ${accent};color:${accent};padding:3px 12px;border-radius:999px;font-size:12px;`;sp.textContent=p;pe.appendChild(sp);});
+  const fe=document.getElementById('features-tags');(brief.features||[]).forEach(f=>{const sp=document.createElement('span');sp.className='tag-feat';sp.textContent=f;fe.appendChild(sp);});
+  if(builtHTML)document.getElementById('preview-box').style.display='block';
+  document.getElementById('price-card').style.border=`1px solid ${accent}55`;
+}
+function togglePreview(){if(!builtHTML)return;previewVisible=!previewVisible;const frame=document.getElementById('site-preview-frame');const msg=document.getElementById('no-preview-msg');const btn=document.querySelector('.preview-toggle');if(previewVisible){frame.srcdoc=builtHTML;frame.style.display='block';msg.style.display='none';btn.textContent='Hide Preview ▴';}else{frame.style.display='none';msg.style.display='block';btn.textContent='Show Preview ▾';}}
+async function handleDownload(){const btn=document.getElementById('download-btn');btn.disabled=true;btn.textContent='Generating PDF...';document.getElementById('loading').classList.add('on');try{const res=await fetch('/.netlify/functions/generate-brief',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(brief)});const data=await res.json();if(data.pdf_base64){const bytes=atob(data.pdf_base64);const arr=new Uint8Array(bytes.length);for(let i=0;i<bytes.length;i++)arr[i]=bytes.charCodeAt(i);const blob=new Blob([arr],{type:'application/pdf'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`${(brief.businessName||'Design-Brief').replace(/\s+/g,'-')}-Brief.pdf`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);}else{printFallback();}}catch(e){printFallback();}document.getElementById('loading').classList.remove('on');setTimeout(()=>{document.getElementById('brief-page').style.display='none';document.getElementById('upsell-page').style.display='block';window.scrollTo({top:0,behavior:'smooth'});},1200);}
+function handleLaunch(){document.getElementById('brief-page').style.display='none';document.getElementById('upsell-page').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
+function handleStripe(){window.open(STRIPE_LINK,'_blank');}
+/* ── Webflow Platinum Integration ── */
+let wfState = { siteId: null, deploymentId: null, domains: [], previewUrl: null };
+
+async function handleWebflowApprove() {
+  const btn = document.getElementById('webflow-approve-btn');
+  btn.disabled = true;
+  btn.textContent = '◆ Connecting to Webflow…';
+  document.getElementById('loading').classList.add('on');
+
+  try {
+    const res = await fetch('/.netlify/functions/webflow-publish', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(brief),
+    });
+    const data = await res.json();
+
+    if (!data.ok) {
+      alert('Webflow publish error: ' + (data.error || 'Unknown error'));
+      btn.disabled = false;
+      btn.innerHTML = '<span>◆</span> Approve &amp; Publish to Webflow — Platinum';
+      return;
+    }
+
+    wfState.siteId = data.siteId;
+    wfState.deploymentId = data.deploymentId;
+    wfState.domains = data.customDomains || [];
+    wfState.previewUrl = data.previewUrl;
+
+    // Show the deploy panel with preview
+    const panel = document.getElementById('webflow-panel');
+    panel.classList.add('visible');
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    const frame = document.getElementById('webflow-preview-frame');
+    if (data.previewUrl && data.previewUrl !== 'about:blank') {
+      frame.src = data.previewUrl;
+    }
+
+    document.getElementById('wf-panel-status').innerHTML =
+      '<span class="wf-dot"></span> ' + (data.siteName || 'Site') + ' — ready to deploy';
+    document.getElementById('deploy-meta').textContent =
+      data.customDomains && data.customDomains.length
+        ? 'Will publish to: ' + data.customDomains.join(', ')
+        : 'Will publish to Webflow subdomain.';
+
+    btn.textContent = '◆ Approved — See Preview Below';
+  } catch (e) {
+    alert('Network error: ' + e.message);
+    btn.disabled = false;
+    btn.innerHTML = '<span>◆</span> Approve &amp; Publish to Webflow — Platinum';
+  } finally {
+    document.getElementById('loading').classList.remove('on');
+  }
+}
+
+async function handleWebflowDeploy() {
+  if (!wfState.siteId) return;
+  const btn = document.getElementById('webflow-deploy-btn');
+  btn.disabled = true;
+  btn.textContent = 'Publishing…';
+  document.getElementById('loading').classList.add('on');
+
+  try {
+    const res = await fetch('/.netlify/functions/webflow-deploy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        siteId: wfState.siteId,
+        deploymentId: wfState.deploymentId,
+        domains: wfState.domains,
+      }),
+    });
+    const data = await res.json();
+
+    if (!data.ok) {
+      alert('Deploy error: ' + (data.error || 'Unknown error'));
+      btn.disabled = false;
+      btn.textContent = '✓ Confirm & Go Live';
+      return;
+    }
+
+    document.getElementById('webflow-deploy-bar').style.display = 'none';
+    const success = document.getElementById('deploy-success');
+    success.classList.add('on');
+    const urlEl = document.getElementById('deploy-url-display');
+    if (data.publishedUrl) {
+      urlEl.innerHTML = 'Live at: <a href="' + data.publishedUrl + '" target="_blank" rel="noopener">' + data.publishedUrl + '</a>';
+    }
+  } catch (e) {
+    alert('Network error: ' + e.message);
+    btn.disabled = false;
+    btn.textContent = '✓ Confirm & Go Live';
+  } finally {
+    document.getElementById('loading').classList.remove('on');
+  }
+}
+
+function printFallback(){const accent=brief.accentColor||'#4F6EF7';const w=window.open('','_blank');const stmts=(brief.statements||[brief.service1,brief.service2,brief.service3].filter(Boolean)).map(s=>`<li>${s}</li>`).join('');w.document.write(`<!DOCTYPE html><html><head><title>${brief.businessName} — Design Brief</title><style>body{font-family:Georgia,serif;color:#111;padding:48px;max-width:720px;margin:0 auto}h1{font-size:28px}h2{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#888;margin:22px 0 5px;border-bottom:1px solid #eee;padding-bottom:4px}p,li{font-size:14px;line-height:1.7}.badge{display:inline-block;padding:4px 12px;border-radius:20px;background:${accent};color:white;font-size:11px;font-weight:bold;margin-top:8px}.hdr{border-bottom:4px solid ${accent};padding-bottom:18px;margin-bottom:28px}.eco{margin-top:28px;padding:14px;background:#f9f9ff;border:1px solid #e0e0ff;border-radius:8px;font-size:12px;color:#555;line-height:1.6}.foot{margin-top:40px;padding-top:14px;border-top:1px solid #eee;font-size:10px;color:#aaa;display:flex;justify-content:space-between}ul{padding-left:18px;margin:0}</style></head><body><div class="hdr"><div style="font-size:10px;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">AI4 Website Design · Design Brief</div><h1>${brief.businessName||'Your Business'}</h1><p style="color:#666;margin:4px 0">${brief.businessType||''}</p><span class="badge">${brief.recommendedTemplate||'Premium'} Template</span></div><h2>Hero Headline</h2><p>${brief.heroHeadline||'—'}</p><h2>Target Audience</h2><p>${brief.targetAudience||'—'}</p><h2>Style Direction</h2><p>${brief.styleDirection||'—'}</p><h2>Services</h2><ul>${stmts}</ul><h2>Brand Color</h2><p>${brief.accentColor||accent}</p><h2>Contact</h2><p>${[brief.phone,brief.email,brief.city].filter(Boolean).join(' · ')}</p><h2>Hours</h2><p>${brief.hours||'—'}</p><h2>Timeline</h2><p>${brief.timeline||'Ready to launch immediately.'}</p><div class="eco"><strong style="color:${accent}">THE APROPOS GROUP ECOSYSTEM</strong><br>ai4websitedesign → AI4Businesses.org → FlowDesk Pro → White Label Partner</div><div class="foot"><span>© 2026 Apropos Group LLC · ai4websitedesign.com</span><span>${new Date().toLocaleDateString()}</span></div></body></html>`);w.document.close();w.print();}
+render();
+</script>
+</body>
+</html>

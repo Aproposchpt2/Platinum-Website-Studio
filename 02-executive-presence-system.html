@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{BUSINESS_NAME}} — Executive Presence System</title>
+  <style>
+    :root{
+      --navy:#08111f;
+      --steel:#dce5ec;
+      --silver:#aebdcc;
+      --ice:#f7fbff;
+      --line:rgba(220,229,236,.16);
+      --signal:#73a7ff;
+      --deep:#03070d;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      color:var(--ice);
+      background:var(--deep);
+    }
+    a{text-decoration:none;color:inherit}
+    .shell{
+      min-height:100vh;
+      padding:26px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        radial-gradient(circle at 75% 18%, rgba(115,167,255,.23), transparent 34%),
+        linear-gradient(145deg, #03070d, #0e1b2d 62%, #060a12);
+      background-size:72px 72px, 72px 72px, auto, auto;
+    }
+    .panel{
+      min-height:calc(100vh - 52px);
+      border:1px solid var(--line);
+      border-radius:34px;
+      overflow:hidden;
+      position:relative;
+      background:rgba(8,17,31,.62);
+      box-shadow:0 45px 120px rgba(0,0,0,.45);
+    }
+    .panel::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(115deg, transparent 0 47%, rgba(255,255,255,.08) 47.2% 47.6%, transparent 47.8%);
+      pointer-events:none;
+    }
+    nav{
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      align-items:center;
+      gap:20px;
+      padding:28px clamp(22px,5vw,64px);
+      border-bottom:1px solid var(--line);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:11px;
+      color:rgba(247,251,255,.7);
+    }
+    .brand{justify-self:center;font-weight:800;color:var(--ice);letter-spacing:.18em}
+    .contact{justify-self:end}
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(280px,480px);
+      gap:clamp(28px,6vw,80px);
+      align-items:center;
+      padding:clamp(44px,7vw,96px) clamp(22px,5vw,72px);
+      min-height:720px;
+    }
+    .kicker{
+      display:inline-grid;
+      grid-auto-flow:column;
+      gap:12px;
+      align-items:center;
+      color:var(--signal);
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      font-size:12px;
+      margin-bottom:26px;
+    }
+    .kicker::before,.kicker::after{content:"";height:1px;width:40px;background:rgba(115,167,255,.8)}
+    h1{
+      margin:0;
+      max-width:900px;
+      font-size:clamp(46px,7vw,108px);
+      line-height:.92;
+      letter-spacing:-.075em;
+      font-weight:850;
+    }
+    h1 em{
+      font-family:Georgia,serif;
+      font-weight:400;
+      color:rgba(247,251,255,.72);
+      font-style:italic;
+    }
+    .copy{
+      margin:28px 0 34px;
+      color:rgba(247,251,255,.72);
+      line-height:1.75;
+      max-width:650px;
+      font-size:clamp(16px,1.5vw,20px);
+    }
+    .actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+    .btn{
+      padding:16px 22px;
+      border-radius:14px;
+      font-weight:800;
+      letter-spacing:.02em;
+      background:var(--ice);
+      color:#06101c;
+      box-shadow:0 18px 50px rgba(115,167,255,.16);
+    }
+    .phone{
+      padding:15px 20px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      color:rgba(247,251,255,.76);
+    }
+    .authority-card{
+      min-height:540px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:22px;
+      position:relative;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.025)),
+        rgba(255,255,255,.02);
+      overflow:hidden;
+    }
+    .authority-card::before{
+      content:"";
+      position:absolute;
+      inset:42px;
+      border:1px solid rgba(247,251,255,.12);
+      border-radius:22px;
+    }
+    .authority-card::after{
+      content:"";
+      position:absolute;
+      width:230px;height:230px;
+      border:1px solid rgba(115,167,255,.38);
+      border-radius:50%;
+      right:-60px;top:62px;
+      box-shadow:0 0 0 42px rgba(115,167,255,.04), 0 0 0 90px rgba(115,167,255,.025);
+    }
+    .metric{
+      position:absolute;
+      left:32px;
+      bottom:34px;
+      right:32px;
+      padding:24px;
+      border-radius:22px;
+      background:rgba(3,7,13,.72);
+      backdrop-filter:blur(18px);
+      border:1px solid rgba(247,251,255,.12);
+    }
+    .metric strong{
+      display:block;
+      font-size:clamp(34px,4vw,62px);
+      letter-spacing:-.06em;
+      line-height:1;
+    }
+    .metric span{
+      display:block;
+      margin-top:12px;
+      color:rgba(247,251,255,.66);
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:11px;
+    }
+    .services{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      border-top:1px solid var(--line);
+    }
+    .service{
+      padding:34px clamp(22px,4vw,48px);
+      min-height:180px;
+      border-right:1px solid var(--line);
+      background:rgba(255,255,255,.025);
+    }
+    .service:last-child{border-right:0}
+    .service small{
+      color:var(--signal);
+      text-transform:uppercase;
+      letter-spacing:.18em;
+    }
+    .service h2{
+      margin:20px 0 0;
+      font-size:clamp(20px,2vw,31px);
+      line-height:1.12;
+      letter-spacing:-.03em;
+    }
+    @media(max-width:940px){
+      .shell{padding:12px}
+      .panel{border-radius:24px;min-height:auto}
+      nav{grid-template-columns:1fr;gap:12px;text-align:center}
+      .contact{justify-self:center}
+      .hero{grid-template-columns:1fr;min-height:auto;padding-top:36px}
+      .authority-card{min-height:420px;order:-1}
+      h1{font-size:clamp(45px,14vw,82px)}
+      .services{grid-template-columns:1fr}
+      .service{border-right:0;border-bottom:1px solid var(--line)}
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="panel">
+      <nav>
+        <span>Executive Presence</span>
+        <a class="brand" href="{{CTA_LINK}}">{{BUSINESS_NAME}}</a>
+        <span class="contact">{{CITY}} · {{PHONE}}</span>
+      </nav>
+
+      <section class="hero">
+        <div class="message">
+          <div class="kicker">Authority by design</div>
+          <h1>{{HEADLINE}} <em></em></h1>
+          <p class="copy">{{DESCRIPTION}}</p>
+          <div class="actions">
+            <a class="btn" href="{{CTA_LINK}}">{{CTA_TEXT}}</a>
+            <a class="phone" href="tel:{{PHONE}}">{{PHONE}}</a>
+          </div>
+        </div>
+        <aside class="authority-card" aria-label="Trust signal">
+          <div class="metric">
+            <strong>{{CITY}}</strong>
+            <span>Presence built for serious decision-makers</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="services" aria-label="Offer preview">
+        <article class="service"><small>Capability 01</small><h2>{{SERVICE_1}}</h2></article>
+        <article class="service"><small>Capability 02</small><h2>{{SERVICE_2}}</h2></article>
+        <article class="service"><small>Capability 03</small><h2>{{SERVICE_3}}</h2></article>
+      </section>
+    </section>
+  </main>
+</body>
+</html>
