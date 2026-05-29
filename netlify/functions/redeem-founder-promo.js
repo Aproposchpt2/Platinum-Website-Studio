@@ -27,14 +27,9 @@ const headers = {
   'Content-Type':                 'application/json',
 };
 
-const INTERNAL_EMAIL =
-  process.env.AI4_INTERNAL_NOTIFICATION_EMAIL ||
-  process.env.RESEND_TO_EMAIL ||
-  'jmitchell@ai4websitedesign.com';
+const INTERNAL_EMAIL = process.env.RESEND_TO_EMAIL;
 
-const RESEND_FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL ||
-  'AI4 Website Design <jmitchell@ai4websitedesign.com>';
+const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL;
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 function json(statusCode, payload) {
@@ -240,7 +235,7 @@ function buildCustomerEmail({ safeFullName, safeBusinessName, hasAttachment }) {
       <p style="font-size:15px;line-height:1.7;color:#c9d1d9;margin:0 0 14px;">Hi ${safeFullName},</p>
       <p style="font-size:15px;line-height:1.7;color:#c9d1d9;margin:0 0 14px;">${attachmentNote}</p>
       ${hasAttachment ? `<p style="font-size:15px;line-height:1.7;color:#c9d1d9;margin:0 0 14px;">Save the attached file to your computer. This is the HTML file generated from your AI4 Website Design build.</p>` : ''}
-      <p style="font-size:14px;line-height:1.7;color:#8b949e;margin:22px 0 0;">Questions? Reply to this email or contact jmitchell@ai4websitedesign.com.</p>
+      <p style="font-size:14px;line-height:1.7;color:#8b949e;margin:22px 0 0;">Questions? Reply to this email.</p>
     </div>
     <p style="font-size:12px;line-height:1.6;color:#8b949e;margin:18px 0 0;text-align:center;">Powered by Apropos Group LLC</p>
   </div>
@@ -474,7 +469,7 @@ exports.handler = async (event) => {
           ? `Your custom website file for ${businessName} is attached as index.html.`
           : `Your website for ${businessName} is being prepared. You will receive a follow-up email with your file shortly.`,
         '',
-        'Questions? Reply to this email or contact jmitchell@ai4websitedesign.com.',
+        'Questions? Reply to this email.',
       ].join('\n'),
       attachments: hasAttachment
         ? [{ filename: 'index.html', content: Buffer.from(builtHtml, 'utf8').toString('base64') }]

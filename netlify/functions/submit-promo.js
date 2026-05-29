@@ -137,7 +137,7 @@ exports.handler = async (event) => {
       <div style="text-align:center;">
         <a href="https://ai4websitedesign.com/signup?promo=${promoCode}&type=${encodeURIComponent(type)}" style="display:inline-block;background:linear-gradient(135deg,#FFB800,#FFD060);color:#1a0d00;font-weight:700;font-size:15px;padding:14px 32px;border-radius:10px;text-decoration:none;">Start Building My Website →</a>
       </div>
-      <p style="font-size:12px;color:#90A3BC;margin:20px 0 0;text-align:center;">Questions? Reply to this email or contact jmitchell@ai4websitedesign.com</p>
+      <p style="font-size:12px;color:#90A3BC;margin:20px 0 0;text-align:center;">Questions? Reply to this email.</p>
     </div>
   </div>
 </body></html>`,

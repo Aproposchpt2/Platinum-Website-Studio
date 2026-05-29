@@ -24,9 +24,7 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
-const RESEND_FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL ||
-  'AI4 Website Design <jmitchell@ai4websitedesign.com>';
+const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL;
 
 function normalizeEmail(value = '') {
   return String(value || '').trim().toLowerCase();

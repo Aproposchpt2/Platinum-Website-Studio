@@ -23,14 +23,9 @@ const supabase =
     ? createClient(supabaseUrl, supabaseServiceKey)
     : null;
 
-const INTERNAL_EMAIL =
-  process.env.AI4_INTERNAL_NOTIFICATION_EMAIL ||
-  process.env.RESEND_TO_EMAIL ||
-  'jmitchell@ai4websitedesign.com';
+const INTERNAL_EMAIL = process.env.RESEND_TO_EMAIL;
 
-const RESEND_FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL ||
-  'AI4 Website Design <jmitchell@ai4websitedesign.com>';
+const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL;
 
 const PLAN_DEFINITIONS = {
   starter: {
@@ -441,7 +436,7 @@ async function sendConfirmationEmail({ email, full_name, planDetails, order }) {
         <a class="cta-btn" href="https://ai4websitedesign.com">Return to ai4websitedesign.com</a>
         <div class="footer">
           Order ID: ${escapeHtml(order.id)}<br>
-          Questions? Reply to this email or contact us at jmitchell@ai4websitedesign.com<br><br>
+          Questions? Reply to this email<br><br>
           Powered by Apropos Group LLC · ai4websitedesign.com<br>
           © 2026 Apropos Group LLC. All rights reserved.
         </div>

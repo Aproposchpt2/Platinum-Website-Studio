@@ -18,14 +18,9 @@ const supabase =
     : null;
 
 const DEFAULT_LANGUAGE = 'en';
-const INTERNAL_EMAIL =
-  process.env.AI4_INTERNAL_NOTIFICATION_EMAIL ||
-  process.env.RESEND_TO_EMAIL ||
-  'jmitchell@ai4websitedesign.com';
+const INTERNAL_EMAIL = process.env.RESEND_TO_EMAIL;
 
-const RESEND_FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL ||
-  'AI4 Website Design <jmitchell@ai4websitedesign.com>';
+const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL;
 
 const PLAN_LABELS = {
   starter: 'Exclusive Founder’s Offer',
@@ -248,7 +243,7 @@ exports.handler = async (event) => {
           ${safeDomainDisplay}
         </div>
         <p style="color:#c9d1d9;line-height:1.7;">If one of these options is available within the standard domain registration credit, we will continue with registration. If a premium domain, specialty extension, renewal, or upgrade costs extra, we will confirm before proceeding.</p>
-        <p style="font-size:12px;color:#8b949e;line-height:1.7;">Questions? Contact jmitchell@ai4websitedesign.com</p>
+        <p style="font-size:12px;color:#8b949e;line-height:1.7;">Questions? Reply to this email.</p>
       </div>
     </body>
     </html>
