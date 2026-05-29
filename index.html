@@ -469,6 +469,10 @@ function generatePromoCode(name) {
   return `${prefix}-${code}`;
 }
 
+// ── SUPABASE CONFIG ───────────────────────────────────────────
+const SUPABASE_URL = 'https://judislfknmhofcgzyozc.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp1ZGlzbGZrbm1ob2ZjZ3p5b3pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMDI3ODAsImV4cCI6MjA5Mjc3ODc4MH0.Kxpe0kJt0k7ZchYu70BOwm4KdT0C5aSsyeR1ov6NlQ0';
+
 // ── HANDLE FORM SUBMIT ────────────────────────────────────────
 async function handleSubmit(e) {
   e.preventDefault();
@@ -479,8 +483,36 @@ async function handleSubmit(e) {
   const type = document.getElementById('fieldType').value;
 
   const btn = document.getElementById('submitBtn');
-  btn.textContent = 'Generating your promo code...';
+  btn.textContent = 'Checking...';
   btn.disabled = true;
+
+  // Check if email already claimed a code
+  const checkRes = await fetch(
+    SUPABASE_URL + '/rest/v1/promo_leads' +
+    '?email=eq.' + encodeURIComponent(email) + '&select=promo_code,used',
+    {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY
+      }
+    }
+  );
+  const existing = await checkRes.json();
+
+  if (existing && existing.length > 0) {
+    const record = existing[0];
+    btn.textContent = '✦ Send Me My Promo Code';
+    btn.disabled = false;
+
+    if (record.used) {
+      alert('This email has already used their promo code. Each email is limited to one free website.');
+    } else {
+      alert('A promo code was already sent to this email: ' + record.promo_code + '\n\nCheck your inbox or use the code above to start building.');
+    }
+    return;
+  }
+
+  btn.textContent = 'Generating your promo code...';
 
   // Generate unique one-time promo code
   const promoCode = generatePromoCode(name);
@@ -545,9 +577,6 @@ function showToast(msg) {
 
 // ── SAVE LEAD (Supabase) ──────────────────────────────────────
 async function saveLead(data) {
-  const SUPABASE_URL = 'https://judislfknmhofcgzyozc.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp1ZGlzbGZrbm1ob2ZjZ3p5b3pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMDI3ODAsImV4cCI6MjA5Mjc3ODc4MH0.Kxpe0kJt0k7ZchYu70BOwm4KdT0C5aSsyeR1ov6NlQ0';
-
   await fetch(`${SUPABASE_URL}/rest/v1/promo_leads`, {
     method: 'POST',
     headers: {
