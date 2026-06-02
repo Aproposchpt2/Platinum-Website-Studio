@@ -9,6 +9,7 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  SECRETS_SCAN_OMIT_KEYS = "RESEND_TO_EMAIL,RESEND_FROM_EMAIL,OWNER_NOTIFICATION_EMAIL,CLIENT_NOTIFICATION_EMAIL"
 
 [functions]
   node_bundler = "esbuild"
